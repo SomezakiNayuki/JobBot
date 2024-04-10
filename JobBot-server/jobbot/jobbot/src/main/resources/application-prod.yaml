@@ -1,0 +1,16 @@
+application:
+    name: jobbot
+# use a more stable database like MySQL
+# datasource:
+#     driver-class-name: org.h2.Driver
+#     url: jdbc:h2:file:./data/JobBot
+#     username: dev
+#     password: password
+jpa:
+    hibernate:
+        ddl-auto: update
+    show-sql: false
+
+logging:
+    level:
+        root: info
