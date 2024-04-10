@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.dizzybot</groupId>
 	<artifactId>jobbot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.0-SNAPSHOT</version>
 	<name>jobbot</name>
 	<description>JobBot is an job finding/working platform application.</description>
 	<properties>
