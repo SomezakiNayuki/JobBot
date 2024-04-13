@@ -16,7 +16,7 @@ Before you start contribution, make sure you have read:
 
 - Terms and Conditions (confirmation needed): https://dizzybot.atlassian.net/l/cp/NDZ31pqP
 - Jira github integration guide: https://dizzybot.atlassian.net/l/cp/KdbB5B1T
-- JobBot code style guide:
+- JobBot code style guide: https://dizzybot.atlassian.net/wiki/x/DQAP
 
 ## Configure proper environment profile
 
