@@ -1,0 +1,30 @@
+name: Check Branch and Commit Rules
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  check-branch-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check Branch Name
+        run: |
+          BRANCH_NAME=$(echo "${{ github.ref }}" | awk -F'/' '{print $3}')
+          if [[ ! "${BRANCH_NAME}" =~ ^(task|bug|story)/JB-[0-9]+-[a-zA-Z0-9-]+$ ]]; then
+            echo "Invalid branch name. The format should be [jira_ticket_type]/JB-[number]-[some_description_may_contain_hyphen]."
+            exit 1
+          fi
+
+      - name: Check Commit Message
+        run: |
+          COMMIT_MESSAGE=$(git log --format=%B -n 1)
+          if [[ ! "${COMMIT_MESSAGE}" =~ ^JB-[0-9]+:\ [a-zA-Z0-9\ ]+$ ]]; then
+            echo "Invalid commit message. The format should be JB-[number]: [Some_description]."
+            exit 1
+          fi
