@@ -21,7 +21,7 @@ jobs:
 
       - name: Check Branch Name
         run: |
-          if [[ ! "${BRANCH_NAME}" =~ ^(task|bug|story)/JB-[0-9]+-[a-zA-Z0-9-]+$ ]]; then
+          if [[ ! "${BRANCH_NAME}" =~ ^refs/heads/(task|bug|story)/JB-[0-9]+-[a-zA-Z0-9-]+$ ]]; then
             echo "Invalid branch name. The format should be [jira_ticket_type]/JB-[number]-[some_description_may_contain_hyphen]."
             exit 1
           fi
