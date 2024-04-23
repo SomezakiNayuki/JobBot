@@ -29,8 +29,8 @@ jobs:
       - name: Check Commit Message
         run: |
           COMMIT_MESSAGE=$(git log --format=%B -n 1)
-          if [[ ! "${COMMIT_MESSAGE}" =~ ^JB-[0-9]+:\ [a-zA-Z0-9\ ]+$ ]]; then
-            echo "Invalid commit message. The format should be JB-[number]: [Some_description]."
+          if [[ ! "${COMMIT_MESSAGE}" =~ ^(JB-[0-9]+:\ [a-zA-Z0-9\ ]+|Merge branch '.*' into .*)$ ]]; then
+            echo "Invalid commit message. The format should be JB-[number]: [Some_description] or a valid merge commit message."
             exit 1
           fi
 
