@@ -17,12 +17,12 @@ jobs:
 
       - name: Extract Branch Name
         id: extract_branch_name
-        run: echo "BRANCH_NAME=$(echo ${{ github.ref }} | awk -F'/' '{print $NF}')" >> $GITHUB_ENV
+        run: echo "BRANCH_NAME=$(echo ${{ github.ref }} | sed 's|refs/heads/||')" >> $GITHUB_ENV
 
       - name: Check Branch Name
         run: |
-          if [[ ! "${BRANCH_NAME}" =~ ^refs/heads/(task|bug|story)/JB-[0-9]+-[a-zA-Z0-9-]+$ ]]; then
-            echo "Invalid branch name. The format should be [jira_ticket_type]/JB-[number]-[some_description_may_contain_hyphen]."
+          if [[ ! "${BRANCH_NAME}" =~ ^task/JB-[0-9]+-[a-zA-Z0-9-]+$ ]]; then
+            echo "Invalid branch name. The format should be task/JB-[number]-[some_description_may_contain_hyphen]."
             exit 1
           fi
 
