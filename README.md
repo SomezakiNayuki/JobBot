@@ -17,3 +17,6 @@ Build post MVP according to above story
 
 JobBot possesses immense potential in harnessing AI to streamline the recruitment process. Looking ahead, JobBot will evolve beyond merely acting as an intermediary between job seekers and employers. Instead, envision a future where JobBot leverages AI recommendation systems to proactively notify employers of satisfied employees and vice versa. Our objective is to bridge the information gap within the job market and facilitate both parties in finding the most suitable matches for each other.
 
+# Getting started
+
+Navigate into different directories for more details.
