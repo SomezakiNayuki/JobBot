@@ -11,10 +11,10 @@ public class UserTests {
     public void testCreateUser() {
         User user = new User("Dizzy Bot", "Password", "dizzybot@mail.com");
 
-        assertEquals(user.username, "Dizzy Bot");
-        assertEquals(user.password, "Password");
-        assertEquals(user.email, "dizzybot@mail.com");
-        assertNotNull(user.role);
+        assertEquals(user.getUsername(), "Dizzy Bot");
+        assertEquals(user.getPassword(), "Password");
+        assertEquals(user.getEmail(), "dizzybot@mail.com");
+        assertNotNull(user.getRole());
     }
 
 }
