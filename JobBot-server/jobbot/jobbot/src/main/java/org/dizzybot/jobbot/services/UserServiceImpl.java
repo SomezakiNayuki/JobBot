@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-// TODO: write unit test.
 @Service
 @Transactional(propagation = Propagation.SUPPORTS)
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    // No need to include repository transitive methods into unit tests
 
     @Transactional(propagation = Propagation.REQUIRED)
     public User saveUser(User user) {

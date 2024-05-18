@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // TODO: write unit test.
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody Map<Object, Object> body) {
         String username = (String) body.get("username");
@@ -32,7 +32,7 @@ public class UserController {
         User user = new User(username, password, email);
 
         try {
-            userService.saveUser(user);
+            user = userService.saveUser(user);
         } catch (Exception e) {
             return new ResponseEntity<>(new GeneralResponse("error", "Email already registered"), HttpStatus.BAD_REQUEST);
         }
@@ -41,7 +41,7 @@ public class UserController {
         responseMap.put("id", user.getId().toString());
         responseMap.put("email", user.getEmail());
         responseMap.put("username", user.getUsername());
-        responseMap.put("created_at", LocalDateTime.now().toString());
+        responseMap.put("created_at", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString());
         return new ResponseEntity<>(responseMap, HttpStatus.CREATED);
     }
 
