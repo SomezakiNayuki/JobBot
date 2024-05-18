@@ -67,4 +67,28 @@ public class UserControllerTests {
                 .andExpect(jsonPath("$.created_at").value(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString()));
     }
 
+    @Test
+    public void testCreateUserFailure() throws Exception {
+        String username = "testUsername";
+        String password = "testPassword";
+        String email = "test@email.com";
+
+        Map<Object, Object> body = new HashMap<>();
+        body.put("username", username);
+        body.put("password", password);
+        body.put("email", email);
+
+        String bodyJson = objectMapper.writeValueAsString(body);
+
+        when(userService.saveUser(Mockito.any())).thenThrow(new RuntimeException());
+
+        ResultActions resultActions = mockMvc.perform(post("/api/user/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bodyJson));
+
+        resultActions.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value("error"))
+                .andExpect(jsonPath("$.message").value("Email already registered"));
+    }
+
 }
