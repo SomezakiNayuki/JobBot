@@ -22,7 +22,7 @@ public class UserProfileTests {
     @Before
     public void beforeEach() {
         this.user = new User("Dizzy Bot", "Password", "dizzybot@email.com");
-        this.userProfile = this.user.userProfile;
+        this.userProfile = this.user.getUserProfile();
     }
 
     @After
