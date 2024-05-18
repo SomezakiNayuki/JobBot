@@ -1,6 +1,5 @@
 package org.dizzybot.jobbot.reponses;
 
-// TODO: write unit test.
 public class GeneralResponse {
 
     public String status;
