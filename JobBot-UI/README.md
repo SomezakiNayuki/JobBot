@@ -10,6 +10,13 @@ This project is the JobBot frontend server, please see details of JobBot fronten
 
 This project bases on Angular 14.0.4. It also requires Node.js installed. Optionally, you can also install yarn.
 
+# Boostrap
+
+This project bases on bootstrap 4.5.3 CSS.
+See https://getbootstrap.com/ for bootstrap documentation.
+
+As the dependency of bootstrap, this project also depends on popper.js and jquery.
+
 # Contribution
 
 Before you start contribution, make sure you have read:
