@@ -1,0 +1,73 @@
+.jb-navbar {
+  height: 150px;
+}
+
+.jb-search {
+  position: relative;
+  left: 15%;
+  /* Properties with `!important` is overriding bootstrap's effects */
+  width: 50% !important;
+  height: 50% !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  font-size: xx-large !important;
+}
+
+.jb-navbar-brand {
+  font-size: 70px;
+  position: relative;
+  left: 5%;
+  text-decoration: none;
+}
+
+.jb-navbar-btn {
+  position: relative;
+  left: 22%;
+  font-style: normal !important;
+  font-size: x-large;
+  border: 0px !important;
+}
+
+.jb-sidebar {
+  width: 550px;
+  height: calc(100vh - 150px); /* Must minus height of navbar */
+}
+
+.jb-avatar {
+  position: relative;
+  left: 40%;
+  top: 2%;
+}
+
+.jb-username {
+  position: relative;
+  left: 0.5%;
+  margin-top: 1%;
+  font-weight: 500;
+  font-size: x-large;
+}
+
+.jb-sidebar-btn {
+  position: relative;
+  top: 3%;
+  padding: 2%;
+}
+
+.jb-sidebar-fn-btn {
+  padding: 2%;
+  display: inline !important;
+  position: relative;
+  top: 17%;
+}
+
+.jb-sidebar-btn-collapse {
+  position: relative;
+  left: 0%;
+  border: 0px !important;
+}
+
+.jb-sidebar-btn-logoff {
+  position: relative;
+  left: 66%;
+  border: 0px !important;
+}
