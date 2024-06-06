@@ -56,18 +56,18 @@
 .jb-sidebar-fn-btn {
   padding: 2%;
   display: inline !important;
-  position: relative;
-  top: 17%;
 }
 
 .jb-sidebar-btn-collapse {
-  position: relative;
-  left: 0%;
+  position: fixed;
+  bottom: 8px;
+  left: 10px;
   border: 0px !important;
 }
 
 .jb-sidebar-btn-logoff {
-  position: relative;
-  left: 66%;
+  position: fixed;
+  bottom: 8px;
+  left: 460px;
   border: 0px !important;
 }
