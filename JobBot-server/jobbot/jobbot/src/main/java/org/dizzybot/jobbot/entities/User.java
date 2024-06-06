@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.dizzybot.jobbot.enums.JobStatusEnum;
+import org.springframework.lang.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
@@ -30,17 +35,22 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     public UserProfile userProfile;
 
-//    public List<Job> jobPosted = new ArrayList<Job>();
-//
-//    public List<Job> jobAccepted = new ArrayList<Job>();
-//
-//    @Nullable
-//    public Account account;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public List<Job> jobPosted = new ArrayList<Job>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public List<Job> jobAccepted = new ArrayList<Job>();
+
+    @Nullable
+    @OneToOne
+    public Account account;
 
     /**
      * Empty constructor for Spring Boot Bean
      */
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String password, String email) {
         this.username = username;
@@ -48,6 +58,9 @@ public class User {
         this.email = email;
         this.role = new Role();
         this.userProfile = new UserProfile();
+        this.jobPosted = new ArrayList<>();
+        this.jobAccepted = new ArrayList<>();
+        this.account = new Account();
     }
 
 }
