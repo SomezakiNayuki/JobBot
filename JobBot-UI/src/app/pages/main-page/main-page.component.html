@@ -7,16 +7,17 @@
   <input class="form-control jb-search jb-bdr-r-10 jb-ft-clr-grey" placeholder="Search everything...">
   
   <!-- Functional buttons -->
-  <a class="btn btn-primary btn-lg active jb-navbar-btn jb-mr-40 jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr">
+  <a class="btn btn-primary btn-lg active jb-navbar-btn jb-mr-140 jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr">
     <div class="jb-sd-ft">+</div>
   </a>
-  <a class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr">
+  <a (click)="openSideBar()" class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr">
     <div class="jb-sd-ft">Login</div>
   </a>
 
 </nav>
 
-<div class="jb-sidebar jb-bg-clr-green jb-sd-el-inner jb-ft-normal">
+<!-- Side bar -->
+<div *ngIf="isSideBarEnabled" class="jb-sidebar jb-bg-clr-green jb-sd-el-inner jb-ft-normal">
   <div class="jb-avatar">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg/1920px-D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg" class="jb-img-avatar jb-img-round">
     <div class="jb-username">
@@ -24,7 +25,7 @@
     </div>
   </div>
   <div class="jb-sidebar-btn">
-    <button class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green-active">
+    <button routerLink="/dashboard" class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green-active">
       <span class="jb-ft-clr-black">Dashboard</span>
     </button>
     <button class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5">
@@ -41,9 +42,12 @@
     </button>
   </div>
   <div class="jb-sidebar-fn-btn">
-    <a class="btn btn-primary btn-lg active jb-sidebar-btn-collapse jb-btn-l-sqr jb-bdr-c jb-btn-clr-green jb-sd-el">
+    <a (click)="collapseSideBar()" class="btn btn-primary btn-lg active jb-sidebar-btn-collapse jb-btn-l-sqr jb-bdr-c jb-btn-clr-green jb-sd-el">
     </a>
     <a class="btn btn-primary btn-lg active jb-sidebar-btn-logoff jb-btn-l-sqr jb-bdr-c jb-btn-clr-pink jb-sd-el">
     </a>
   </div>
 </div>
+
+<!-- Main area -->
+<router-outlet></router-outlet>
