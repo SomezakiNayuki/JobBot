@@ -72,3 +72,12 @@
   left: 460px;
   border: 0px !important;
 }
+
+.jb-icon-stars {
+  height: 50px;
+  width: 50px;
+  background-image: url('src/assets/icons/stars.svg');
+  position: fixed !important;
+  left: 23.5% !important;
+  top: 50px !important;
+}
