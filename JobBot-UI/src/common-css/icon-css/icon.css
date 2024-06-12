@@ -1,0 +1,8 @@
+.jb-icon {
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+}
+
+.jb-icon-white {
+  filter: invert(100%) sepia(100%) saturate(0%) brightness(200%) !important;
+}

@@ -1,0 +1,15 @@
+.jb-btn-l {
+  width: 100px !important;
+  height: 60px !important;
+}
+
+.jb-btn-l-sqr {
+  width: 80px !important;
+  height: 80px !important;
+}
+
+.jb-btn-block {
+  height: 70px !important;
+  width: 100% !important;
+  border: 0px !important;
+}

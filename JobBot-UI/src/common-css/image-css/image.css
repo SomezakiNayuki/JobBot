@@ -1,0 +1,10 @@
+.jb-img-round {
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image covers the entire area without distortion */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for better appearance */
+}
+
+.jb-img-avatar {
+  width: 100px;
+  height: 100px;
+}
