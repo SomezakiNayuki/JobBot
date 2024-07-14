@@ -16,7 +16,7 @@ public class RoleTests {
     @Before
     public void beforeEach() {
         this.user = new User("Dizzy Bot", "Password", "dizzybot@email.com");
-        this.role = this.user.role;
+        this.role = this.user.getRole();
     }
 
     @After
@@ -27,7 +27,7 @@ public class RoleTests {
 
     @Test
     public void testRoleCreatedByUser() {
-        assertNotNull(this.user.role);
+        assertNotNull(this.user.getRole());
     }
 
     @Test

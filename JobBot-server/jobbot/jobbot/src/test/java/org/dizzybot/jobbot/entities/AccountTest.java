@@ -23,7 +23,7 @@ public class AccountTest {
     @Before
     public void beforeEach() {
         this.user = new User("Dizzy Bot", "Password", "dizzybot@email.com");
-        this.account = this.user.account;
+        this.account = this.user.getAccount();
     }
 
     @After
@@ -34,7 +34,7 @@ public class AccountTest {
 
     @Test
     public void testUserAccountCreateByUser() {
-        assertNotNull(this.user.account);
+        assertNotNull(this.user.getAccount());
     }
 
     @Test

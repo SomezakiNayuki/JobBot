@@ -26,8 +26,8 @@ public class JobTest {
     @Before
     public void beforeEach() {
         this.user = new User("Dizzy Bot", "Password", "dizzybot@email.com");
-        this.jobAccepted = this.user.jobAccepted;
-        this.jobPosted = this.user.jobPosted;
+        this.jobAccepted = this.user.getJobAccepted();
+        this.jobPosted = this.user.getJobPosted();
     }
 
     @After
@@ -38,8 +38,8 @@ public class JobTest {
 
     @Test
     public void testUserJobListsCreateByUser() {
-        assertNotNull(this.user.jobAccepted);
-        assertNotNull(this.user.jobPosted);
+        assertNotNull(this.user.getJobAccepted());
+        assertNotNull(this.user.getJobPosted());
     }
 
     @Test

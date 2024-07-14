@@ -17,17 +17,17 @@ public class Payment {
     private double amount;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "payer_id")
     private User payer;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "payee_id")
     private User payee;
 
     private PaymentStatusEnum status;
 
     @ManyToOne
-    @JoinColumn(name = "account_paymentHistory")
+    @JoinColumn(name = "account_id")
     private Account account;
 
     public Payment() {

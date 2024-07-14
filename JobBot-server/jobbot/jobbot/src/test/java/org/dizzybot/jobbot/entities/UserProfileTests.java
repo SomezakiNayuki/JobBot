@@ -33,14 +33,14 @@ public class UserProfileTests {
 
     @Test
     public void testUserProfileCreatedByUser() {
-        assertNotNull(this.user.role);
+        assertNotNull(this.user.getRole());
     }
 
     @Test
     public void testValidAge() {
         this.userProfile.setAge(18);
 
-        Set<ConstraintViolation<UserProfile>> violations = validator.validate(this.userProfile);
+        Set<ConstraintViolation<UserProfile>> violations = validator.validate(this.user.getUserProfile());
 
         assertEquals(0, violations.size());
     }
@@ -49,7 +49,7 @@ public class UserProfileTests {
     public void testInvalidAge() {
         this.userProfile.setAge(200);
 
-        Set<ConstraintViolation<UserProfile>> violations = validator.validate(this.userProfile);
+        Set<ConstraintViolation<UserProfile>> violations = validator.validate(this.user.getUserProfile());
 
         assertEquals(1, violations.size());
 
@@ -57,7 +57,7 @@ public class UserProfileTests {
 
         this.userProfile.setAge(10);
 
-        violations = validator.validate(this.userProfile);
+        violations = validator.validate(this.user.getUserProfile());
 
         assertEquals(1, violations.size());
     }

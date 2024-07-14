@@ -1,8 +1,12 @@
 package org.dizzybot.jobbot.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,7 +15,7 @@ public class ProductImage {
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "outcome_images")
+    @JoinColumn(name = "outcome_id")
     private Outcome outcome;
 
     public ProductImage() {

@@ -8,8 +8,8 @@ import org.dizzybot.jobbot.enums.JobStatusEnum;
 import org.dizzybot.jobbot.enums.OutcomeStatusEnum;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -29,31 +29,23 @@ public class Job {
     private double remuneration;
 
     @NotNull
-    private Date time; // post time?
+    private LocalDateTime time; // it currently for further inner analysis usage only
 
-    private Date expiredDate;
+    private LocalDateTime expiredDate;
 
     private JobStatusEnum jobStatusEnum;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "employer_id")
     private User employer;
 
-    @OneToOne // to be clarified
-    @JoinColumn(name = "user_id")
+    @ManyToOne // to be clarified
+    @JoinColumn(name = "employee_id")
     private User employee;
 
     @OneToOne
     @JoinColumn(name = "outcome_id")
     private Outcome outcome;
-
-    @ManyToOne
-    @JoinColumn(name = "user_jobPosted")
-    private User userPost; // todo
-
-    @ManyToOne
-    @JoinColumn(name = "user_jobAccepted")
-    private User userAccept; // todo
 
 
     /**

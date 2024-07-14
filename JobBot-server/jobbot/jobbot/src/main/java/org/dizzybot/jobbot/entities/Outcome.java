@@ -9,7 +9,6 @@ import org.dizzybot.jobbot.enums.OutcomeStatusEnum;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
 
 @Entity
 @Getter
@@ -20,8 +19,8 @@ public class Outcome {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "outcome", cascade = ALL)
-    public List<ProductImage> images = new ArrayList<ProductImage>();
+    @OneToMany(mappedBy = "outcome", cascade = CascadeType.ALL)
+    public List<ProductImage> images = new ArrayList<>();
 
     private String description;
 

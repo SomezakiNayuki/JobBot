@@ -36,13 +36,13 @@ public class User {
     public UserProfile userProfile;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    public List<Job> jobPosted = new ArrayList<Job>();
+    @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL)
+    public List<Job> jobPosted = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    public List<Job> jobAccepted = new ArrayList<Job>();
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    public List<Job> jobAccepted = new ArrayList<>();
 
-    @Nullable
+
     @OneToOne
     public Account account;
 

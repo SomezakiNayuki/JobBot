@@ -13,40 +13,40 @@ public class PaymentTest {
 
     private Payment payment_0;
 
-    private User userEmployer;
+    private User payer;
 
-    private User userEmployee;
+    private User payee;
 
     @Before
     public void beforeEach() {
-        this.userEmployee = new User("Dizzy Bot Employee", "Password", "dizzybotemployee@email.com");
-        this.userEmployer = new User("Dizzy Bot Employer", "Password", "dizzybotemployer@email.com");
-        this.userEmployer.setAccount(new Account(15468779464L));
-        this.payment = new Payment(123.0, this.userEmployer, this.userEmployee);
-        this.payment_0 = new Payment(321, this.userEmployer, this.userEmployee);
+        this.payee = new User("Dizzy Bot Employee", "Password", "dizzybotemployee@email.com");
+        this.payer = new User("Dizzy Bot Employer", "Password", "dizzybotemployer@email.com");
+        this.payer.setAccount(new Account(15468779464L));
+        this.payment = new Payment(123.0, this.payer, this.payee);
+        this.payment_0 = new Payment(321, this.payer, this.payee);
     }
 
     @After
     public void afterEach() {
-        this.userEmployer = null;
+        this.payer = null;
         this.payment = null;
     }
 
     @Test
     public void testPaymentHistoryCreatedByUser() {
-        assertNotNull(this.userEmployer.account.getPaymentHistory());
+        assertNotNull(this.payer.account.getPaymentHistory());
     }
 
     @Test
     public void testPaymentSet() {
-        List<Payment> payments = this.userEmployer.account.getPaymentHistory();
+        List<Payment> payments = this.payer.account.getPaymentHistory();
         payments.add(payment);
-        assertEquals(payment, this.userEmployer.account.getPaymentHistory().get(0));
+        assertEquals(payment, this.payer.account.getPaymentHistory().get(0));
         // todo: this way of adding payment history looks strange
         payments.add(payment_0);
-        assertEquals(payment_0, this.userEmployer.account.getPaymentHistory().get(1));
+        assertEquals(payment_0, this.payer.account.getPaymentHistory().get(1));
 
         payments.remove(payment);
-        assertEquals(payment_0, this.userEmployer.account.getPaymentHistory().get(0));
+        assertEquals(payment_0, this.payer.account.getPaymentHistory().get(0));
     }
 }
