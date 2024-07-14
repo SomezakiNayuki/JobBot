@@ -6,3 +6,19 @@
 .jb-icon-white {
   filter: invert(100%) sepia(100%) saturate(0%) brightness(200%) !important;
 }
+
+.jb-icon-black {
+  filter: brightness(0) saturate(100%) !important;
+}
+
+.jb-i-stars {
+  background-image: url('src/assets/icons/stars.svg');
+}
+
+.jb-i-fold-left {
+  background-image: url('src/assets/icons/arrow-bar-left.svg');
+}
+
+.jb-i-sign-off {
+  background-image: url('src/assets/icons/box-arrow-right.svg');
+}

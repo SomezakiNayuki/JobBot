@@ -1,5 +1,10 @@
 .jb-navbar {
   height: 150px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1; /* Ensure nav bar display at 1st layer on the view */
 }
 
 .jb-search {
@@ -30,8 +35,10 @@
 
 .jb-sidebar {
   position: fixed;
+  top: 150px;
   width: 550px;
   height: calc(100vh - 150px); /* Must minus height of navbar */
+  z-index: 1; /* Ensure side bar display at 1st layer on the view */
 }
 
 .jb-avatar {
@@ -73,11 +80,26 @@
   border: 0px !important;
 }
 
-.jb-icon-stars {
+.jb-i-ctnr-stars {
   height: 50px;
   width: 50px;
-  background-image: url('src/assets/icons/stars.svg');
   position: fixed !important;
   left: 23.5% !important;
   top: 50px !important;
+}
+
+.jb-i-ctnr-fold-left {
+  height: 50px;
+  width: 50px;
+  position: fixed !important;
+  left: 22.5px !important;
+  bottom: 22.5px !important;
+}
+
+.jb-i-ctnr-sign-off {
+  height: 50px;
+  width: 50px;
+  position: fixed !important;
+  left: 480px !important;
+  bottom: 22.5px !important;
 }
