@@ -1,0 +1,14 @@
+.jb-ft-classic {
+  font-family: Impact !important;
+  font-style: italic !important;
+}
+
+.jb-ft-normal {
+  font-family:Arial, Helvetica, sans-serif !important;
+}
+
+.jb-ft-pst-ctr {
+  display: flex !important;
+  justify-content: center !important; /* Aligns horizontally */
+  align-items: center !important; /* Aligns vertically */
+}

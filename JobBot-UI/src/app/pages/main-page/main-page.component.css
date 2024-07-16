@@ -1,0 +1,105 @@
+.jb-navbar {
+  height: 150px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1; /* Ensure nav bar display at 1st layer on the view */
+}
+
+.jb-search {
+  position: fixed;
+  left: 25%;
+  /* Properties with `!important` is overriding bootstrap's effects */
+  width: 50% !important;
+  height: 70px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  font-size: xx-large !important;
+}
+
+.jb-navbar-brand {
+  font-size: 70px;
+  position: relative;
+  left: 5%;
+  text-decoration: none;
+}
+
+.jb-navbar-btn {
+  position: fixed;
+  right: 5%;
+  font-style: normal !important;
+  font-size: x-large;
+  border: 0px !important;
+}
+
+.jb-sidebar {
+  position: fixed;
+  top: 150px;
+  width: 550px;
+  height: calc(100vh - 150px); /* Must minus height of navbar */
+  z-index: 1; /* Ensure side bar display at 1st layer on the view */
+}
+
+.jb-avatar {
+  position: relative;
+  left: 40%;
+  top: 2%;
+}
+
+.jb-username {
+  position: relative;
+  left: 0.5%;
+  margin-top: 1%;
+  font-weight: 500;
+  font-size: x-large;
+}
+
+.jb-sidebar-btn {
+  position: relative;
+  top: 3%;
+  padding: 2%;
+}
+
+.jb-sidebar-fn-btn {
+  padding: 2%;
+  display: inline !important;
+}
+
+.jb-sidebar-btn-collapse {
+  position: fixed;
+  bottom: 8px;
+  left: 10px;
+  border: 0px !important;
+}
+
+.jb-sidebar-btn-logoff {
+  position: fixed;
+  bottom: 8px;
+  left: 460px;
+  border: 0px !important;
+}
+
+.jb-i-ctnr-stars {
+  height: 50px;
+  width: 50px;
+  position: fixed !important;
+  left: 23.5% !important;
+  top: 50px !important;
+}
+
+.jb-i-ctnr-fold-left {
+  height: 50px;
+  width: 50px;
+  position: fixed !important;
+  left: 22.5px !important;
+  bottom: 22.5px !important;
+}
+
+.jb-i-ctnr-sign-off {
+  height: 50px;
+  width: 50px;
+  position: fixed !important;
+  left: 480px !important;
+  bottom: 22.5px !important;
+}

@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('./common-css/color-css/color.css');
+@import url('./common-css/border-css/border.css');
+@import url('./common-css/font-css/font.css');
+@import url('./common-css/surrounding-css/margin.css');
+@import url('./common-css/button-css/button.css');
+@import url('./common-css/shadow-css/shadow.css');
+@import url('./common-css/image-css/image.css');
+@import url('./common-css/icon-css/icon.css');
