@@ -2,7 +2,7 @@
   class="navbar navbar-expand-lg navbar-light bg-light jb-navbar jb-bg-clr-navy jb-ft-classic jb-sd-el"
 >
   <!-- Brand -->
-  <a class="jb-navbar-brand jb-clr-teal">JobBot</a>
+  <a (click)="openSideBar()" class="jb-navbar-brand jb-clr-teal"> JobBot </a>
 
   <!-- AI search bar -->
   <input
@@ -17,114 +17,71 @@
     <div class="jb-sd-ft">+</div>
   </a>
   <a
-    (click)="openSideBar()"
+    (click)="openAuthModal()"
     class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
     <div class="jb-sd-ft">Login</div>
   </a>
 </nav>
 
-<!-- Login Form -->
-<div *ngIf="showLoginForm" class="jb-form-overlay">
-  <div class="jb-form-container">
-    <h2>Login</h2>
-    <form (ngSubmit)="onLoginSubmit()" #loginForm="ngForm">
-      <div class="form-group">
-        <label for="loginUsername">Username:</label>
-        <input
-          type="username"
-          id="loginUsername"
-          required
-          [(ngModel)]="loginUsername"
-          name="loginUsername"
-          class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <label for="loginPassword">Password:</label>
-        <input
-          type="password"
-          id="loginPassword"
-          required
-          [(ngModel)]="loginPassword"
-          name="loginPassword"
-          class="form-control"
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="!loginForm.form.valid"
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="collapseSideBar()"
-      >
-        Cancel
-      </button>
-      <button type="button" class="btn btn-link" (click)="switchToRegister()">
-        Don't have an account? Register here
-      </button>
-    </form>
-  </div>
-</div>
+<jb-auth-modal></jb-auth-modal>
 
-<!-- Register Form -->
-<div *ngIf="showRegisterForm" class="jb-form-overlay">
-  <div class="jb-form-container">
-    <h2>Register</h2>
-    <form (ngSubmit)="onRegisterSubmit()" #registerForm="ngForm">
-      <div class="form-group">
-        <label for="registerUsername">Username:</label>
-        <input
-          type="text"
-          id="registerUsername"
-          required
-          [(ngModel)]="registerUsername"
-          name="registerUsername"
-          class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <label for="registerEmail">Email:</label>
-        <input
-          type="email"
-          id="registerEmail"
-          required
-          [(ngModel)]="registerEmail"
-          name="registerEmail"
-          class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <label for="registerPassword">Password:</label>
-        <input
-          type="password"
-          id="registerPassword"
-          required
-          [(ngModel)]="registerPassword"
-          name="registerPassword"
-          class="form-control"
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="!registerForm.form.valid"
-      >
-        Register
-      </button>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="collapseSideBar()"
-      >
-        Cancel
-      </button>
-    </form>
+<!-- Side bar -->
+<div
+  *ngIf="isSideBarEnabled"
+  class="jb-sidebar jb-bg-clr-green jb-sd-el-inner jb-ft-normal"
+>
+  <div class="jb-avatar">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg/1920px-D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg"
+      class="jb-img-avatar jb-img-round"
+    />
+    <div class="jb-username">
+      <span>DizzyBot</span>
+    </div>
+  </div>
+  <div class="jb-sidebar-btn">
+    <button
+      routerLink="/dashboard"
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green-active jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">Dashboard</span>
+    </button>
+    <button
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">My profile</span>
+    </button>
+    <button
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">My current jobs</span>
+    </button>
+    <button
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">My posted jobs</span>
+    </button>
+    <button
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">Account</span>
+    </button>
+  </div>
+  <div class="jb-sidebar-fn-btn">
+    <a
+      (click)="collapseSideBar()"
+      class="btn btn-primary btn-lg active jb-sidebar-btn-collapse jb-btn-l-sqr jb-bdr-c jb-btn-clr-green jb-sd-el"
+    >
+      <div
+        class="jb-icon jb-i-fold-left jb-i-ctnr-fold-left jb-icon-black"
+      ></div>
+    </a>
+    <a
+      class="btn btn-primary btn-lg active jb-sidebar-btn-logoff jb-btn-l-sqr jb-bdr-c jb-btn-clr-pink jb-sd-el"
+    >
+      <div class="jb-icon jb-i-sign-off jb-i-ctnr-sign-off jb-icon-black"></div>
+    </a>
   </div>
 </div>
 

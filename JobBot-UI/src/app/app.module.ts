@@ -1,26 +1,25 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';  // Import FormsModule
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { JobCardComponent } from './components/standalone-components/job-card/job-card.component';
+import { AppComponent } from 'src/app/app.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
+import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
+import { JobCardComponent } from 'src/app/components/standalone-components/job-card/job-card.component';
+import { MainPageComponent } from 'src/app/pages/main-page/main-page.component';
 
 @NgModule({
+  // Please order alphabetically
   declarations: [
     AppComponent,
-    MainPageComponent,
+    AuthModalComponent,
     DashboardComponent,
-    JobCardComponent
+    JobCardComponent,
+    MainPageComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+  imports: [AppRoutingModule, BrowserModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

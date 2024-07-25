@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import UIEventEnum from 'src/enums/ui-event.enum';
+import { UIEventService } from 'src/services/ui-event.service';
+
 @Component({
   selector: 'jb-main-page',
   templateUrl: './main-page.component.html',
@@ -7,55 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
   protected isSideBarEnabled: boolean = false;
-  public showLoginForm: boolean = false;
-  public showRegisterForm: boolean = false;
 
-  public loginUsername: string = '';
-  public loginPassword: string = '';
-  public registerUsername: string = '';
-  public registerEmail: string = '';
-  public registerPassword: string = '';
+  constructor(private readonly uiEvent: UIEventService) {}
 
-  constructor() {}
-
-  public ngOnInit(): void {
-    this.isSideBarEnabled = false;
-  }
+  public ngOnInit(): void {}
 
   protected openSideBar(): void {
     this.isSideBarEnabled = true;
-    this.showLoginForm = true;
-    this.showRegisterForm = false;
-  }
-
-  protected switchToRegister(): void {
-    this.showLoginForm = false;
-    this.showRegisterForm = true;
   }
 
   protected collapseSideBar(): void {
     this.isSideBarEnabled = false;
-    this.showLoginForm = false;
-    this.showRegisterForm = false;
-    this.resetForms();
   }
 
-  private resetForms(): void {
-    this.loginUsername = '';
-    this.loginPassword = '';
-    this.registerUsername = '';
-    this.registerEmail = '';
-    this.registerPassword = '';
-  }
-  public onLoginSubmit(): void {
-    // Handle login logic here
-    console.log('Login successful');
-    this.collapseSideBar();
-  }
-
-  public onRegisterSubmit(): void {
-    // Handle register logic here
-    console.log('Registration successful');
-    this.collapseSideBar();
+  protected openAuthModal(): void {
+    this.uiEvent.next(UIEventEnum.DISPLAY_AUTH_MODAL);
   }
 }

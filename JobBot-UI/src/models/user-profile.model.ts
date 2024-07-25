@@ -4,7 +4,6 @@ import User from 'src/models/user.model';
 
 // No unit test required for static model until business logic introduced.
 export default class UserProfile {
-
   public id: number;
   public name: string;
   public phone: string;
@@ -19,5 +18,4 @@ export default class UserProfile {
   public UserProfile() {}
 
   // No getter setter required until needed, directly assign value through public attributes.
-  
 }

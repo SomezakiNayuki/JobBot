@@ -1,5 +1,3 @@
-export enum SkillEnum {
-
-}
+export enum SkillEnum {}
 
 export default SkillEnum;
