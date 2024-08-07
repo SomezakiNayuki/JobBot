@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
 import UIEventEnum from 'src/enums/ui-event.enum';
 import { UIEventService } from 'src/services/ui-event.service';
 
@@ -9,21 +10,18 @@ import { UIEventService } from 'src/services/ui-event.service';
   styleUrls: ['./auth-modal.component.css'],
 })
 export class AuthModalComponent implements OnInit {
-  public showLoginForm: boolean = false;
-  public showRegisterForm: boolean = false;
+  @ViewChild('jbModal') jbModal: ModalComponent;
 
-  public loginUsername: string = '';
-  public loginPassword: string = '';
-  public registerUsername: string = '';
-  public registerEmail: string = '';
-  public registerPassword: string = '';
+  public showLoginForm: boolean = true;
+  public showRegisterForm: boolean = false;
 
   constructor(private readonly uiEventService: UIEventService) {}
 
   public ngOnInit(): void {
+    this.resetForms();
     this.uiEventService.getUiEventPool().subscribe((event: UIEventEnum) => {
       if (event == UIEventEnum.DISPLAY_AUTH_MODAL) {
-        this.showLoginForm = true;
+        this.jbModal.show();
       }
     });
   }
@@ -33,18 +31,14 @@ export class AuthModalComponent implements OnInit {
     this.showRegisterForm = !this.showRegisterForm;
   }
 
-  protected closeAuthModal(): void {
-    this.showLoginForm = false;
-    this.showRegisterForm = false;
+  private closeAuthModal(): void {
+    this.jbModal.close();
     this.resetForms();
   }
 
   private resetForms(): void {
-    this.loginUsername = '';
-    this.loginPassword = '';
-    this.registerUsername = '';
-    this.registerEmail = '';
-    this.registerPassword = '';
+    this.showLoginForm = true;
+    this.showRegisterForm = false;
   }
 
   public onLoginSubmit(): void {

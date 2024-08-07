@@ -1,0 +1,7 @@
+<img *ngIf="!textOnly"
+  [src]="imageSrc"
+  class="jb-img-avatar jb-img-round"
+/>
+<div *ngIf="textOnly" class="jb-img-avatar jb-img-round jb-avatar-text jb-ft-classic jb-sd-el-inner" [style.background-color]="backgroundColor">
+  {{ text }}
+</div>

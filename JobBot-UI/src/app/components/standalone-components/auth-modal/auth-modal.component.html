@@ -1,114 +1,47 @@
-<!-- Login Form -->
-<div *ngIf="showLoginForm" class="jb-form-overlay">
-  <div class="jb-form-container">
-    <h2>Login</h2>
-    <form (ngSubmit)="onLoginSubmit()" #loginForm="ngForm">
-      <div class="form-group">
-        <label for="loginUsername">Username:</label>
-        <input
-          type="username"
-          id="loginUsername"
-          required
-          [(ngModel)]="loginUsername"
-          name="loginUsername"
-          class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <label for="loginPassword">Password:</label>
-        <input
-          type="password"
-          id="loginPassword"
-          required
-          [(ngModel)]="loginPassword"
-          name="loginPassword"
-          class="form-control"
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="!loginForm.form.valid"
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="closeAuthModal()"
-      >
-        Cancel
-      </button>
-      <button
-        type="button"
-        class="btn btn-link"
-        (click)="switchLoginRegister()"
-      >
-        Don't have an account? Register here
-      </button>
-    </form>
-  </div>
-</div>
+<jb-modal #jbModal [template]="authModalTemplate"></jb-modal>
 
-<!-- Register Form -->
-<div *ngIf="showRegisterForm" class="jb-form-overlay">
-  <div class="jb-form-container">
-    <h2>Register</h2>
-    <form (ngSubmit)="onRegisterSubmit()" #registerForm="ngForm">
-      <div class="form-group">
-        <label for="registerUsername">Username:</label>
-        <input
-          type="text"
-          id="registerUsername"
-          required
-          [(ngModel)]="registerUsername"
-          name="registerUsername"
-          class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <label for="registerEmail">Email:</label>
-        <input
-          type="email"
-          id="registerEmail"
-          required
-          [(ngModel)]="registerEmail"
-          name="registerEmail"
-          class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <label for="registerPassword">Password:</label>
-        <input
-          type="password"
-          id="registerPassword"
-          required
-          [(ngModel)]="registerPassword"
-          name="registerPassword"
-          class="form-control"
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="!registerForm.form.valid"
-      >
-        Register
-      </button>
+<ng-template #authModalTemplate>
+  <div class="jb-auth-form-container">
+    <div class="jb-auth-logo jb-ft-clr-teal">
+      <jb-avatar [text]="'JobBot'" [backgroundColor]="'#D9D9D9'"></jb-avatar>
+    </div>
+    <div class="jb-auth-container-bar jb-bg-clr-navy"></div>
+    <div class="jb-auth-form-wrapper">
+      <form>
+        <jb-prompt></jb-prompt>
+        <div *ngIf="showLoginForm">
+          <jb-input [placeholder]="'Username'"></jb-input>
+          <jb-input [placeholder]="'Password'"></jb-input>
+          <button class="btn btn-link jb-ft-classic jb-ft-clr-red">
+            Forget password or account?
+          </button>
+        </div>
+        <div *ngIf="showRegisterForm">
+          <jb-input [placeholder]="'Username'"></jb-input>
+          <jb-input [placeholder]="'Email'"></jb-input>
+          <jb-input [placeholder]="'Password'"></jb-input>
+          <jb-input [placeholder]="'Re-enter password'"></jb-input>
+        </div>
+      </form>
+    </div>
+    <div class="jb-auth-func-group">
       <button
         type="button"
-        class="btn btn-secondary"
-        (click)="closeAuthModal()"
-      >
-        Cancel
-      </button>
-      <button
-        type="button"
-        class="btn btn-link"
+        class="btn btn-link jb-auth-switch-button jb-ft-classic jb-ft-clr-teal"
         (click)="switchLoginRegister()"
       >
-        Already have an account? Login here
+        {{
+          showLoginForm
+            ? "Don't have an account? Register here"
+            : 'Already have an account? Login here'
+        }}
       </button>
-    </form>
+      <button
+        type="submit"
+        class="btn btn-primary jb-auth-submit-button jb-btn-l-sqr jb-bdr-c jb-btn-clr-grey jb-btn-l-sqr jb-bdr-c"
+      >
+        <div class="jb-btn-l-sqr jb-icon jb-i-check jb-icon-orange"></div>
+      </button>
+    </div>
   </div>
-</div>
+</ng-template>

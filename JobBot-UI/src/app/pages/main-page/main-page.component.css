@@ -45,6 +45,8 @@
   position: relative;
   left: 40%;
   top: 2%;
+  width: 100px;
+  height: 100px;
 }
 
 .jb-username {
@@ -57,7 +59,7 @@
 
 .jb-sidebar-btn {
   position: relative;
-  top: 3%;
+  top: 6%;
   padding: 2%;
 }
 

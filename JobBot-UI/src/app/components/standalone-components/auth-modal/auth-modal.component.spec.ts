@@ -28,7 +28,9 @@ describe('AuthModalComponent', () => {
 
   describe('ngOnInit', () => {
     it('should subscribe to UIEventService', () => {
-      spyOn(uiEventService, 'getUiEventPool').and.returnValue(of(UIEventEnum.DISPLAY_AUTH_MODAL));
+      spyOn(uiEventService, 'getUiEventPool').and.returnValue(
+        of(UIEventEnum.DISPLAY_AUTH_MODAL)
+      );
       component.ngOnInit();
 
       expect(uiEventService.getUiEventPool).toHaveBeenCalled();

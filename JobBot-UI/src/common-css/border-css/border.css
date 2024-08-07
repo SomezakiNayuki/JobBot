@@ -9,3 +9,11 @@
 .jb-bdr-c {
   border-radius: 50% !important;
 }
+
+.jb-bdr-wth-none {
+  border-width: 0px !important;
+}
+
+.jb-bdr-wth-1 {
+  border-width: 1px !important;
+}

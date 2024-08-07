@@ -14,6 +14,10 @@
   background-color: rgba(255, 245, 224, 0.8) !important;
 }
 
+.jb-bg-clr-white {
+  background-color: #ffff !important;
+}
+
 .jb-btn-clr-green {
   background-color: #8decb4 !important;
 }
@@ -26,7 +30,11 @@
   background-color: #fbb8a9 !important;
 }
 
-.jb-clr-teal {
+.jb-btn-clr-grey {
+  background-color: #d9d9d9 !important;
+}
+
+.jb-ft-clr-teal {
   color: #00a69c !important;
 }
 
@@ -36,4 +44,20 @@
 
 .jb-ft-clr-black {
   color: #000000 !important;
+}
+
+.jb-ft-clr-white {
+  color: #ffffff !important;
+}
+
+.jb-ft-clr-red {
+  color: #a90000 !important;
+}
+
+.jb-ovly-clr-black {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.jb-pmpt-clr-red {
+  background-color: #a90000 !important;
 }
