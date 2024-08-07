@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+  TemplateRef,
+} from '@angular/core';
 
 @Component({
   selector: 'jb-modal',
@@ -13,15 +21,30 @@ export class ModalComponent implements OnInit {
 
   public display: boolean = false;
 
-  constructor() {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   public ngOnInit(): void {}
 
   public show(): void {
     this.display = true;
+    // Detect change and rerender view, otherwise renderer cannot find element as it's not rendered
+    this.cdr.detectChanges();
+    // Make sure animation is rendered in the next callstack
+    setTimeout(() => {
+      let modalEl: ElementRef = this.el.nativeElement.querySelector('#modal');
+      this.renderer.addClass(modalEl, 'visible');
+    });
   }
 
   public close(): void {
-    this.display = false;
+    let modalEl: ElementRef = this.el.nativeElement.querySelector('#modal');
+    this.renderer.removeClass(modalEl, 'visible');
+    setTimeout(() => {
+      this.display = false;
+    }, 80); // To cater fade out animation transition time
   }
 }

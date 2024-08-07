@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'jb-avatar',
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.css']
+  styleUrls: ['./avatar.component.css'],
 })
 export class AvatarComponent implements OnInit {
   @Input()
@@ -15,9 +15,10 @@ export class AvatarComponent implements OnInit {
 
   protected textOnly: boolean;
 
-  private defaultImg: string = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg/1920px-D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg';
-  
-  constructor() { }
+  private defaultImg: string =
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg/1920px-D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg';
+
+  constructor() {}
 
   public ngOnInit(): void {
     this.textOnly = !!this.text;
