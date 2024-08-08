@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PromptComponent } from './prompt.component';
+import { PromptComponent } from 'src/app/components/meta-components/prompt/prompt.component';
 
 describe('PromptComponent', () => {
   let component: PromptComponent;

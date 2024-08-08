@@ -7,20 +7,38 @@
     </div>
     <div class="jb-auth-container-bar jb-bg-clr-navy"></div>
     <div class="jb-auth-form-wrapper">
-      <form>
+      <form [formGroup]="authFormGroup">
         <jb-prompt></jb-prompt>
-        <div *ngIf="showLoginForm">
-          <jb-input [placeholder]="'Username'"></jb-input>
-          <jb-input [placeholder]="'Password'"></jb-input>
+        <div *ngIf="isLogin">
+          <jb-input
+            [placeholder]="'Username'"
+            formControlName="username"
+          ></jb-input>
+          <jb-input
+            [type]="'password'"
+            [placeholder]="'Password'"
+            formControlName="password"
+          ></jb-input>
           <button class="btn btn-link jb-ft-classic jb-ft-clr-red">
             Forget password or account?
           </button>
         </div>
-        <div *ngIf="showRegisterForm">
-          <jb-input [placeholder]="'Username'"></jb-input>
-          <jb-input [placeholder]="'Email'"></jb-input>
-          <jb-input [placeholder]="'Password'"></jb-input>
-          <jb-input [placeholder]="'Re-enter password'"></jb-input>
+        <div *ngIf="!isLogin">
+          <jb-input
+            [placeholder]="'Username'"
+            formControlName="username"
+          ></jb-input>
+          <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
+          <jb-input
+            [type]="'password'"
+            [placeholder]="'Password'"
+            formControlName="password"
+          ></jb-input>
+          <jb-input
+            [type]="'password'"
+            [placeholder]="'Re-enter password'"
+            formControlName="password2"
+          ></jb-input>
         </div>
       </form>
     </div>
@@ -31,12 +49,13 @@
         (click)="switchLoginRegister()"
       >
         {{
-          showLoginForm
+          isLogin
             ? "Don't have an account? Register here"
             : 'Already have an account? Login here'
         }}
       </button>
       <button
+        (click)="onSubmit()"
         type="submit"
         class="btn btn-primary jb-auth-submit-button jb-btn-l-sqr jb-bdr-c jb-btn-clr-grey jb-btn-l-sqr jb-bdr-c"
       >

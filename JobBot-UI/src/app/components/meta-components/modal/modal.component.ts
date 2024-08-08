@@ -40,11 +40,14 @@ export class ModalComponent implements OnInit {
     });
   }
 
-  public close(): void {
+  public close(callback?: Function): void {
     let modalEl: ElementRef = this.el.nativeElement.querySelector('#modal');
     this.renderer.removeClass(modalEl, 'visible');
     setTimeout(() => {
       this.display = false;
+      if (callback) {
+        callback();
+      }
     }, 80); // To cater fade out animation transition time
   }
 }

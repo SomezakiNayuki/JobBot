@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import UIEventEnum from 'src/enums/ui-event.enum';
-import { UIEventService } from 'src/services/ui-event.service';
+import { UIEventService } from 'src/app/services/ui-event.service';
 
 @Component({
   selector: 'jb-main-page',
