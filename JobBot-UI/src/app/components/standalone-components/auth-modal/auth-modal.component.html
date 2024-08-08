@@ -1,4 +1,4 @@
-<jb-modal #jbModal [template]="authModalTemplate"></jb-modal>
+<jb-modal #jbModal [template]="authModalTemplate" (closeEvent)="initAuthForm()"></jb-modal>
 
 <ng-template #authModalTemplate>
   <div class="jb-auth-form-container">

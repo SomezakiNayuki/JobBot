@@ -58,12 +58,10 @@ export class AuthModalComponent implements OnInit, OnDestroy {
   }
 
   private closeAuthModal(): void {
-    this.jbModal.close(() => {
-      this.initAuthForm();
-    });
+    this.jbModal.close();
   }
 
-  private initAuthForm(): void {
+  protected initAuthForm(): void {
     this.authFormGroup = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),

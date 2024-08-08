@@ -2,8 +2,10 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   Renderer2,
   TemplateRef,
 } from '@angular/core';
@@ -18,6 +20,9 @@ export class ModalComponent implements OnInit {
   public template: TemplateRef<any>;
   @Input()
   public context: any;
+
+  @Output()
+  public closeEvent: EventEmitter<void> = new EventEmitter<void>();
 
   public display: boolean = false;
 
@@ -40,14 +45,12 @@ export class ModalComponent implements OnInit {
     });
   }
 
-  public close(callback?: Function): void {
+  public close(): void {
     let modalEl: ElementRef = this.el.nativeElement.querySelector('#modal');
     this.renderer.removeClass(modalEl, 'visible');
     setTimeout(() => {
       this.display = false;
-      if (callback) {
-        callback();
-      }
+      this.closeEvent.emit();
     }, 80); // To cater fade out animation transition time
   }
 }
