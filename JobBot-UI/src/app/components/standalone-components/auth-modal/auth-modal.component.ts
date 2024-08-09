@@ -62,6 +62,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
   }
 
   protected initAuthForm(): void {
+    this.isLogin = true;
     this.authFormGroup = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -76,6 +77,8 @@ export class AuthModalComponent implements OnInit, OnDestroy {
         console.log('handle register request');
       }
       this.closeAuthModal();
+    } else {
+      this.authFormGroup.markAllAsTouched();
     }
   }
 }

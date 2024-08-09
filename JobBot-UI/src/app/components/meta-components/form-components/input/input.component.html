@@ -1,9 +1,10 @@
 <input
   [type]="type"
   [placeholder]="placeholder"
-  class="form-control jb-input {{
-    border ? 'jb-bdr-wth-1' : 'jb-bdr-wth-none'
-  }}"
+  class="form-control jb-input 
+  {{ border ? 'jb-bdr-wth-1' : 'jb-bdr-wth-none' }}
+  {{ formControl?.invalid && formControl?.touched ? 'jb-input-warning' : '' }}
+  "
   [style.width]="width"
   [style.height]="height"
   [value]="value"
