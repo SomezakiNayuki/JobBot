@@ -14,11 +14,11 @@ import { UIEventService } from 'src/app/services/ui-event.service';
 export class AuthModalComponent implements OnInit, OnDestroy {
   @ViewChild('jbModal') jbModal: ModalComponent;
 
-  public isLogin: boolean = true;
+  protected authFormGroup: FormGroup;
+  protected authResponseError: string;
+  protected isLogin: boolean = true;
 
   private destroy$: Subject<void> = new Subject<void>();
-
-  protected authFormGroup: FormGroup;
 
   constructor(private readonly uiEventService: UIEventService) {}
 
@@ -63,6 +63,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
 
   protected initAuthForm(): void {
     this.isLogin = true;
+    this.authResponseError = null;
     this.authFormGroup = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),

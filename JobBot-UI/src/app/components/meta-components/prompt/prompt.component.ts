@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'jb-prompt',
@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prompt.component.css'],
 })
 export class PromptComponent implements OnInit {
+  @Input()
+  public prompt: string = 'Warning';
+
   constructor() {}
 
-  ngOnInit(): void {}
+  public ngOnInit(): void {}
 }
