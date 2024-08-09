@@ -1,0 +1,9 @@
+.jb-input {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.jb-input-warning {
+  border-width: 3px !important;
+  border-color: red;
+}

@@ -1,0 +1,86 @@
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-light jb-navbar jb-bg-clr-navy jb-ft-classic jb-sd-el"
+>
+  <!-- Brand -->
+  <a (click)="openSideBar()" class="jb-navbar-brand jb-ft-clr-teal"> JobBot </a>
+
+  <!-- AI search bar -->
+  <input
+    class="form-control jb-search jb-bdr-r-10 jb-ft-clr-grey"
+    placeholder="Search everything..."
+  />
+
+  <!-- Functional buttons -->
+  <a
+    class="btn btn-primary btn-lg active jb-navbar-btn jb-mr-140 jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
+  >
+    <div class="jb-sd-ft">+</div>
+  </a>
+  <a
+    (click)="openAuthModal()"
+    class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
+  >
+    <div class="jb-sd-ft">Login</div>
+  </a>
+</nav>
+
+<jb-auth-modal></jb-auth-modal>
+
+<!-- Side bar -->
+<div
+  *ngIf="isSideBarEnabled"
+  class="jb-sidebar jb-bg-clr-green jb-sd-el-inner jb-ft-normal"
+>
+  <div class="jb-avatar">
+    <jb-avatar></jb-avatar>
+    <div class="jb-username">
+      <span>DizzyBot</span>
+    </div>
+  </div>
+  <div class="jb-sidebar-btn">
+    <button
+      routerLink="/dashboard"
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green-active jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">Dashboard</span>
+    </button>
+    <button
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">My profile</span>
+    </button>
+    <button
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">My current jobs</span>
+    </button>
+    <button
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">My posted jobs</span>
+    </button>
+    <button
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+    >
+      <span class="jb-ft-clr-black">Account</span>
+    </button>
+  </div>
+  <div class="jb-sidebar-fn-btn">
+    <a
+      (click)="collapseSideBar()"
+      class="btn btn-primary btn-lg active jb-sidebar-btn-collapse jb-btn-l-sqr jb-bdr-c jb-btn-clr-green jb-sd-el"
+    >
+      <div
+        class="jb-icon jb-i-fold-left jb-i-ctnr-fold-left jb-icon-black"
+      ></div>
+    </a>
+    <a
+      class="btn btn-primary btn-lg active jb-sidebar-btn-logoff jb-btn-l-sqr jb-bdr-c jb-btn-clr-pink jb-sd-el"
+    >
+      <div class="jb-icon jb-i-sign-off jb-i-ctnr-sign-off jb-icon-black"></div>
+    </a>
+  </div>
+</div>
+
+<!-- Main area -->
+<router-outlet></router-outlet>

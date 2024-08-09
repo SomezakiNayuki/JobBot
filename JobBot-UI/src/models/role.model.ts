@@ -3,7 +3,6 @@ import User from 'src/models/user.model';
 
 // No unit test required for static model until business logic introduced.
 export default class Role {
-
   public id: number;
   public isCitizen: boolean;
   public visa: VisaEnum;
@@ -17,5 +16,4 @@ export default class Role {
 
   // isValidToWork() should fetch work validity from backend.
   // public isValidToWork(): boolean {}
-  
 }

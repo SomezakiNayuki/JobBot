@@ -1,0 +1,8 @@
+.jb-anmt-fade {
+  opacity: 0 !important;
+  transition: opacity 0.08s ease-in !important;
+}
+
+.jb-anmt-fade.visible {
+  opacity: 1 !important;
+}

@@ -11,6 +11,11 @@
   filter: brightness(0) saturate(100%) !important;
 }
 
+.jb-icon-orange {
+  filter: brightness(0) saturate(100%) invert(59%) sepia(63%) saturate(4205%)
+    hue-rotate(7deg) brightness(101%) contrast(102%);
+}
+
 .jb-i-stars {
   background-image: url('src/assets/icons/stars.svg');
 }
@@ -21,4 +26,12 @@
 
 .jb-i-sign-off {
   background-image: url('src/assets/icons/box-arrow-right.svg');
+}
+
+.jb-i-close {
+  background-image: url('src/assets/icons/x.svg');
+}
+
+.jb-i-check {
+  background-image: url('src/assets/icons/check.svg');
 }
