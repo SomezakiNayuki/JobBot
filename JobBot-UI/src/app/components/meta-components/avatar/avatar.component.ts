@@ -28,7 +28,7 @@ export class AvatarComponent implements OnInit {
     // this.checkIsValidComponentUsage();
   }
 
-  // Set to default image if both [text] or [imageSrc] not provided or in invalid value
+  // TODO: Set to default image if both [text] or [imageSrc] not provided or in invalid value
   // private checkIsValidComponentUsage(): void {
   //   if (!this.text && !this.imageSrc) {
   //     throw new Error('AvatarComponent must have either [text] or [imageSrc] value');

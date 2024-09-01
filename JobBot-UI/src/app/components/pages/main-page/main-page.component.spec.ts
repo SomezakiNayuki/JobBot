@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainPageComponent } from 'src/app/pages/main-page/main-page.component';
+import { MainPageComponent } from 'src/app/components/pages/main-page/main-page.component';
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -19,4 +19,6 @@ describe('MainPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // TypeScript does not allow to access protected methods, so no need for them
 });

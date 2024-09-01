@@ -27,9 +27,9 @@ export class ModalComponent implements OnInit {
   public display: boolean = false;
 
   constructor(
-    private cdr: ChangeDetectorRef,
-    private el: ElementRef,
-    private renderer: Renderer2
+    private readonly cdr: ChangeDetectorRef,
+    private readonly el: ElementRef,
+    private readonly renderer: Renderer2
   ) {}
 
   public ngOnInit(): void {}
