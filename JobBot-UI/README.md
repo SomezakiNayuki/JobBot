@@ -57,4 +57,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # Knowledge space
 
-Please refer to following confluence space for more JobBot knowledge: https://dizzybot.atlassian.net/l/cp/yd4zPvqe.
+- Developer frontend knowledge space: https://dizzybot.atlassian.net/wiki/x/AQDTAQ.
+- Please refer to following confluence space for more JobBot knowledge: https://dizzybot.atlassian.net/l/cp/yd4zPvqe.
