@@ -35,6 +35,10 @@ Run `ng serve` or `yarn start`(if yarn installed) for a dev server. Navigate to 
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
+## Linting
+
+Run `yarn format` to auto lint all files.
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
@@ -53,4 +57,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # Knowledge space
 
-Please refer to following confluence space for more JobBot knowledge: https://dizzybot.atlassian.net/l/cp/yd4zPvqe.
+- Developer frontend knowledge space: https://dizzybot.atlassian.net/wiki/x/AQDTAQ.
+- Please refer to following confluence space for more JobBot knowledge: https://dizzybot.atlassian.net/l/cp/yd4zPvqe.

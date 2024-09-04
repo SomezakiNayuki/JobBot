@@ -1,5 +1,3 @@
-export enum VisaEnum {
-
-}
+export enum VisaEnum {}
 
 export default VisaEnum;

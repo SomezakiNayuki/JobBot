@@ -1,0 +1,73 @@
+<jb-modal
+  #jbModal
+  [template]="authModalTemplate"
+  (closeEvent)="initAuthForm()"
+></jb-modal>
+
+<ng-template #authModalTemplate>
+  <div class="jb-auth-form-container">
+    <div class="jb-auth-logo jb-ft-clr-teal">
+      <jb-avatar [text]="'JobBot'" [backgroundColor]="'#D9D9D9'"></jb-avatar>
+    </div>
+    <div class="jb-auth-container-bar jb-bg-clr-navy"></div>
+    <div class="jb-auth-form-wrapper">
+      <form [formGroup]="authFormGroup">
+        <jb-prompt
+          *ngIf="!!authResponseError"
+          [prompt]="authResponseError"
+        ></jb-prompt>
+        <div *ngIf="isLogin">
+          <jb-input
+            [placeholder]="'Username'"
+            formControlName="username"
+          ></jb-input>
+          <jb-input
+            [type]="'password'"
+            [placeholder]="'Password'"
+            formControlName="password"
+          ></jb-input>
+          <button class="btn btn-link jb-ft-classic jb-ft-clr-red">
+            Forget password or account?
+          </button>
+        </div>
+        <div *ngIf="!isLogin">
+          <jb-input
+            [placeholder]="'Username'"
+            formControlName="username"
+          ></jb-input>
+          <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
+          <jb-input
+            [type]="'password'"
+            [placeholder]="'Password'"
+            formControlName="password"
+          ></jb-input>
+          <jb-input
+            [type]="'password'"
+            [placeholder]="'Re-enter password'"
+            formControlName="password2"
+          ></jb-input>
+        </div>
+      </form>
+    </div>
+    <div class="jb-auth-func-group">
+      <button
+        type="button"
+        class="btn btn-link jb-auth-switch-button jb-ft-classic jb-ft-clr-teal"
+        (click)="switchLoginRegister()"
+      >
+        {{
+          isLogin
+            ? "Don't have an account? Register here"
+            : 'Already have an account? Login here'
+        }}
+      </button>
+      <button
+        (click)="onSubmit()"
+        type="submit"
+        class="btn btn-primary jb-auth-submit-button jb-btn-l-sqr jb-bdr-c jb-btn-clr-grey jb-btn-l-sqr jb-bdr-c"
+      >
+        <div class="jb-btn-l-sqr jb-icon jb-i-check jb-icon-orange"></div>
+      </button>
+    </div>
+  </div>
+</ng-template>

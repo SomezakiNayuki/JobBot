@@ -1,5 +1,3 @@
-export enum GenderEnum {
-
-}
+export enum GenderEnum {}
 
 export default GenderEnum;

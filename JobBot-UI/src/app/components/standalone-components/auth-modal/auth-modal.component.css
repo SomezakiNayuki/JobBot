@@ -1,0 +1,50 @@
+.jb-auth-form-container {
+  position: relative;
+  width: 1500px;
+  height: 900px;
+  padding: 20px;
+}
+
+.jb-auth-form-wrapper {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 675px;
+}
+
+.jb-auth-submit-button {
+  border: none;
+  padding: 0px !important;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.jb-auth-switch-button {
+  border: none;
+  padding: 0px !important;
+  position: absolute;
+  bottom: 25px;
+  right: 500px;
+}
+
+.jb-auth-func-group {
+  display: inline;
+}
+
+.jb-auth-container-bar {
+  width: 3px;
+  height: 810px;
+  position: absolute;
+  left: 45%;
+  top: 0%;
+}
+
+.jb-auth-logo {
+  width: 380px;
+  height: 380px;
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  font-size: 100px;
+}
