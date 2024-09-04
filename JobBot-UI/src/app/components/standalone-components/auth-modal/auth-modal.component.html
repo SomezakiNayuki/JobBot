@@ -1,4 +1,8 @@
-<jb-modal #jbModal [template]="authModalTemplate" (closeEvent)="initAuthForm()"></jb-modal>
+<jb-modal
+  #jbModal
+  [template]="authModalTemplate"
+  (closeEvent)="initAuthForm()"
+></jb-modal>
 
 <ng-template #authModalTemplate>
   <div class="jb-auth-form-container">
@@ -8,7 +12,10 @@
     <div class="jb-auth-container-bar jb-bg-clr-navy"></div>
     <div class="jb-auth-form-wrapper">
       <form [formGroup]="authFormGroup">
-        <jb-prompt *ngIf="!!authResponseError" [prompt]="authResponseError"></jb-prompt>
+        <jb-prompt
+          *ngIf="!!authResponseError"
+          [prompt]="authResponseError"
+        ></jb-prompt>
         <div *ngIf="isLogin">
           <jb-input
             [placeholder]="'Username'"

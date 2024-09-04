@@ -6,7 +6,8 @@ describe('AvatarComponent', () => {
   let component: AvatarComponent;
   let fixture: ComponentFixture<AvatarComponent>;
 
-  const defaultImg: string = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg/1920px-D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg';
+  const defaultImg: string =
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg/1920px-D-ABYL_Lufthansa_B748_FRA_%2850549824683%29.jpg';
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
