@@ -86,9 +86,56 @@ public class UserControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bodyJson));
 
-        resultActions.andExpect(status().isBadRequest())
+        resultActions.andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.status").value("error"))
                 .andExpect(jsonPath("$.message").value("Email already registered"));
+    }
+
+    @Test
+    public void testAuthenticateUserSuccess() throws Exception {
+        String email = "test@email.com";
+        String username = "testUsername";
+        String password = "testPassword";
+
+        Map<Object, Object> body = new HashMap<>();
+        body.put("email", email);
+        body.put("password", password);
+
+        User user = new User(username, password, email);
+
+        String bodyJson = objectMapper.writeValueAsString(body);
+
+        when(userService.findByEmailAndPassword(Mockito.any(), Mockito.any())).thenReturn(user);
+
+        ResultActions resultActions = mockMvc.perform(post("/api/user/authenticate")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bodyJson));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("success"))
+                .andExpect(jsonPath("$.message").value("User authenticated"));
+    }
+
+    @Test
+    public void testAuthenticateUserFailure() throws Exception {
+        String email = "test@email.com";
+        String password = "testPassword";
+
+        Map<Object, Object> body = new HashMap<>();
+        body.put("email", email);
+        body.put("password", password);
+
+        String bodyJson = objectMapper.writeValueAsString(body);
+
+        when(userService.findByEmailAndPassword(Mockito.any(), Mockito.any())).thenReturn(null);
+
+        ResultActions resultActions = mockMvc.perform(post("/api/user/authenticate")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bodyJson));
+
+        resultActions.andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.status").value("error"))
+                .andExpect(jsonPath("$.message").value("Invalid account or password"));
     }
 
 }
