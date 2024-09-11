@@ -1,5 +1,6 @@
 import JobStatusEnum from "src/enums/job-status.enum";
 import User from "src/models/user.model";
+import Outcome from "src/models/outcome.model";
 
 // No unit test required for static model until business logic introduced.
 export default class Job {
