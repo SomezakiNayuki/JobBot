@@ -1,3 +1,5 @@
+import Payment from "src/models/payment.model";
+
 // No unit test required for static model until business logic introduced.
 export default class Account {
   public id: number;
