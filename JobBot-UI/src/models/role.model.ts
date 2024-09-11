@@ -14,6 +14,6 @@ export default class Role {
 
   // No getter setter required needed, directly assign value through public attributes.
 
-  // isValidToWork() should fetch work validity from backend.
-  // public isValidToWork(): boolean {}
+  // isEligibleToWork() should fetch work validity from backend.
+  // public isEligibleToWork(): boolean {}
 }
