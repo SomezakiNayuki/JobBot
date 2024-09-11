@@ -34,7 +34,7 @@ public class UserController {
         try {
             user = userService.saveUser(user);
         } catch (Exception e) {
-            return new ResponseEntity<>(new GeneralResponse("error", "Email already registered"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new GeneralResponse("error", "Email already registered"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         Map<String, String> responseMap = new HashMap<>();
@@ -43,6 +43,20 @@ public class UserController {
         responseMap.put("username", user.getUsername());
         responseMap.put("created_at", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString());
         return new ResponseEntity<>(responseMap, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity authenticate(@RequestBody Map<Object, Object> body) {
+        String email = (String) body.get("email");
+        String password = (String) body.get("password");
+
+        User user = userService.findByEmailAndPassword(email, password);
+
+        if (user != null) {
+            return new ResponseEntity<>(new GeneralResponse("success", "User authenticated"), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new GeneralResponse("error", "Invalid account or password"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

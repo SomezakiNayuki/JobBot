@@ -6,10 +6,6 @@ public interface UserService {
 
     public User saveUser(User user);
 
-    public User findByUsernameAndPassword(String username, String password);
-
-    public User findByUsername(String username);
-
-    public User findByEmail(String email);
+    public User findByEmailAndPassword(String email, String password);
 
 }
