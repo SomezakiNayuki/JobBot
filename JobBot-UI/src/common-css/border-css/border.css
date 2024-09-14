@@ -17,3 +17,8 @@
 .jb-bdr-wth-1 {
   border-width: 1px !important;
 }
+
+.jb-form-bdr-warning {
+  border-width: 3px !important;
+  border-color: red;
+}

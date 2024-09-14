@@ -1,0 +1,46 @@
+<button
+  *ngIf="type == 'select'"
+  class="form-control jb-dropdown 
+  {{ border ? 'jb-bdr-wth-1' : 'jb-bdr-wth-none' }}
+  {{
+    formControl?.invalid && formControl?.touched ? 'jb-form-bdr-warning' : ''
+  }}
+  "
+  [style.width]="width"
+  [style.height]="height"
+  [value]="value"
+  (click)="switchCollapseDropdownList()"
+>
+  {{ value != '' ? placeholder + ' ' + value : placeholder }}
+</button>
+<input
+  *ngIf="type == 'typeahead'"
+  [placeholder]="placeholder"
+  class="form-control jb-dropdown
+  {{ border ? 'jb-bdr-wth-1' : 'jb-bdr-wth-none' }}
+  {{
+    formControl?.invalid && formControl?.touched ? 'jb-form-bdr-warning' : ''
+  }}
+  "
+  [style.width]="width"
+  [style.height]="height"
+  [(ngModel)]="value"
+  (input)="onTyping(value)"
+/>
+<ul
+  class="form-control jb-dropdown-list"
+  *ngIf="!collapsed || filteredActionList?.length > 0"
+>
+  <div
+    *ngFor="let action of type == 'typeahead' ? filteredActionList : actionList"
+  >
+    <li>
+      <button
+        class="form-control jb-dropdown-item jb-bdr-wth-none"
+        (click)="onClickDropdownAction(action)"
+      >
+        {{ action }}
+      </button>
+    </li>
+  </div>
+</ul>

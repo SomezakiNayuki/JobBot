@@ -3,7 +3,9 @@
   [placeholder]="placeholder"
   class="form-control jb-input 
   {{ border ? 'jb-bdr-wth-1' : 'jb-bdr-wth-none' }}
-  {{ formControl?.invalid && formControl?.touched ? 'jb-input-warning' : '' }}
+  {{
+    formControl?.invalid && formControl?.touched ? 'jb-form-bdr-warning' : ''
+  }}
   "
   [style.width]="width"
   [style.height]="height"

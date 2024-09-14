@@ -30,7 +30,7 @@
             Forget password or account?
           </button>
         </div>
-        <div *ngIf="!isLogin">
+        <div *ngIf="!isLogin && !isRoleScreen">
           <jb-input
             [placeholder]="'Username'"
             formControlName="username"
@@ -46,6 +46,30 @@
             [placeholder]="'Re-enter password'"
             formControlName="password2"
           ></jb-input>
+        </div>
+        <div *ngIf="isRoleScreen">
+          <jb-dropdown
+            [placeholder]="'Do you have unretricted working right?'"
+            [actionList]="['Yes', 'No']"
+            formControlName="workEligibility"
+          ></jb-dropdown>
+          <jb-dropdown
+            *ngIf="authFormGroup.get('workEligibility').value == 'No'"
+            [type]="'typeahead'"
+            [placeholder]="'Visa type'"
+            [actionList]="['500', '485']"
+            formControlName="visaType"
+          ></jb-dropdown>
+          <jb-input
+            [placeholder]="'ID card number'"
+            formControlName="idCardNumber"
+          ></jb-input>
+          <button
+            class="btn btn-link jb-ft-classic jb-ft-clr-red"
+            (click)="skipRoleScreenAndSubmit()"
+          >
+            Skip for now
+          </button>
         </div>
       </form>
     </div>

@@ -1,0 +1,17 @@
+.jb-dropdown {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.jb-dropdown-list {
+  margin-top: -10px;
+  list-style-type: none;
+}
+
+.jb-dropdown-item {
+  text-decoration: none;
+  text-align: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
