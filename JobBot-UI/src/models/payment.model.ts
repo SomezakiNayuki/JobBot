@@ -1,5 +1,5 @@
-import PaymentStatusEnum from "src/enums/payment-status.enum";
-import User from "src/models/user.model";
+import PaymentStatusEnum from 'src/enums/payment-status.enum';
+import User from 'src/models/user.model';
 
 // No unit test required for static model until business logic introduced.
 export default class Payment {

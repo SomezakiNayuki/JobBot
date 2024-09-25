@@ -1,4 +1,4 @@
-import OutcomeStatusEnum from "src/enums/outcome-status.enum";
+import OutcomeStatusEnum from 'src/enums/outcome-status.enum';
 
 // No unit test required for static model until business logic introduced.
 export default class Outcome {

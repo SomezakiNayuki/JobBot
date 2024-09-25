@@ -17,6 +17,8 @@ export class AuthModalComponent implements OnInit, OnDestroy {
   protected authFormGroup: FormGroup;
   protected authResponseError: string;
   protected isLogin: boolean = true;
+  protected isRoleScreen: boolean = false;
+  private skipRoleScreen: boolean = false;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -57,12 +59,29 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     }
   }
 
+  private initRoleForm(): void {
+    this.authFormGroup.addControl(
+      'workEligibility',
+      new FormControl('', [Validators.required])
+    );
+    this.authFormGroup.addControl(
+      'visaType',
+      new FormControl('', [Validators.required])
+    );
+    this.authFormGroup.addControl(
+      'idCardNumber',
+      new FormControl('', [Validators.required])
+    );
+    this.skipRoleScreen = false;
+  }
+
   private closeAuthModal(): void {
     this.jbModal.close();
   }
 
   protected initAuthForm(): void {
     this.isLogin = true;
+    this.isRoleScreen = false;
     this.authResponseError = null;
     this.authFormGroup = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -70,15 +89,30 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     });
   }
 
+  protected skipRoleScreenAndSubmit(): void {
+    this.skipRoleScreen = true;
+    this.onSubmit();
+  }
+
   public onSubmit(): void {
     if (this.authFormGroup.valid) {
       if (this.isLogin) {
         console.log('handle login request');
+        this.closeAuthModal();
       } else {
-        console.log('handle register request');
+        if (!this.isRoleScreen) {
+          this.isRoleScreen = true;
+          this.initRoleForm();
+        } else {
+          console.log('handle register request');
+          this.closeAuthModal();
+        }
       }
-      this.closeAuthModal();
     } else {
+      if (this.isRoleScreen && this.skipRoleScreen) {
+        console.log('handle register request with skipping role screen');
+        this.closeAuthModal();
+      }
       this.authFormGroup.markAllAsTouched();
     }
   }

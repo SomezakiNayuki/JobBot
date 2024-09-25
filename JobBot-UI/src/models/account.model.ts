@@ -1,4 +1,4 @@
-import Payment from "src/models/payment.model";
+import Payment from 'src/models/payment.model';
 
 // No unit test required for static model until business logic introduced.
 export default class Account {
@@ -8,7 +8,6 @@ export default class Account {
   public accountNumber: number;
   public accountBalance: number;
   public paymentHistory: Payment[];
-
 
   public Account() {}
 
