@@ -41,7 +41,6 @@ public class UserController {
         responseMap.put("id", user.getId().toString());
         responseMap.put("email", user.getEmail());
         responseMap.put("username", user.getUsername());
-        responseMap.put("created_at", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString());
         return new ResponseEntity<>(responseMap, HttpStatus.CREATED);
     }
 
