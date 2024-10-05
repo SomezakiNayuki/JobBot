@@ -1,6 +1,7 @@
 package org.dizzybot.jobbot.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.dizzybot.jobbot.controllers.user.UserController;
 import org.dizzybot.jobbot.entities.User;
 import org.dizzybot.jobbot.services.UserService;
 import org.junit.jupiter.api.Test;

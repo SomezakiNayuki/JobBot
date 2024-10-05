@@ -1,10 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
 import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
 import UIEventEnum from 'src/enums/ui-event.enum';
 import { UIEventService } from 'src/app/services/ui-event.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'jb-auth-modal',
@@ -22,7 +28,10 @@ export class AuthModalComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private readonly uiEventService: UIEventService) {}
+  constructor(
+    private readonly uiEventService: UIEventService,
+    private readonly userService: UserService
+  ) {}
 
   public ngOnInit(): void {
     this.initAuthForm();
@@ -49,11 +58,11 @@ export class AuthModalComponent implements OnInit, OnDestroy {
       this.initAuthForm();
     } else {
       this.authFormGroup.addControl(
-        'email',
-        new FormControl('', [Validators.required, Validators.email])
+        'username',
+        new FormControl('', [Validators.required])
       );
       this.authFormGroup.addControl(
-        'password2',
+        'reEnterPassword',
         new FormControl('', [Validators.required])
       );
     }
@@ -84,7 +93,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     this.isRoleScreen = false;
     this.authResponseError = null;
     this.authFormGroup = new FormGroup({
-      username: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
     });
   }
@@ -95,25 +104,62 @@ export class AuthModalComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    if (this.authFormGroup.valid) {
-      if (this.isLogin) {
-        console.log('handle login request');
-        this.closeAuthModal();
-      } else {
-        if (!this.isRoleScreen) {
-          this.isRoleScreen = true;
-          this.initRoleForm();
-        } else {
-          console.log('handle register request');
-          this.closeAuthModal();
-        }
-      }
-    } else {
-      if (this.isRoleScreen && this.skipRoleScreen) {
-        console.log('handle register request with skipping role screen');
-        this.closeAuthModal();
-      }
-      this.authFormGroup.markAllAsTouched();
+    if (!this.authFormGroup.valid && !this.skipRoleScreen) {
+      return this.handleInvalidForm();
     }
+
+    if (this.isLogin) {
+      return this.handleUserLogin();
+    }
+
+    if (this.isRoleScreen) {
+      return this.handleUserRegister();
+    }
+
+    if (!this.checkPasswordMatch()) {
+      return;
+    }
+    this.isRoleScreen = true;
+    this.initRoleForm();
+  }
+
+  private checkPasswordMatch(): boolean {
+    this.authResponseError = null;
+    const passwordControl: AbstractControl = this.authFormGroup.get('password');
+    const reEnterPasswordControl: AbstractControl =
+      this.authFormGroup.get('reEnterPassword');
+    const result: boolean =
+      passwordControl.value == reEnterPasswordControl.value;
+    if (!result) {
+      this.authResponseError = 'Password re-enetered does not match';
+    }
+    this.authFormGroup.removeControl('reEnterPassword');
+    return result;
+  }
+
+  private handleInvalidForm(): void {
+    this.authFormGroup.markAllAsTouched();
+  }
+
+  private handleUserRegister(): void {
+    this.userService
+      .registerUser(this.authFormGroup.value)
+      .then((response) => {
+        this.closeAuthModal();
+      })
+      .catch((error) => {
+        this.authResponseError = error.error?.message;
+      });
+  }
+
+  private handleUserLogin(): void {
+    this.userService
+      .authenticateUser(this.authFormGroup.value)
+      .then((response) => {
+        this.closeAuthModal();
+      })
+      .catch((error) => {
+        this.authResponseError = error.error?.message;
+      });
   }
 }
