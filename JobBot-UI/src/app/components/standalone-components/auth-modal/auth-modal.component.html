@@ -17,10 +17,7 @@
           [prompt]="authResponseError"
         ></jb-prompt>
         <div *ngIf="isLogin">
-          <jb-input
-            [placeholder]="'Username'"
-            formControlName="username"
-          ></jb-input>
+          <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
           <jb-input
             [type]="'password'"
             [placeholder]="'Password'"
@@ -44,7 +41,7 @@
           <jb-input
             [type]="'password'"
             [placeholder]="'Re-enter password'"
-            formControlName="password2"
+            formControlName="reEnterPassword"
           ></jb-input>
         </div>
         <div *ngIf="isRoleScreen">
