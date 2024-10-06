@@ -1,5 +1,6 @@
 package org.dizzybot.jobbot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Outcome {
 
     private OutcomeStatusEnum status;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "job_outcome")
     private Job job;

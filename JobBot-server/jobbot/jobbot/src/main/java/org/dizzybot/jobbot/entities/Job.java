@@ -1,5 +1,6 @@
 package org.dizzybot.jobbot.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -35,10 +36,12 @@ public class Job {
 
     private JobStatusEnum jobStatusEnum;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "employer_id")
     private User employer;
 
+    @JsonBackReference
     @ManyToOne // to be clarified
     @JoinColumn(name = "employee_id")
     private User employee;

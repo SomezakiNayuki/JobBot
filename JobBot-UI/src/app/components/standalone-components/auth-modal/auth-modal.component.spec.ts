@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
 import UIEventEnum from 'src/enums/ui-event.enum';
 import { UIEventService } from 'src/app/services/ui-event.service';
-import { ModalComponent } from '../../meta-components/modal/modal.component';
+import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
 
 describe('AuthModalComponent', () => {
   let authModalComponent: AuthModalComponent;

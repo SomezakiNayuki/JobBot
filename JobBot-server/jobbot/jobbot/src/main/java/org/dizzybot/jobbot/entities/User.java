@@ -1,5 +1,7 @@
 package org.dizzybot.jobbot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -23,6 +25,7 @@ public class User {
     @NotNull
     public String username;
 
+    @JsonIgnore
     @NotNull
     public String password;
 
@@ -35,10 +38,11 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     public UserProfile userProfile;
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL)
     public List<Job> jobPosted = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     public List<Job> jobAccepted = new ArrayList<>();
 
@@ -56,11 +60,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = new Role();
-        this.userProfile = new UserProfile();
-        this.jobPosted = new ArrayList<>();
-        this.jobAccepted = new ArrayList<>();
-        this.account = new Account();
     }
 
 }

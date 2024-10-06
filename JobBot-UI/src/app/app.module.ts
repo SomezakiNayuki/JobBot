@@ -8,6 +8,7 @@ import { AuthModalComponent } from 'src/app/components/standalone-components/aut
 import { AvatarComponent } from 'src/app/components/meta-components/avatar/avatar.component';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
 import { DropdownComponent } from './components/meta-components/form-components/dropdown/dropdown.component';
+import { HttpClientModule } from '@angular/common/http';
 import { InputComponent } from 'src/app/components/meta-components/form-components/input/input.component';
 import { JobCardComponent } from 'src/app/components/standalone-components/job-card/job-card.component';
 import { MainPageComponent } from 'src/app/components/pages/main-page/main-page.component';
@@ -28,7 +29,13 @@ import { PromptComponent } from 'src/app/components/meta-components/prompt/promp
     ModalComponent,
     PromptComponent,
   ],
-  imports: [AppRoutingModule, BrowserModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

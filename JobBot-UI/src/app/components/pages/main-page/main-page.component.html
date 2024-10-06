@@ -12,11 +12,13 @@
 
   <!-- Functional buttons -->
   <a
+    *ngIf="isUserLoggedIn()"
     class="btn btn-primary btn-lg active jb-navbar-btn jb-mr-140 jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
     <div class="jb-sd-ft">+</div>
   </a>
   <a
+    *ngIf="!isUserLoggedIn()"
     (click)="openAuthModal()"
     class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
@@ -75,6 +77,7 @@
       ></div>
     </a>
     <a
+      (click)="logout()"
       class="btn btn-primary btn-lg active jb-sidebar-btn-logoff jb-btn-l-sqr jb-bdr-c jb-btn-clr-pink jb-sd-el"
     >
       <div class="jb-icon jb-i-sign-off jb-i-ctnr-sign-off jb-icon-black"></div>
