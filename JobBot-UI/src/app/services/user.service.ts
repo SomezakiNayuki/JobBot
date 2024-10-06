@@ -51,4 +51,16 @@ export class UserService {
     }
     this.user.id = response.payload.userId;
   }
+
+  public isLoggedIn(): boolean {
+    return this.user != null;
+  }
+
+  public logout(): void {
+    this.user = null;
+  }
+
+  public getUser(): User {
+    return this.user;
+  }
 }
