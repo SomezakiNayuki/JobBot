@@ -24,7 +24,7 @@ export class DropdownComponent
   public placeholder: string;
   @Input()
   public actionList: string[];
-  protected filteredActionList: string[];
+  public filteredActionList: string[];
 
   @Input()
   public type: string = 'select';
@@ -33,22 +33,22 @@ export class DropdownComponent
   @Input()
   public height: string = '50px';
 
-  protected collapsed: boolean = true;
+  public collapsed: boolean = true;
 
   public ngOnInit(): void {}
 
-  protected switchCollapseDropdownList(): void {
+  public switchCollapseDropdownList(): void {
     this.collapsed = !this.collapsed;
   }
 
-  protected onClickDropdownAction(action: string): void {
+  public onClickDropdownAction(action: string): void {
     this.formControl.setValue(action);
     this.formControl.updateValueAndValidity();
     this.collapsed = true;
     this.filteredActionList = null;
   }
 
-  protected onTyping(value: string): void {
+  public onTyping(value: string): void {
     this.filterAction(value);
   }
 

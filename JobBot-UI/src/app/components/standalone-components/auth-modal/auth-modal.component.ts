@@ -20,10 +20,10 @@ import { UserService } from 'src/app/services/user.service';
 export class AuthModalComponent implements OnInit, OnDestroy {
   @ViewChild('jbModal') jbModal: ModalComponent;
 
-  protected authFormGroup: FormGroup;
-  protected authResponseError: string;
-  protected isLogin: boolean = true;
-  protected isRoleScreen: boolean = false;
+  public authFormGroup: FormGroup;
+  public authResponseError: string;
+  public isLogin: boolean = true;
+  public isRoleScreen: boolean = false;
   private skipRoleScreen: boolean = false;
 
   private destroy$: Subject<void> = new Subject<void>();
@@ -52,7 +52,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  protected switchLoginRegister(): void {
+  public switchLoginRegister(): void {
     this.isLogin = !this.isLogin;
     if (this.isLogin) {
       this.initAuthForm();
@@ -88,7 +88,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     this.jbModal.close();
   }
 
-  protected initAuthForm(): void {
+  public initAuthForm(): void {
     this.isLogin = true;
     this.isRoleScreen = false;
     this.authResponseError = null;
@@ -98,7 +98,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  protected skipRoleScreenAndSubmit(): void {
+  public skipRoleScreenAndSubmit(): void {
     this.skipRoleScreen = true;
     this.onSubmit();
   }
