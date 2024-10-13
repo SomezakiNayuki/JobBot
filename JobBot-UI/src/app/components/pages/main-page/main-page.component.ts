@@ -10,32 +10,32 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
-  protected isSideBarEnabled: boolean = false;
+  public isSideBarEnabled: boolean = false;
 
   constructor(
     private readonly uiEvent: UIEventService,
-    private readonly userService: UserService,
+    private readonly userService: UserService
   ) {}
 
   public ngOnInit(): void {}
 
-  protected openSideBar(): void {
+  public openSideBar(): void {
     this.isSideBarEnabled = this.isUserLoggedIn();
   }
 
-  protected collapseSideBar(): void {
+  public collapseSideBar(): void {
     this.isSideBarEnabled = false;
   }
 
-  protected openAuthModal(): void {
+  public openAuthModal(): void {
     this.uiEvent.next(UIEventEnum.DISPLAY_AUTH_MODAL);
   }
 
-  protected isUserLoggedIn(): boolean {
+  public isUserLoggedIn(): boolean {
     return this.userService.isLoggedIn();
   }
 
-  protected logout(): void {
+  public logout(): void {
     this.collapseSideBar();
     this.userService.logout();
   }
