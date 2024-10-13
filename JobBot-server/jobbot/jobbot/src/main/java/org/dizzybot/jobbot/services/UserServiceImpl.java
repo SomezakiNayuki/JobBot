@@ -22,7 +22,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findByEmailAndPassword(String email, String password) {
-        return userRepository.findByUsernameAndPassword(email, password);
+        return userRepository.findByEmailAndPassword(email, password);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }
