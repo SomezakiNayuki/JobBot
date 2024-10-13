@@ -1,0 +1,131 @@
+# .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/bin/
+**/obj/
+**/.vs/
+**/.idea/
+**/.vscode/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+*.tlog
+*.ide.log
+*.pidb
+*.svclog
+*.sln.ide
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Rider
+.idea/
+.idea_modules/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Secrets
+secrets.json
+
+# Entity Framework
+*.dbmdl
+*.jfm
+
+# SQLite files
+*.sqlite
+*.sqlite3
+
+# MySQL database files
+*.db
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# GitHub Actions
+!/.github
+
+# Local History for JetBrains IDEs
+.localhistory/
+
+# Other
+backup/
+backup.*
+archive.*
+*.bak
+*.swp
+*~
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+.idea_modules/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+*.tlog
+*.ide.log
+*.pidb
+*.svclog
+*.sln.ide
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Secrets
+secrets.json
+
+# Entity Framework
+*.dbmdl
+*.jfm
+
+# MySQL database files
+*.db
+
+# Rider Local History
+.localhistory/
