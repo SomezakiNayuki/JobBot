@@ -50,6 +50,22 @@ export class UserService {
       this.user = new User();
     }
     this.user.id = response.payload.userId;
+    this.fetchUser(this.user.id);
+  }
+
+  public fetchUser(userId: number): void {
+    firstValueFrom(
+      this.http.get(this.userApi.getGetUserURL(userId))
+    )
+      .then((response) => {
+        this.cacheUser(response);
+      })
+      .catch((error) => { console.error(error) });
+  }
+
+  private cacheUser(response: any) {
+    this.user.username = response.username;
+    this.user.email = response.email;
   }
 
   public isLoggedIn(): boolean {

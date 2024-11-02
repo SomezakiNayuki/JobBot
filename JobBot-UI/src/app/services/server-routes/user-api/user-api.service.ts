@@ -19,4 +19,8 @@ export class UserApiService extends BaseServerRoutesService {
   public getAuthenticateUserURL(): string {
     return this.getBaseServerURL() + this.BASE_URL + '/authenticate';
   }
+
+  public getGetUserURL(id: number): string {
+    return this.getBaseServerURL() + this.BASE_URL + '/get/' + id;
+  }
 }

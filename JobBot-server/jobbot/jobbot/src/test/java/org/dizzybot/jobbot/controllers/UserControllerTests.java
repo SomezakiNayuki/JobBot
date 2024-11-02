@@ -2,6 +2,8 @@ package org.dizzybot.jobbot.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.dizzybot.jobbot.controllers.user.UserController;
+import org.dizzybot.jobbot.controllers.user.requests.AuthenticateUserRequest;
+import org.dizzybot.jobbot.controllers.user.requests.CreateUserRequest;
 import org.dizzybot.jobbot.entities.User;
 import org.dizzybot.jobbot.services.UserService;
 import org.junit.jupiter.api.Test;
@@ -14,15 +16,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
 public class UserControllerTests {
@@ -45,12 +42,12 @@ public class UserControllerTests {
         String password = "testPassword";
         String email = "test@email.com";
 
-        Map<Object, Object> body = new HashMap<>();
-        body.put("username", username);
-        body.put("password", password);
-        body.put("email", email);
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setEmail(email);
 
-        String bodyJson = objectMapper.writeValueAsString(body);
+        String bodyJson = objectMapper.writeValueAsString(request);
 
         User user = new User(username, password, email);
         user.setId(1L);
@@ -62,10 +59,7 @@ public class UserControllerTests {
                 .content(bodyJson));
 
         resultActions.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.username").value(username))
-                .andExpect(jsonPath("$.email").value(email))
-                .andExpect(jsonPath("$.created_at").value(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString()));
+                .andExpect(content().json("{\"status\":\"success\",\"message\":\"User created\",\"payload\":{\"userId\":1}}"));
     }
 
     @Test
@@ -74,12 +68,12 @@ public class UserControllerTests {
         String password = "testPassword";
         String email = "test@email.com";
 
-        Map<Object, Object> body = new HashMap<>();
-        body.put("username", username);
-        body.put("password", password);
-        body.put("email", email);
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setEmail(email);
 
-        String bodyJson = objectMapper.writeValueAsString(body);
+        String bodyJson = objectMapper.writeValueAsString(request);
 
         when(userService.saveUser(Mockito.any())).thenThrow(new RuntimeException());
 
@@ -88,8 +82,7 @@ public class UserControllerTests {
                 .content(bodyJson));
 
         resultActions.andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.status").value("error"))
-                .andExpect(jsonPath("$.message").value("Email already registered"));
+                .andExpect(content().json("{\"status\":\"error\",\"message\":\"Error creating user\",\"payload\":null}"));
     }
 
     @Test
@@ -98,13 +91,13 @@ public class UserControllerTests {
         String username = "testUsername";
         String password = "testPassword";
 
-        Map<Object, Object> body = new HashMap<>();
-        body.put("email", email);
-        body.put("password", password);
+        AuthenticateUserRequest request = new AuthenticateUserRequest();
+        request.setEmail(email);
+        request.setPassword(password);
 
         User user = new User(username, password, email);
 
-        String bodyJson = objectMapper.writeValueAsString(body);
+        String bodyJson = objectMapper.writeValueAsString(request);
 
         when(userService.findByEmailAndPassword(Mockito.any(), Mockito.any())).thenReturn(user);
 
@@ -122,11 +115,11 @@ public class UserControllerTests {
         String email = "test@email.com";
         String password = "testPassword";
 
-        Map<Object, Object> body = new HashMap<>();
-        body.put("email", email);
-        body.put("password", password);
+        AuthenticateUserRequest request = new AuthenticateUserRequest();
+        request.setEmail(email);
+        request.setPassword(password);
 
-        String bodyJson = objectMapper.writeValueAsString(body);
+        String bodyJson = objectMapper.writeValueAsString(request);
 
         when(userService.findByEmailAndPassword(Mockito.any(), Mockito.any())).thenReturn(null);
 
@@ -137,6 +130,19 @@ public class UserControllerTests {
         resultActions.andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.status").value("error"))
                 .andExpect(jsonPath("$.message").value("Invalid account or password"));
+    }
+
+    @Test
+    public void testGetUserSuccess() throws Exception {
+        Long id = Long.valueOf(1);
+
+        // TODO: set up mock user
+        when(userService.findById(Mockito.anyLong())).thenReturn(new User());
+
+        ResultActions resultActions = mockMvc.perform(get("/api/user/get/1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        resultActions.andExpect(status().isOk());
     }
 
 }

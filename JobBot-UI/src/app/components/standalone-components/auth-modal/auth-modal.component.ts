@@ -75,13 +75,19 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     );
     this.authFormGroup.addControl(
       'visaType',
-      new FormControl('', [Validators.required])
+      new FormControl('')
     );
     this.authFormGroup.addControl(
       'idCardNumber',
       new FormControl('', [Validators.required])
     );
     this.skipRoleScreen = false;
+  }
+
+  private resetRoleForm(): void {
+    this.authFormGroup.get('workEligibility').reset();
+    this.authFormGroup.get('visaType').reset();
+    this.authFormGroup.get('idCardNumber').reset();
   }
 
   private closeAuthModal(): void {
@@ -113,6 +119,9 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     }
 
     if (this.isRoleScreen) {
+      if (this.skipRoleScreen) {
+        this.resetRoleForm();
+      }
       return this.handleUserRegister();
     }
 
@@ -132,6 +141,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
       passwordControl.value == reEnterPasswordControl.value;
     if (!result) {
       this.authResponseError = 'Password re-enetered does not match';
+      return result;
     }
     this.authFormGroup.removeControl('reEnterPassword');
     return result;

@@ -36,12 +36,10 @@ public class Job {
 
     private JobStatusEnum jobStatusEnum;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "employer_id")
     private User employer;
 
-    @JsonBackReference
     @ManyToOne // to be clarified
     @JoinColumn(name = "employee_id")
     private User employee;

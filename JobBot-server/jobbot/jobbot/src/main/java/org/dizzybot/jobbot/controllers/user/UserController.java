@@ -54,4 +54,14 @@ public class UserController {
         }
     }
 
+    @GetMapping("/get/{userId}")
+    public ResponseEntity get(@PathVariable Long userId) {
+        User user = userService.findById(userId);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new GeneralResponse("error", "User not found"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

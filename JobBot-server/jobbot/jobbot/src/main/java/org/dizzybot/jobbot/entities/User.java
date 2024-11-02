@@ -38,15 +38,15 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     public UserProfile userProfile;
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL)
     public List<Job> jobPosted = new ArrayList<>();
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     public List<Job> jobAccepted = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToOne
     public Account account;
 
