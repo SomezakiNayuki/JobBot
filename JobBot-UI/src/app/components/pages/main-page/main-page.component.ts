@@ -39,4 +39,8 @@ export class MainPageComponent implements OnInit {
     this.collapseSideBar();
     this.userService.logout();
   }
+
+  public getUserName(): string {
+    return this.userService.getUser().username;
+  }
 }

@@ -3,8 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainPageComponent } from 'src/app/components/pages/main-page/main-page.component';
 import { UIEventService } from 'src/app/services/ui-event.service';
-import { UserService } from 'src/app/services/user.service';
 import UIEventEnum from 'src/enums/ui-event.enum';
+import User from 'src/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -25,6 +26,7 @@ describe('MainPageComponent', () => {
           useValue: {
             isLoggedIn: jasmine.createSpy(),
             logout: jasmine.createSpy(),
+            getUser: jasmine.createSpy(),
           },
         },
       ],
@@ -98,6 +100,16 @@ describe('MainPageComponent', () => {
 
       expect(component.isSideBarEnabled).toBeFalsy();
       expect(userService.logout).toHaveBeenCalled();
+    });
+  });
+
+  describe('getUserName', () => {
+    it('should return username', () => {
+      let user: User = new User;
+      user.username = 'test username';
+      userService.getUser.and.returnValue(user);
+
+      expect(component.getUserName()).toEqual('test username');
     });
   });
 });

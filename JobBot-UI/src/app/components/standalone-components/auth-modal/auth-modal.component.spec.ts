@@ -161,6 +161,7 @@ describe('AuthModalComponent', () => {
 
       authModalComponent.onSubmit();
 
+      expect(authModalComponent.authFormGroup.get('any').reset).toHaveBeenCalled();
       expect(userService.registerUser).toHaveBeenCalled();
     });
 
@@ -208,6 +209,9 @@ describe('AuthModalComponent', () => {
     authModalComponent.authFormGroup = jasmine.createSpyObj('FormGroup', [], {
       valid: valid,
       markAllAsTouched: jasmine.createSpy(),
+      get: jasmine.createSpy().and.returnValue({
+        reset: jasmine.createSpy(),
+      }),
     });
   }
 
