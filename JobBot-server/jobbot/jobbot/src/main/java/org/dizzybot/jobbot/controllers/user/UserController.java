@@ -6,6 +6,7 @@ import org.dizzybot.jobbot.entities.Role;
 import org.dizzybot.jobbot.entities.User;
 import org.dizzybot.jobbot.controllers.user.requests.CreateUserRequest;
 import org.dizzybot.jobbot.controllers.general.responses.GeneralResponse;
+import org.dizzybot.jobbot.enums.VisaEnum;
 import org.dizzybot.jobbot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CreateUserRequest request) {
         User user = new User(request.getUsername(), request.getPassword(), request.getEmail());
-        Role role = new Role(request.isWorkEligibility(), request.getVisaType(), request.getIdCardNumber());
+        Role role = new Role(request.isWorkEligibility(), VisaEnum.fromString(request.getVisaType()), request.getIdCardNumber());
         user.setRole(role);
 
         if (userService.findByEmail(request.getEmail()) != null) {

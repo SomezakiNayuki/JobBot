@@ -16,7 +16,7 @@ public class CreateUserRequest {
 
     public boolean workEligibility;
 
-    public VisaEnum visaType;
+    public String visaType;
 
     public String idCardNumber;
 
