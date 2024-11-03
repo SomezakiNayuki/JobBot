@@ -17,4 +17,13 @@ public enum VisaEnum {
         return visaCode;
     }
 
+    public static VisaEnum fromString(String code) {
+        for (VisaEnum visaEnum : VisaEnum.values()) {
+            if (visaEnum.getVisaCode().equalsIgnoreCase(code)) {
+                return visaEnum;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant with code: " + code);
+    }
+
 }
