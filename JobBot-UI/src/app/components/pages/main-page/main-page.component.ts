@@ -17,7 +17,11 @@ export class MainPageComponent implements OnInit {
     private readonly userService: UserService
   ) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    // TODO: Dev function, to be removed in PROD
+    // TODO: Design and develop "remember me" in the future with session control
+    this.userService.autoLogin();
+  }
 
   public openSideBar(): void {
     this.isSideBarEnabled = this.isUserLoggedIn();

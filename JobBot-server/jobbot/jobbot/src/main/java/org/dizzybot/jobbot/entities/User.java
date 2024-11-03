@@ -62,4 +62,14 @@ public class User {
         this.email = email;
     }
 
+    public void setRole(Role role) {
+        this.role = role;
+        this.role.setUser(this);
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+        this.userProfile.setUser(this);
+    }
+
 }

@@ -25,7 +25,8 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CreateUserRequest request) {
         User user = new User(request.getUsername(), request.getPassword(), request.getEmail());
-        user.setRole(new Role(request.isWorkEligibility(), request.getVisaType(), request.getIdCardNumber()));
+        Role role = new Role(request.isWorkEligibility(), request.getVisaType(), request.getIdCardNumber());
+        user.setRole(role);
 
         if (userService.findByEmail(request.getEmail()) != null) {
             return new ResponseEntity<>(new GeneralResponse("error", "Email already registered"), HttpStatus.INTERNAL_SERVER_ERROR);
