@@ -22,6 +22,8 @@ export class UserService {
         this.http.post(this.userApi.getCreateUserURL(), registerUserRequest)
       )
         .then((response) => {
+          // TODO: Dev function, to be removed in PROD
+          this.saveSession(registerUserRequest.email, registerUserRequest.password);
           this.preserveUser(response);
           return resolve(response);
         })
@@ -38,11 +40,33 @@ export class UserService {
         )
       )
         .then((response) => {
+          // TODO: Dev function, to be removed in PROD
+          this.saveSession(authenticateRequest.email, authenticateRequest.password);
           this.preserveUser(response);
           return resolve(response);
         })
         .catch((error) => reject(error));
     });
+  }
+
+  // TODO: Dev function, to be removed in PROD
+  private saveSession(email: string, password: string): void {
+    sessionStorage.setItem('currentUserEmail', email);
+    sessionStorage.setItem('currentUserPassword', password);
+  }
+
+  // TODO: Dev function, to be removed in PROD
+  private endSession(key: string): void {
+    sessionStorage.removeItem(key);
+  }
+
+  // TODO: Dev function, to be removed in PROD
+  public autoLogin(): void {
+    const email: string = sessionStorage.getItem('currentUserEmail');
+    const password: string = sessionStorage.getItem('currentUserPassword');
+    if (email && password) {
+      this.authenticateUser({email: email, password: password});
+    }
   }
 
   private preserveUser(response: any): void {
@@ -73,6 +97,9 @@ export class UserService {
   }
 
   public logout(): void {
+    // TODO: Dev function, to be removed in PROD
+    this.endSession('currentUserEmail');
+    this.endSession('currentUserPassword');
     this.user = null;
   }
 

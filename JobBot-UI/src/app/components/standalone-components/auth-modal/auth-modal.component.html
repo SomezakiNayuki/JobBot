@@ -47,11 +47,11 @@
         <div *ngIf="isRoleScreen">
           <jb-dropdown
             [placeholder]="'Do you have unretricted working right?'"
-            [actionList]="['Yes', 'No']"
+            [actionList]="['true', 'false']"
             formControlName="workEligibility"
           ></jb-dropdown>
           <jb-dropdown
-            *ngIf="authFormGroup.get('workEligibility').value == 'No'"
+            *ngIf="authFormGroup.get('workEligibility').value == 'false'"
             [type]="'typeahead'"
             [placeholder]="'Visa type'"
             [actionList]="['500', '485']"

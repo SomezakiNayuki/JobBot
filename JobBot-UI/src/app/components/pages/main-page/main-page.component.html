@@ -2,7 +2,7 @@
   class="navbar navbar-expand-lg navbar-light bg-light jb-navbar jb-bg-clr-navy jb-ft-classic jb-sd-el"
 >
   <!-- Brand -->
-  <a (click)="openSideBar()" class="jb-navbar-brand jb-ft-clr-teal"> JobBot </a>
+  <a (click)="openSideBar()" class="jb-navbar-brand jb-ft-clr-teal"> {{ isUserLoggedIn() ? 'Hi ' + getUserName() : 'JobBot' }} </a>
 
   <!-- AI search bar -->
   <input
@@ -13,7 +13,7 @@
   <!-- Functional buttons -->
   <a
     *ngIf="isUserLoggedIn()"
-    class="btn btn-primary btn-lg active jb-navbar-btn jb-mr-140 jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
+    class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
     <div class="jb-sd-ft">+</div>
   </a>

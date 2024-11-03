@@ -19,6 +19,7 @@
 }
 
 .jb-navbar-brand {
+  cursor: pointer;
   font-size: 70px;
   position: relative;
   left: 5%;
@@ -51,7 +52,7 @@
 
 .jb-username {
   position: relative;
-  left: 0.5%;
+  text-align: center;
   margin-top: 1%;
   font-weight: 500;
   font-size: x-large;
