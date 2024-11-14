@@ -1,6 +1,7 @@
 package org.dizzybot.jobbot.enums;
 
 public enum VisaEnum {
+    NONE("0"),
     STUDENT_VISA("500"),
     TEMPORARY_GRADUATE_VISA("485"),
     VISITOR("600"),
@@ -18,6 +19,10 @@ public enum VisaEnum {
     }
 
     public static VisaEnum fromString(String code) {
+        if (code == null) {
+            return VisaEnum.NONE;
+        }
+
         for (VisaEnum visaEnum : VisaEnum.values()) {
             if (visaEnum.getVisaCode().equalsIgnoreCase(code)) {
                 return visaEnum;

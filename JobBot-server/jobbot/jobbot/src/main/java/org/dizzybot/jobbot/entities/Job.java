@@ -1,16 +1,12 @@
 package org.dizzybot.jobbot.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.dizzybot.jobbot.enums.JobStatusEnum;
-import org.dizzybot.jobbot.enums.OutcomeStatusEnum;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -24,13 +20,17 @@ public class Job {
     @NotNull
     private String title;
 
+    @NotNull
+    private double pay;
+
+    @NotNull
+    private String location;
+
+    @NotNull
+    private LocalDateTime time;
+
+    @NotNull
     private String description;
-
-    @NotNull
-    private double remuneration;
-
-    @NotNull
-    private LocalDateTime time; // it currently for further inner analysis usage only
 
     private LocalDateTime expiredDate;
 
@@ -40,7 +40,7 @@ public class Job {
     @JoinColumn(name = "employer_id")
     private User employer;
 
-    @ManyToOne // to be clarified
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private User employee;
 
@@ -55,10 +55,13 @@ public class Job {
     public Job() {
     }
 
-    public Job(String title, double remuneration) {
+    public Job(String title, double pay, String location, LocalDateTime time, String description, User employer) {
         this.title = title;
-        this.remuneration = remuneration;
-        this.outcome = new Outcome();
+        this.pay = pay;
+        this.location = location;
+        this.time = time;
+        this.description = description;
+        this.employer = employer;
     }
 
 }
