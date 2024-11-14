@@ -10,6 +10,10 @@ spring:
         hibernate:
             ddl-auto: update
         show-sql: false
+    jackson:
+        date-format: yyyy-MM-dd'T'HH:mm:ss
+        serialization:
+            WRITE_DATES_AS_TIMESTAMPS: false
 
 logging:
     level:

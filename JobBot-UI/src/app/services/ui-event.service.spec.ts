@@ -20,6 +20,9 @@ describe('UIEventService', () => {
     uiEventService.getUiEventPool$().subscribe(spy);
     uiEventService.next(UIEventEnum.DISPLAY_AUTH_MODAL);
 
-    expect(spy).toHaveBeenCalledWith(UIEventEnum.DISPLAY_AUTH_MODAL);
+    expect(spy).toHaveBeenCalledWith({
+      UIEventEnum: UIEventEnum.DISPLAY_AUTH_MODAL,
+      config: undefined,
+    });
   });
 });

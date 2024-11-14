@@ -13,7 +13,14 @@
 .jb-modal-close-button {
   border: none;
   position: relative;
-  left: 1405px;
-  top: 15px;
+  left: 1375px;
+  top: 5px;
   padding: 0px !important;
+}
+
+.jb-modal-container {
+  position: relative;
+  width: 1500px;
+  height: 900px;
+  padding: 20px;
 }

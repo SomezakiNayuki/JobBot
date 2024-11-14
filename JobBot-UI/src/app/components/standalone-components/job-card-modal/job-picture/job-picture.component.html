@@ -1,0 +1,16 @@
+<div class="jb-job-picture-wrapper jb-bdr-r-50">
+  <div *ngFor="let pic of pictures">
+    <img class="jb-job-picture jb-bdr-r-50" [src]="pic" />
+  </div>
+  <button
+    *ngIf="isCreate"
+    class="jb-job-picture jb-bdr-r-50 jb-bg-clr-grey jb-bdr-wth-none jb-sd-el-inner"
+    [ngClass]="{ 'jb-job-picture-add-button': pictures.length == 0 }"
+  >
+    <div class="jb-job-picture-add jb-bdr-c jb-sd-el jb-bg-clr-white">
+      <div
+        class="jb-job-picture-add-icon jb-btn-l-sqr jb-icon jb-i-plus jb-icon-grey"
+      ></div>
+    </div>
+  </button>
+</div>

@@ -27,6 +27,7 @@ describe('MainPageComponent', () => {
             isLoggedIn: jasmine.createSpy(),
             logout: jasmine.createSpy(),
             getUser: jasmine.createSpy(),
+            autoLogin: jasmine.createSpy(),
           },
         },
       ],
@@ -82,6 +83,19 @@ describe('MainPageComponent', () => {
     });
   });
 
+  describe('openCreateJobModal', () => {
+    it('should emit UIEventEnum.DISPLAY_CREATE_JOB_MODAL and config { isCreate: true }', () => {
+      spyOn(uiEventService, 'next');
+
+      component.openCreateJobModal();
+
+      expect(uiEventService.next).toHaveBeenCalledWith(
+        UIEventEnum.DISPLAY_CREATE_JOB_MODAL,
+        { isCreate: true }
+      );
+    });
+  });
+
   describe('isUserLoggedIn', () => {
     it('should check if user is logged in', () => {
       userService.isLoggedIn.and.returnValue(true);
@@ -105,7 +119,7 @@ describe('MainPageComponent', () => {
 
   describe('getUserName', () => {
     it('should return username', () => {
-      let user: User = new User;
+      let user: User = new User();
       user.username = 'test username';
       userService.getUser.and.returnValue(user);
 

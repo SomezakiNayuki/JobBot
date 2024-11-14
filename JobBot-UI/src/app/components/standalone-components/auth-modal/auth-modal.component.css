@@ -1,23 +1,17 @@
-.jb-auth-form-container {
-  position: relative;
-  width: 1500px;
-  height: 900px;
-  padding: 20px;
-}
-
 .jb-auth-form-wrapper {
   position: absolute;
-  top: 25%;
+  top: 32.5%;
   left: 50%;
   width: 675px;
+  padding: 5px;
 }
 
 .jb-auth-submit-button {
   border: none;
   padding: 0px !important;
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 25px;
+  right: 25px;
 }
 
 .jb-auth-switch-button {
@@ -37,14 +31,14 @@
   height: 810px;
   position: absolute;
   left: 45%;
-  top: 0%;
+  top: 5%;
 }
 
 .jb-auth-logo {
   width: 380px;
   height: 380px;
   position: absolute;
-  top: 20%;
+  top: 25%;
   left: 10%;
   font-size: 100px;
 }

@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
+import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
 import UIEventEnum from 'src/enums/ui-event.enum';
 import { UIEventService } from 'src/app/services/ui-event.service';
-import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
 import { UserService } from 'src/app/services/user.service';
 
 describe('AuthModalComponent', () => {
@@ -58,7 +58,7 @@ describe('AuthModalComponent', () => {
   describe('ngOnInit', () => {
     it('should subscribe to UIEventService', () => {
       spyOn(uiEventService, 'getUiEventPool$').and.returnValue(
-        of(UIEventEnum.DISPLAY_AUTH_MODAL)
+        of({ UIEventEnum: UIEventEnum.DISPLAY_AUTH_MODAL })
       );
       spyOn(modalComponent, 'show');
       authModalComponent.ngOnInit();
@@ -161,7 +161,9 @@ describe('AuthModalComponent', () => {
 
       authModalComponent.onSubmit();
 
-      expect(authModalComponent.authFormGroup.get('any').reset).toHaveBeenCalled();
+      expect(
+        authModalComponent.authFormGroup.get('any').reset
+      ).toHaveBeenCalled();
       expect(userService.registerUser).toHaveBeenCalled();
     });
 
