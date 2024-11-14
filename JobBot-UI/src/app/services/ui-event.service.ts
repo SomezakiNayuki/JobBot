@@ -11,15 +11,19 @@ import UIEventEnum from 'src/enums/ui-event.enum';
   providedIn: 'root',
 })
 export class UIEventService {
-  private uiEventPool$: Subject<UIEventEnum> = new Subject<UIEventEnum>();
+  private uiEventPool$: Subject<{ UIEventEnum: UIEventEnum; config?: {} }> =
+    new Subject<{ UIEventEnum: UIEventEnum; config?: {} }>();
 
   constructor() {}
 
-  public getUiEventPool$(): Observable<UIEventEnum> {
+  public getUiEventPool$(): Observable<{
+    UIEventEnum: UIEventEnum;
+    config?: {};
+  }> {
     return this.uiEventPool$.asObservable();
   }
 
-  public next(uiEvent: UIEventEnum): void {
-    this.uiEventPool$.next(uiEvent);
+  public next(uiEvent: UIEventEnum, config?: {}): void {
+    this.uiEventPool$.next({ UIEventEnum: uiEvent, config: config });
   }
 }

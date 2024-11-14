@@ -5,90 +5,88 @@
 ></jb-modal>
 
 <ng-template #authModalTemplate>
-  <div class="jb-auth-form-container">
-    <div class="jb-auth-logo jb-ft-clr-teal">
-      <jb-avatar [text]="'JobBot'" [backgroundColor]="'#D9D9D9'"></jb-avatar>
-    </div>
-    <div class="jb-auth-container-bar jb-bg-clr-navy"></div>
-    <div class="jb-auth-form-wrapper">
-      <form [formGroup]="authFormGroup">
-        <jb-prompt
-          *ngIf="!!authResponseError"
-          [prompt]="authResponseError"
-        ></jb-prompt>
-        <div *ngIf="isLogin">
-          <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
-          <jb-input
-            [type]="'password'"
-            [placeholder]="'Password'"
-            formControlName="password"
-          ></jb-input>
-          <button class="btn btn-link jb-ft-classic jb-ft-clr-red">
-            Forget password or account?
-          </button>
-        </div>
-        <div *ngIf="!isLogin && !isRoleScreen">
-          <jb-input
-            [placeholder]="'Username'"
-            formControlName="username"
-          ></jb-input>
-          <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
-          <jb-input
-            [type]="'password'"
-            [placeholder]="'Password'"
-            formControlName="password"
-          ></jb-input>
-          <jb-input
-            [type]="'password'"
-            [placeholder]="'Re-enter password'"
-            formControlName="reEnterPassword"
-          ></jb-input>
-        </div>
-        <div *ngIf="isRoleScreen">
-          <jb-dropdown
-            [placeholder]="'Do you have unretricted working right?'"
-            [actionList]="['true', 'false']"
-            formControlName="workEligibility"
-          ></jb-dropdown>
-          <jb-dropdown
-            *ngIf="authFormGroup.get('workEligibility').value == 'false'"
-            [type]="'typeahead'"
-            [placeholder]="'Visa type'"
-            [actionList]="['500', '485']"
-            formControlName="visaType"
-          ></jb-dropdown>
-          <jb-input
-            [placeholder]="'ID card number'"
-            formControlName="idCardNumber"
-          ></jb-input>
-          <button
-            class="btn btn-link jb-ft-classic jb-ft-clr-red"
-            (click)="skipRoleScreenAndSubmit()"
-          >
-            Skip for now
-          </button>
-        </div>
-      </form>
-    </div>
-    <div class="jb-auth-func-group">
-      <button
-        type="button"
-        class="btn btn-link jb-auth-switch-button jb-ft-classic jb-ft-clr-teal"
-        (click)="switchLoginRegister()"
-      >
-        {{
-          isLogin
-            ? "Don't have an account? Register here"
-            : 'Already have an account? Login here'
-        }}
-      </button>
-      <button
-        (click)="onSubmit()"
-        type="submit"
-        class="btn btn-primary jb-auth-submit-button jb-btn-l-sqr jb-bdr-c jb-btn-clr-grey jb-btn-l-sqr jb-bdr-c"
-      >
-        <div class="jb-btn-l-sqr jb-icon jb-i-check jb-icon-orange"></div>
-      </button>
-    </div>
+  <div class="jb-auth-logo jb-ft-clr-teal">
+    <jb-avatar [text]="'JobBot'" [backgroundColor]="'#D9D9D9'"></jb-avatar>
+  </div>
+  <div class="jb-auth-container-bar jb-bg-clr-navy"></div>
+  <div class="jb-auth-form-wrapper">
+    <form [formGroup]="authFormGroup">
+      <jb-prompt
+        *ngIf="!!authResponseError"
+        [prompt]="authResponseError"
+      ></jb-prompt>
+      <div *ngIf="isLogin">
+        <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
+        <jb-input
+          [type]="'password'"
+          [placeholder]="'Password'"
+          formControlName="password"
+        ></jb-input>
+        <button class="btn btn-link jb-ft-classic jb-ft-clr-red">
+          Forget password or account?
+        </button>
+      </div>
+      <div *ngIf="!isLogin && !isRoleScreen">
+        <jb-input
+          [placeholder]="'Username'"
+          formControlName="username"
+        ></jb-input>
+        <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
+        <jb-input
+          [type]="'password'"
+          [placeholder]="'Password'"
+          formControlName="password"
+        ></jb-input>
+        <jb-input
+          [type]="'password'"
+          [placeholder]="'Re-enter password'"
+          formControlName="reEnterPassword"
+        ></jb-input>
+      </div>
+      <div *ngIf="isRoleScreen">
+        <jb-dropdown
+          [placeholder]="'Do you have unretricted working right?'"
+          [actionList]="['true', 'false']"
+          formControlName="workEligibility"
+        ></jb-dropdown>
+        <jb-dropdown
+          *ngIf="authFormGroup.get('workEligibility').value == 'false'"
+          [type]="'typeahead'"
+          [placeholder]="'Visa type'"
+          [actionList]="['500', '485']"
+          formControlName="visaType"
+        ></jb-dropdown>
+        <jb-input
+          [placeholder]="'ID card number'"
+          formControlName="idCardNumber"
+        ></jb-input>
+        <button
+          class="btn btn-link jb-ft-classic jb-ft-clr-red"
+          (click)="skipRoleScreenAndSubmit()"
+        >
+          Skip for now
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="jb-auth-func-group">
+    <button
+      type="button"
+      class="btn btn-link jb-auth-switch-button jb-ft-classic jb-ft-clr-teal"
+      (click)="switchLoginRegister()"
+    >
+      {{
+        isLogin
+          ? "Don't have an account? Register here"
+          : 'Already have an account? Login here'
+      }}
+    </button>
+    <button
+      (click)="onSubmit()"
+      type="submit"
+      class="btn btn-primary jb-auth-submit-button jb-btn-l-sqr jb-bdr-c jb-btn-clr-grey jb-btn-l-sqr"
+    >
+      <div class="jb-btn-l-sqr jb-icon jb-i-check jb-icon-orange"></div>
+    </button>
   </div>
 </ng-template>

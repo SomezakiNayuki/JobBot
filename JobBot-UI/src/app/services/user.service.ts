@@ -23,7 +23,10 @@ export class UserService {
       )
         .then((response) => {
           // TODO: Dev function, to be removed in PROD
-          this.saveSession(registerUserRequest.email, registerUserRequest.password);
+          this.saveSession(
+            registerUserRequest.email,
+            registerUserRequest.password
+          );
           this.preserveUser(response);
           return resolve(response);
         })
@@ -41,7 +44,10 @@ export class UserService {
       )
         .then((response) => {
           // TODO: Dev function, to be removed in PROD
-          this.saveSession(authenticateRequest.email, authenticateRequest.password);
+          this.saveSession(
+            authenticateRequest.email,
+            authenticateRequest.password
+          );
           this.preserveUser(response);
           return resolve(response);
         })
@@ -65,7 +71,7 @@ export class UserService {
     const email: string = sessionStorage.getItem('currentUserEmail');
     const password: string = sessionStorage.getItem('currentUserPassword');
     if (email && password) {
-      this.authenticateUser({email: email, password: password});
+      this.authenticateUser({ email: email, password: password });
     }
   }
 
@@ -78,13 +84,13 @@ export class UserService {
   }
 
   public fetchUser(userId: number): void {
-    firstValueFrom(
-      this.http.get(this.userApi.getGetUserURL(userId))
-    )
+    firstValueFrom(this.http.get(this.userApi.getGetUserURL(userId)))
       .then((response) => {
         this.cacheUser(response);
       })
-      .catch((error) => { console.error(error) });
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   private cacheUser(response: any) {

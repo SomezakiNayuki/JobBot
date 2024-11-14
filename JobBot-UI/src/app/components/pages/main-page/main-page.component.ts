@@ -35,6 +35,10 @@ export class MainPageComponent implements OnInit {
     this.uiEvent.next(UIEventEnum.DISPLAY_AUTH_MODAL);
   }
 
+  public openCreateJobModal(): void {
+    this.uiEvent.next(UIEventEnum.DISPLAY_CREATE_JOB_MODAL, { isCreate: true });
+  }
+
   public isUserLoggedIn(): boolean {
     return this.userService.isLoggedIn();
   }

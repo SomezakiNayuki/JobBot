@@ -2,7 +2,9 @@
   class="navbar navbar-expand-lg navbar-light bg-light jb-navbar jb-bg-clr-navy jb-ft-classic jb-sd-el"
 >
   <!-- Brand -->
-  <a (click)="openSideBar()" class="jb-navbar-brand jb-ft-clr-teal"> {{ isUserLoggedIn() ? 'Hi ' + getUserName() : 'JobBot' }} </a>
+  <a (click)="openSideBar()" class="jb-navbar-brand jb-ft-clr-teal">
+    {{ isUserLoggedIn() ? 'Hi ' + getUserName() : 'JobBot' }}
+  </a>
 
   <!-- AI search bar -->
   <input
@@ -13,6 +15,7 @@
   <!-- Functional buttons -->
   <a
     *ngIf="isUserLoggedIn()"
+    (click)="openCreateJobModal()"
     class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
     <div class="jb-sd-ft">+</div>
@@ -27,6 +30,7 @@
 </nav>
 
 <jb-auth-modal></jb-auth-modal>
+<jb-job-card-modal></jb-job-card-modal>
 
 <!-- Side bar -->
 <div
@@ -73,14 +77,16 @@
       class="btn btn-primary btn-lg active jb-sidebar-btn-collapse jb-btn-l-sqr jb-bdr-c jb-btn-clr-green jb-sd-el"
     >
       <div
-        class="jb-icon jb-i-fold-left jb-i-ctnr-fold-left jb-icon-black"
+        class="jb-icon jb-i-fold-left jb-i-container-fold-left jb-icon-black"
       ></div>
     </a>
     <a
       (click)="logout()"
       class="btn btn-primary btn-lg active jb-sidebar-btn-logoff jb-btn-l-sqr jb-bdr-c jb-btn-clr-pink jb-sd-el"
     >
-      <div class="jb-icon jb-i-sign-off jb-i-ctnr-sign-off jb-icon-black"></div>
+      <div
+        class="jb-icon jb-i-sign-off jb-i-container-sign-off jb-icon-black"
+      ></div>
     </a>
   </div>
 </div>

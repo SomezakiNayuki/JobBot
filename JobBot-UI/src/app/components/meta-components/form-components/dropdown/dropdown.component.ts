@@ -1,6 +1,7 @@
-import { BaseFormElementComponent } from 'src/app/components/meta-components/form-components/base-form-element.component';
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { BaseFormElementComponent } from 'src/app/components/meta-components/form-components/base-form-element.component';
 
 @Component({
   selector: 'jb-dropdown',

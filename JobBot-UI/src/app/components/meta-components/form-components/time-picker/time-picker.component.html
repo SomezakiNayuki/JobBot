@@ -1,0 +1,12 @@
+<div
+  class="form-control jb-time-picker jb-bdr-wth-none
+  {{
+    formControl?.invalid && formControl?.touched ? 'jb-form-bdr-warning' : ''
+  }}
+"
+>
+  <timepicker
+    [(ngModel)]="selectedTime"
+    (ngModelChange)="onTimeChange($event)"
+  ></timepicker>
+</div>

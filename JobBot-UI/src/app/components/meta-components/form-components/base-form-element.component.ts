@@ -3,12 +3,12 @@ import { Directive, Injector } from '@angular/core';
 
 @Directive()
 export class BaseFormElementComponent implements ControlValueAccessor {
-  protected value: any;
-  private onChange: Function = (_: any) => {};
-  private onTouched: Function = () => {};
-  private _ngControl: NgControl;
+  protected value: any = null;
+  protected onChange: Function = (_: any) => {};
+  protected onTouched: Function = () => {};
+  protected _ngControl: NgControl;
 
-  constructor(private injector: Injector) {}
+  constructor(public injector: Injector) {}
 
   public writeValue(value: any): void {
     this.value = value;

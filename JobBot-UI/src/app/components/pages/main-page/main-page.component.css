@@ -83,7 +83,7 @@
   border: 0px !important;
 }
 
-.jb-i-ctnr-stars {
+.jb-i-container-stars {
   height: 50px;
   width: 50px;
   position: fixed !important;
@@ -91,7 +91,7 @@
   top: 50px !important;
 }
 
-.jb-i-ctnr-fold-left {
+.jb-i-container-fold-left {
   height: 50px;
   width: 50px;
   position: fixed !important;
@@ -99,7 +99,7 @@
   bottom: 22.5px !important;
 }
 
-.jb-i-ctnr-sign-off {
+.jb-i-container-sign-off {
   height: 50px;
   width: 50px;
   position: fixed !important;

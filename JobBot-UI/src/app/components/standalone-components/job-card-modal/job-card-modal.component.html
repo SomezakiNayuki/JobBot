@@ -1,0 +1,35 @@
+<jb-modal #jbModal [template]="jobCardModalTemplate"></jb-modal>
+
+<ng-template #jobCardModalTemplate>
+  <jb-job-picture [isCreate]="isCreate"></jb-job-picture>
+  <div class="jb-modal-container-bar jb-bg-clr-navy"></div>
+  <div class="jb-job-detail-form-wrapper">
+    <jb-job-detail
+      #jbJobDetail
+      [isCreate]="isCreate"
+      (onCreateJobSuccess)="close()"
+    ></jb-job-detail>
+  </div>
+  <div class="jb-job-detail-func-group">
+    <div *ngIf="isCreate">
+      <!-- <button
+        (click)="onDiscard()"
+        class="btn btn-primary jb-job-discard-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-red jb-ft-pst-ctr jb-bdr-r-10"
+      >
+        <div class="jb-sd-ft">Discard</div>
+      </button> -->
+      <button
+        (click)="onSubmit()"
+        class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"
+      >
+        <div class="jb-sd-ft">Post</div>
+      </button>
+    </div>
+    <button
+      *ngIf="!isCreate"
+      class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"
+    >
+      <div class="jb-sd-ft">Accept</div>
+    </button>
+  </div>
+</ng-template>

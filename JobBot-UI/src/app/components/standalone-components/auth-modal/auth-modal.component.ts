@@ -40,8 +40,13 @@ export class AuthModalComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$) // Unsubscribe when component is destroyed, prevent memory leak
       )
-      .subscribe((event: UIEventEnum) => {
-        if (event == UIEventEnum.DISPLAY_AUTH_MODAL) {
+      .subscribe((event: { UIEventEnum; config? }) => {
+        if (event.UIEventEnum == UIEventEnum.DISPLAY_AUTH_MODAL) {
+          if (event.config) {
+            Object.keys(event.config).forEach((key) => {
+              this[key] = event.config[key];
+            });
+          }
           this.jbModal.show();
         }
       });
@@ -73,10 +78,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
       'workEligibility',
       new FormControl('', [Validators.required])
     );
-    this.authFormGroup.addControl(
-      'visaType',
-      new FormControl('')
-    );
+    this.authFormGroup.addControl('visaType', new FormControl(''));
     this.authFormGroup.addControl(
       'idCardNumber',
       new FormControl('', [Validators.required])
