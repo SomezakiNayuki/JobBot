@@ -49,7 +49,6 @@ export class JobDetailComponent implements OnInit {
         this.onPostSuccess();
       })
       .catch((error) => {
-        console.log('HENRY TEST' + ' ' + error.error.message);
         this.jobDetailFormError = error.error?.message;
       });
   }
