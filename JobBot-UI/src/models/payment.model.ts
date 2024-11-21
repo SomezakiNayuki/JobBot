@@ -9,7 +9,7 @@ export default class Payment {
   public payee: User;
   public status: PaymentStatusEnum;
 
-  public Payment() {}
+  constructor() {}
 
   // No getter setter required needed, directly assign value through public attributes.
 }

@@ -1,12 +1,20 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { Store } from '@ngrx/store';
 
 import { JobDetailComponent } from 'src/app/components/standalone-components/job-card-modal/job-detail/job-detail.component';
 import { JobService } from 'src/app/services/job.service';
+import { JobActions } from 'src/app/store/actions/job/job.actions';
 
 describe('JobDetailComponent', () => {
   let component: JobDetailComponent;
   let fixture: ComponentFixture<JobDetailComponent>;
   let jobService: jasmine.SpyObj<JobService>;
+  let mockStore: jasmine.SpyObj<Store>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,6 +26,12 @@ describe('JobDetailComponent', () => {
             postJob: jasmine.createSpy(),
           },
         },
+        {
+          provide: Store,
+          useValue: {
+            dispatch: jasmine.createSpy(),
+          },
+        },
       ],
     }).compileComponents();
 
@@ -26,6 +40,7 @@ describe('JobDetailComponent', () => {
     fixture.detectChanges();
 
     jobService = TestBed.inject(JobService) as jasmine.SpyObj<JobService>;
+    mockStore = TestBed.inject(Store) as jasmine.SpyObj<Store>;
   });
 
   it('should create', () => {
@@ -77,6 +92,19 @@ describe('JobDetailComponent', () => {
       expect(component.onCreateJobSuccess.emit).toHaveBeenCalled();
     }));
 
+    it('should dispatch fetchJob action on success post job', fakeAsync(() => {
+      setUpMockAuthFormValidity(true);
+      component.onCreateJobSuccess = jasmine.createSpyObj('EventEmitter', [], {
+        emit: jasmine.createSpy(),
+      });
+      jobService.postJob.and.returnValue(Promise.resolve());
+
+      component.submit();
+      tick();
+
+      expect(mockStore.dispatch).toHaveBeenCalledWith(JobActions.fetchJob());
+    }));
+
     it('should handle error message on fail post job', fakeAsync(() => {
       setUpMockAuthFormValidity(true);
       jobService.postJob.and.returnValue(
@@ -93,6 +121,16 @@ describe('JobDetailComponent', () => {
       expect(jobService.postJob).toHaveBeenCalled();
       expect(component.jobDetailFormError).toEqual('Error message');
     }));
+
+    describe('formatJobTime', () => {
+      it('should format job time correctly', () => {
+        const formattedTime: string = component.formatJobTime([
+          2024, 10, 31, 23, 0,
+        ]);
+
+        expect(formattedTime).toEqual('2024-10-31 23:00');
+      });
+    });
   });
 
   function setUpMockAuthFormValidity(valid: boolean) {

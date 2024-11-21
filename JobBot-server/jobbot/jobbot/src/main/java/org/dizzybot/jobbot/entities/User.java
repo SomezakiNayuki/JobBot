@@ -32,9 +32,11 @@ public class User {
     @NotNull
     public String email;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     public Role role;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     public UserProfile userProfile;
 

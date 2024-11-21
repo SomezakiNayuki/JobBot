@@ -10,7 +10,7 @@ export default class Role {
 
   public user: User;
 
-  public Role() {}
+  constructor() {}
 
   // No getter setter required needed, directly assign value through public attributes.
 

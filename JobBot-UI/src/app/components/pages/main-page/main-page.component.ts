@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import UIEventEnum from 'src/enums/ui-event.enum';
-import { UIEventService } from 'src/app/services/ui-event.service';
+import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
+import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,12 +10,12 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
+  @ViewChild(AuthModalComponent) authModal: AuthModalComponent;
+  @ViewChild(JobCardModalComponent) jobCardModal: JobCardModalComponent;
+
   public isSideBarEnabled: boolean = false;
 
-  constructor(
-    private readonly uiEvent: UIEventService,
-    private readonly userService: UserService
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   public ngOnInit(): void {
     // TODO: Dev function, to be removed in PROD
@@ -32,11 +32,11 @@ export class MainPageComponent implements OnInit {
   }
 
   public openAuthModal(): void {
-    this.uiEvent.next(UIEventEnum.DISPLAY_AUTH_MODAL);
+    this.authModal.show();
   }
 
   public openCreateJobModal(): void {
-    this.uiEvent.next(UIEventEnum.DISPLAY_CREATE_JOB_MODAL, { isCreate: true });
+    this.jobCardModal.show();
   }
 
   public isUserLoggedIn(): boolean {

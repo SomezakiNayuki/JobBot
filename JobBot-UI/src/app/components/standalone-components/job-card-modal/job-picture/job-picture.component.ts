@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class JobPictureComponent implements OnInit {
   @Input()
   public isCreate: boolean = false;
+  @Input()
+  public isBlank: boolean = false;
 
   public pictures: string[] = [
     'https://lexisenglish.com/wp-content/uploads/2018/12/job.jpg',

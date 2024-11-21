@@ -22,3 +22,11 @@
 .jb-detail-description {
   font-size: 200%;
 }
+
+.jb-detail-card {
+  position: relative;
+  top: 255px;
+  left: 25px;
+  font-size: 65%;
+  text-align: left;
+}

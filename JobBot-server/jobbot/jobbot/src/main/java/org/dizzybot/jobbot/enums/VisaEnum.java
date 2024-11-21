@@ -19,7 +19,7 @@ public enum VisaEnum {
     }
 
     public static VisaEnum fromString(String code) {
-        if (code == null) {
+        if (code == null || code.equals("")) {
             return VisaEnum.NONE;
         }
 

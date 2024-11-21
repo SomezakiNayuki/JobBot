@@ -1,13 +1,14 @@
 <div class="jb-jobcard-container">
-  <div class="jb-jobcard-column-1">
-    <jb-job-card></jb-job-card>
-    <jb-job-card></jb-job-card>
-    <jb-job-card></jb-job-card>
+  <div class="jb-jobcard-column-left">
+    <div *ngFor="let job of jobListLeft">
+      <jb-job-card [job]="job"></jb-job-card>
+    </div>
   </div>
-  <div class="jb-jobcard-column-2">
-    <jb-job-card></jb-job-card>
-    <jb-job-card></jb-job-card>
-    <jb-job-card></jb-job-card>
+  <div class="jb-jobcard-column-right">
+    <jb-job-card [blank]="true" *ngIf="jobListRight?.length > 0"></jb-job-card>
+    <div *ngFor="let job of jobListRight">
+      <jb-job-card [job]="job"></jb-job-card>
+    </div>
   </div>
   <!-- Here we need a standalone component to support multi-option switch button -->
 </div>

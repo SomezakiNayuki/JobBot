@@ -1,5 +1,6 @@
 package org.dizzybot.jobbot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class Job {
     @NotNull
     private String description;
 
+    @JsonIgnore
     private LocalDateTime expiredDate;
 
     private JobStatusEnum jobStatusEnum;

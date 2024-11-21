@@ -15,7 +15,7 @@ export default class UserProfile {
 
   public user: User;
 
-  public UserProfile() {}
+  constructor() {}
 
   // No getter setter required until needed, directly assign value through public attributes.
 }

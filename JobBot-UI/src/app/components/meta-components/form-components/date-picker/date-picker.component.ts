@@ -41,10 +41,10 @@ export class DatePickerComponent
     return (
       date.getFullYear().toString() +
       '-' +
-      (date.getUTCMonth() + 1).toString().padStart(2, '0') +
+      (date.getMonth() + 1).toString().padStart(2, '0') +
       '-' + // Month is zero-indexed, so add 1
-      date.getUTCDate().toString().padStart(2, '0')
-    ); // getUTCDate() for the day of the month
+      date.getDate().toString().padStart(2, '0')
+    ); // getDate() for the day of the month
   }
 
   public override writeValue(value: any): void {

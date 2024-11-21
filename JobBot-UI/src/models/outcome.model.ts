@@ -7,7 +7,7 @@ export default class Outcome {
   public description: string;
   public status: OutcomeStatusEnum;
 
-  public Outcome() {}
+  constructor() {}
 
   // No getter setter required needed, directly assign value through public attributes.
 

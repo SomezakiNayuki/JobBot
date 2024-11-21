@@ -2,5 +2,12 @@
   (click)="openCreateJobModal()"
   class="card jb-jobcard jb-bg-clr-beige jb-bdr-r-50 jb-sd-el-inner-upper-solid"
 >
-  <div class="card-body jb-ft-classic" style="font-size: xxx-large">Job</div>
+  <div *ngIf="blank">
+    <div class="card-body jb-ft-classic" style="font-size: xxx-large">Job</div>
+  </div>
+  <div *ngIf="!blank">
+    <jb-job-picture [isBlank]="true"></jb-job-picture>
+    <jb-job-detail [job]="job" [isBlank]="true"></jb-job-detail>
+  </div>
 </button>
+<jb-job-card-modal [isCreate]="false" [job]="job"></jb-job-card-modal>

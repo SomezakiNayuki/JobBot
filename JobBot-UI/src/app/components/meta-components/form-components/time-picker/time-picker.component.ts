@@ -35,7 +35,7 @@ export class TimePickerComponent
 
   private formTime(hour: number, minute: number): string {
     let hourString: string =
-      hour < 12 ? '0' + hour.toString() : hour.toString();
+      hour < 10 ? '0' + hour.toString() : hour.toString();
     let minuteString: string =
       minute < 10 ? '0' + minute.toString() : minute.toString();
 

@@ -6,13 +6,13 @@ export default class User {
   public id: number;
   public username: string;
   public email: string;
-  public role: Role;
-  public userProfile: UserProfile;
+  public role?: Role;
+  public userProfile?: UserProfile;
   // public jobPosted: Job[];
   // public jobAccepted: Job[];
   // public account: Account;
 
-  public User() {}
+  constructor() {}
 
   // No getter setter required needed, directly assign value through public attributes.
 }

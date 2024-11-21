@@ -28,20 +28,22 @@
       ></jb-textarea>
     </div>
   </form>
-  <div *ngIf="!isCreate">
-    <p class="jb-ft-classic jb-detail-title jb-mtmb-0">Job title</p>
-    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">$Pay</p>
-    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">Location</p>
-    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">Time</p>
-    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">Description:</p>
-    <p class="jb-ft-normal jb-detail-description jb-mtmb-0">
-      xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
-      xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
-      xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
-      xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
-      xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
-      xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
-      xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
+  <div *ngIf="!isCreate" [ngClass]="{ 'jb-detail-card': isBlank }">
+    <p class="jb-ft-classic jb-detail-title jb-mtmb-0">
+      {{ 'Title: ' + job?.title }}
     </p>
+    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">{{ '$' + job?.pay }}</p>
+    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
+      {{ 'Location: ' + job?.location }}
+    </p>
+    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
+      {{ 'Time: ' + formatJobTime(job?.time) }}
+    </p>
+    <div *ngIf="!isBlank">
+      <p class="jb-ft-classic jb-detail-info jb-mtmb-0">Description:</p>
+      <p class="jb-ft-normal jb-detail-description jb-mtmb-0">
+        {{ job?.description }}
+      </p>
+    </div>
   </div>
 </div>

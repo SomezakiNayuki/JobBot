@@ -20,6 +20,17 @@
   margin-bottom: 15px;
 }
 
+.jb-job-picture-card {
+  object-fit: cover;
+  width: 440px;
+  height: 220px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  position: relative;
+  top: -15px;
+  left: -125px;
+}
+
 .jb-job-picture-add {
   position: relative;
   left: 42.5%;

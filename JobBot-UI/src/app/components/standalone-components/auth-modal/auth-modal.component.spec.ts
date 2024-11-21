@@ -1,17 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
 
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
 import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
-import UIEventEnum from 'src/enums/ui-event.enum';
-import { UIEventService } from 'src/app/services/ui-event.service';
 import { UserService } from 'src/app/services/user.service';
 
 describe('AuthModalComponent', () => {
   let authModalComponent: AuthModalComponent;
   let fixture: ComponentFixture<AuthModalComponent>;
-  let uiEventService: UIEventService;
   let modalComponent: ModalComponent;
   let userService: jasmine.SpyObj<UserService>;
 
@@ -47,7 +43,6 @@ describe('AuthModalComponent', () => {
 
     modalComponent = TestBed.createComponent(ModalComponent).componentInstance;
     authModalComponent.jbModal = modalComponent;
-    uiEventService = TestBed.inject(UIEventService);
     userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
   });
 
@@ -56,17 +51,6 @@ describe('AuthModalComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should subscribe to UIEventService', () => {
-      spyOn(uiEventService, 'getUiEventPool$').and.returnValue(
-        of({ UIEventEnum: UIEventEnum.DISPLAY_AUTH_MODAL })
-      );
-      spyOn(modalComponent, 'show');
-      authModalComponent.ngOnInit();
-
-      expect(uiEventService.getUiEventPool$).toHaveBeenCalled();
-      expect(modalComponent.show).toHaveBeenCalled();
-    });
-
     it('should init auth form', () => {
       authModalComponent.authFormGroup = null;
 
@@ -76,15 +60,13 @@ describe('AuthModalComponent', () => {
     });
   });
 
-  describe('ngOnDestroy', () => {
-    it('should emit destroy$', () => {
-      spyOn(authModalComponent['destroy$'], 'next');
-      spyOn(authModalComponent['destroy$'], 'complete');
+  describe('show', () => {
+    it('should call modal component show()', () => {
+      authModalComponent.jbModal.show = jasmine.createSpy();
 
-      authModalComponent.ngOnDestroy();
+      authModalComponent.show();
 
-      expect(authModalComponent['destroy$'].next).toHaveBeenCalled();
-      expect(authModalComponent['destroy$'].complete).toHaveBeenCalled();
+      expect(authModalComponent.jbModal.show).toHaveBeenCalled();
     });
   });
 
