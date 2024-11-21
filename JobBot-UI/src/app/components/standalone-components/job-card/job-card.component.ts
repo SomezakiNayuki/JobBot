@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
-import { UIEventService } from 'src/app/services/ui-event.service';
-import UIEventEnum from 'src/enums/ui-event.enum';
+import Job from 'src/models/job.model';
+import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
 
 @Component({
   selector: 'jb-job-card',
@@ -9,13 +9,22 @@ import UIEventEnum from 'src/enums/ui-event.enum';
   styleUrls: ['./job-card.component.css'],
 })
 export class JobCardComponent implements OnInit {
-  constructor(private readonly uiEvent: UIEventService) {}
+  @ViewChild(JobCardModalComponent) jobCardModal: JobCardModalComponent;
+
+  @Input()
+  public blank: boolean = false;
+  @Input()
+  public job: Job;
+
+  constructor() {}
 
   public ngOnInit(): void {}
 
   public openCreateJobModal(): void {
-    this.uiEvent.next(UIEventEnum.DISPLAY_CREATE_JOB_MODAL, {
-      isCreate: false,
-    });
+    if (this.blank) {
+      return;
+    }
+
+    this.jobCardModal.show();
   }
 }

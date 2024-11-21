@@ -5,14 +5,14 @@
   left: calc(50% - 750px);
 }
 
-.jb-jobcard-column-1 {
+.jb-jobcard-column-left {
   width: 500px;
   position: absolute;
   left: 235px;
   display: inline-block;
 }
 
-.jb-jobcard-column-2 {
+.jb-jobcard-column-right {
   width: 500px;
   position: absolute;
   left: 750px;

@@ -26,6 +26,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
+// NgRx store dependencis
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
+import { JobEffects } from 'src/app/store/effects/job/job.effects';
+import { reducers } from 'src/app/store/reducers';
+
 @NgModule({
   // Please order alphabetically
   declarations: [
@@ -59,6 +66,10 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
+
+    // NgRx store dependencis
+    EffectsModule.forRoot([JobEffects]),
+    StoreModule.forRoot(reducers),
   ],
   providers: [],
   bootstrap: [AppComponent],

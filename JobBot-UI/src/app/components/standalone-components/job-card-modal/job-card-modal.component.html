@@ -1,11 +1,11 @@
-<jb-modal #jbModal [template]="jobCardModalTemplate"></jb-modal>
+<jb-modal [template]="jobCardModalTemplate"></jb-modal>
 
 <ng-template #jobCardModalTemplate>
   <jb-job-picture [isCreate]="isCreate"></jb-job-picture>
   <div class="jb-modal-container-bar jb-bg-clr-navy"></div>
   <div class="jb-job-detail-form-wrapper">
     <jb-job-detail
-      #jbJobDetail
+      [job]="job"
       [isCreate]="isCreate"
       (onCreateJobSuccess)="close()"
     ></jb-job-detail>

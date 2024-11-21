@@ -7,14 +7,15 @@ export default class Job {
   public id: number;
   public title: string;
   public description: string;
-  public renumeration: number;
-  public time: Date;
-  public status: JobStatusEnum;
+  public location: string;
+  public pay: number;
+  public time: number[];
+  public jobStatusEnum: JobStatusEnum;
   public employer: User;
   public employee: User;
   public outcome: Outcome;
 
-  public Job() {}
+  constructor() {}
 
   // No getter setter required needed, directly assign value through public attributes.
 }

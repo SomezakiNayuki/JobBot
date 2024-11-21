@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 import { JobService } from 'src/app/services/job.service';
+import Job from 'src/models/job.model';
+import { JobActions } from 'src/app/store/actions/job/job.actions';
 
 @Component({
   selector: 'jb-job-detail',
@@ -11,6 +14,10 @@ import { JobService } from 'src/app/services/job.service';
 export class JobDetailComponent implements OnInit {
   @Input()
   public isCreate: boolean = false;
+  @Input()
+  public isBlank: boolean = false;
+  @Input()
+  public job: Job;
 
   @Output()
   public onCreateJobSuccess: EventEmitter<any> = new EventEmitter<any>();
@@ -18,7 +25,10 @@ export class JobDetailComponent implements OnInit {
   public jobDetailForm: FormGroup;
   public jobDetailFormError: string;
 
-  constructor(private readonly jobService: JobService) {}
+  constructor(
+    private readonly jobService: JobService,
+    private readonly store: Store
+  ) {}
 
   public ngOnInit(): void {
     if (this.isCreate) {
@@ -55,5 +65,19 @@ export class JobDetailComponent implements OnInit {
 
   private onPostSuccess(): void {
     this.onCreateJobSuccess.emit();
+    this.store.dispatch(JobActions.fetchJob());
+  }
+
+  public formatJobTime(jobTime: any): string {
+    if (jobTime == null) {
+      return '';
+    }
+
+    const date: string = `${jobTime[0]}-${jobTime[1]}-${jobTime[2]}`;
+    const time: string =
+      (jobTime[3] < 10 ? `0${jobTime[3]}` : `${jobTime[3]}`) +
+      ':' +
+      (jobTime[4] < 10 ? `0${jobTime[4]}` : `${jobTime[4]}`);
+    return date + ' ' + time;
   }
 }

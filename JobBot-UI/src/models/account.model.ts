@@ -9,7 +9,7 @@ export default class Account {
   public accountBalance: number;
   public paymentHistory: Payment[];
 
-  public Account() {}
+  constructor() {}
 
   // No getter setter required needed, directly assign value through public attributes.
 }

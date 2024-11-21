@@ -46,7 +46,10 @@ describe('JobService', () => {
 
       service.postJob({});
 
-      expect(http.post).toHaveBeenCalledWith('testUrl', { time: 'undefined undefined', userId: 1 });
+      expect(http.post).toHaveBeenCalledWith('testUrl', {
+        time: 'undefined undefined',
+        userId: 1,
+      });
       expect(jobApi.getCreateJobURL).toHaveBeenCalled();
     });
   });

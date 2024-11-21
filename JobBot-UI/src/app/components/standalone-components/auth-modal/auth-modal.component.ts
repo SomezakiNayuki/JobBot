@@ -1,15 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
 
 import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
-import UIEventEnum from 'src/enums/ui-event.enum';
-import { UIEventService } from 'src/app/services/ui-event.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,8 +14,8 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './auth-modal.component.html',
   styleUrls: ['./auth-modal.component.css'],
 })
-export class AuthModalComponent implements OnInit, OnDestroy {
-  @ViewChild('jbModal') jbModal: ModalComponent;
+export class AuthModalComponent implements OnInit {
+  @ViewChild(ModalComponent) jbModal: ModalComponent;
 
   public authFormGroup: FormGroup;
   public authResponseError: string;
@@ -26,35 +23,14 @@ export class AuthModalComponent implements OnInit, OnDestroy {
   public isRoleScreen: boolean = false;
   private skipRoleScreen: boolean = false;
 
-  private destroy$: Subject<void> = new Subject<void>();
-
-  constructor(
-    private readonly uiEventService: UIEventService,
-    private readonly userService: UserService
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   public ngOnInit(): void {
     this.initAuthForm();
-    this.uiEventService
-      .getUiEventPool$()
-      .pipe(
-        takeUntil(this.destroy$) // Unsubscribe when component is destroyed, prevent memory leak
-      )
-      .subscribe((event: { UIEventEnum; config? }) => {
-        if (event.UIEventEnum == UIEventEnum.DISPLAY_AUTH_MODAL) {
-          if (event.config) {
-            Object.keys(event.config).forEach((key) => {
-              this[key] = event.config[key];
-            });
-          }
-          this.jbModal.show();
-        }
-      });
   }
 
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  public show(): void {
+    this.jbModal.show();
   }
 
   public switchLoginRegister(): void {

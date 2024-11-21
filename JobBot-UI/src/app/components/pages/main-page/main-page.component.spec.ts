@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
+import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
 import { MainPageComponent } from 'src/app/components/pages/main-page/main-page.component';
-import { UIEventService } from 'src/app/services/ui-event.service';
-import UIEventEnum from 'src/enums/ui-event.enum';
 import User from 'src/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,7 +11,8 @@ describe('MainPageComponent', () => {
   let component: MainPageComponent;
   let fixture: ComponentFixture<MainPageComponent>;
   let userService: jasmine.SpyObj<UserService>;
-  let uiEventService: UIEventService;
+  let authModal: AuthModalComponent;
+  let jobCardModal: JobCardModalComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -37,8 +38,13 @@ describe('MainPageComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    authModal = TestBed.createComponent(AuthModalComponent).componentInstance;
+    component.authModal = authModal;
+    jobCardModal = TestBed.createComponent(
+      JobCardModalComponent
+    ).componentInstance;
+    component.jobCardModal = jobCardModal;
     userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
-    uiEventService = TestBed.inject(UIEventService);
   });
 
   it('should create', () => {
@@ -72,27 +78,22 @@ describe('MainPageComponent', () => {
   });
 
   describe('openAuthModal', () => {
-    it('should emit UIEventEnum.DISPLAY_AUTH_MODAL', () => {
-      spyOn(uiEventService, 'next');
+    it('should call authModal show()', () => {
+      spyOn(authModal, 'show');
 
       component.openAuthModal();
 
-      expect(uiEventService.next).toHaveBeenCalledWith(
-        UIEventEnum.DISPLAY_AUTH_MODAL
-      );
+      expect(component.authModal.show).toHaveBeenCalledWith();
     });
   });
 
   describe('openCreateJobModal', () => {
-    it('should emit UIEventEnum.DISPLAY_CREATE_JOB_MODAL and config { isCreate: true }', () => {
-      spyOn(uiEventService, 'next');
+    it('should call jobCardModal show()', () => {
+      spyOn(jobCardModal, 'show');
 
       component.openCreateJobModal();
 
-      expect(uiEventService.next).toHaveBeenCalledWith(
-        UIEventEnum.DISPLAY_CREATE_JOB_MODAL,
-        { isCreate: true }
-      );
+      expect(component.jobCardModal.show).toHaveBeenCalledWith();
     });
   });
 

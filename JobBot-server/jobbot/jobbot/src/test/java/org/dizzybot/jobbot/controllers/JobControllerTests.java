@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(JobController.class)
 public class JobControllerTests {
@@ -63,6 +63,15 @@ public class JobControllerTests {
 
         resultActions.andExpect(status().isCreated())
                 .andExpect(content().json("{\"status\":\"success\",\"message\":\"Job created\"}"));
+    }
+
+    @Test
+    public void testGetJob() throws Exception {
+        ResultActions resultActions = mockMvc.perform(get("/api/job/get"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isArray());
     }
 
 }
