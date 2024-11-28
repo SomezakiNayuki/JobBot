@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.dizzybot.jobbot.enums.JobStatusEnum;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,9 +31,13 @@ public class Job {
 
     @NotNull
     private LocalDateTime time;
-
+    
     @NotNull
     private String description;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
+    private List<JobImage> images = new ArrayList<>();
 
     @JsonIgnore
     private LocalDateTime expiredDate;
