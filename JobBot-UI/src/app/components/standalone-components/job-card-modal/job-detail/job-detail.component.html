@@ -1,5 +1,5 @@
 <div class="jb-job-detail-wrapper">
-  <form *ngIf="isCreate" [formGroup]="jobDetailForm">
+  <form *ngIf="createMode" [formGroup]="jobDetailForm">
     <jb-prompt
       *ngIf="!!jobDetailFormError"
       [prompt]="jobDetailFormError"
@@ -28,7 +28,7 @@
       ></jb-textarea>
     </div>
   </form>
-  <div *ngIf="!isCreate" [ngClass]="{ 'jb-detail-card': isBlank }">
+  <div *ngIf="!createMode" [ngClass]="{ 'jb-detail-card': jobCardMode }">
     <p class="jb-ft-classic jb-detail-title jb-mtmb-0">
       {{ 'Title: ' + job?.title }}
     </p>
@@ -39,7 +39,7 @@
     <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
       {{ 'Time: ' + formatJobTime(job?.time) }}
     </p>
-    <div *ngIf="!isBlank">
+    <div *ngIf="!jobCardMode">
       <p class="jb-ft-classic jb-detail-info jb-mtmb-0">Description:</p>
       <p class="jb-ft-normal jb-detail-description jb-mtmb-0">
         {{ job?.description }}

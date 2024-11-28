@@ -12,8 +12,6 @@ export class JobCardComponent implements OnInit {
   @ViewChild(JobCardModalComponent) jobCardModal: JobCardModalComponent;
 
   @Input()
-  public blank: boolean = false;
-  @Input()
   public job: Job;
 
   constructor() {}
@@ -21,10 +19,6 @@ export class JobCardComponent implements OnInit {
   public ngOnInit(): void {}
 
   public openCreateJobModal(): void {
-    if (this.blank) {
-      return;
-    }
-
     this.jobCardModal.show();
   }
 }

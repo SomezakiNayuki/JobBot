@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
+import { MockStore } from '@ngrx/store/testing';
 
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
@@ -31,6 +33,10 @@ describe('MainPageComponent', () => {
             autoLogin: jasmine.createSpy(),
           },
         },
+        {
+          provide: Store,
+          useValue: MockStore,
+        }
       ],
     }).compileComponents();
 

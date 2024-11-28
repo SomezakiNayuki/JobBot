@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { JobCardComponent } from 'src/app/components/standalone-components/job-card/job-card.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
@@ -11,6 +12,7 @@ describe('JobCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [JobCardComponent],
+      providers: [provideMockStore({})],
     }).compileComponents();
 
     fixture = TestBed.createComponent(JobCardComponent);

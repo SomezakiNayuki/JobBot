@@ -8,13 +8,11 @@ import { Store } from '@ngrx/store';
 
 import { JobDetailComponent } from 'src/app/components/standalone-components/job-card-modal/job-detail/job-detail.component';
 import { JobService } from 'src/app/services/job.service';
-import { JobActions } from 'src/app/store/actions/job/job.actions';
 
 describe('JobDetailComponent', () => {
   let component: JobDetailComponent;
   let fixture: ComponentFixture<JobDetailComponent>;
   let jobService: jasmine.SpyObj<JobService>;
-  let mockStore: jasmine.SpyObj<Store>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -40,7 +38,6 @@ describe('JobDetailComponent', () => {
     fixture.detectChanges();
 
     jobService = TestBed.inject(JobService) as jasmine.SpyObj<JobService>;
-    mockStore = TestBed.inject(Store) as jasmine.SpyObj<Store>;
   });
 
   it('should create', () => {
@@ -48,8 +45,8 @@ describe('JobDetailComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should init job form if isCreate is true', () => {
-      component.isCreate = true;
+    it('should init job form if createMode is true', () => {
+      component.createMode = true;
       component.initJobForm();
 
       expect(component.jobDetailForm.get('jobTitle')).not.toEqual(null);
@@ -71,7 +68,9 @@ describe('JobDetailComponent', () => {
 
     it('should post job', () => {
       setUpMockAuthFormValidity(true);
-      jobService.postJob.and.returnValue(Promise.resolve());
+      jobService.postJob.and.returnValue(Promise.resolve({
+        payload: 1,
+      }));
 
       component.submit();
 
@@ -83,26 +82,15 @@ describe('JobDetailComponent', () => {
       component.onCreateJobSuccess = jasmine.createSpyObj('EventEmitter', [], {
         emit: jasmine.createSpy(),
       });
-      jobService.postJob.and.returnValue(Promise.resolve());
+      jobService.postJob.and.returnValue(Promise.resolve({
+        payload: 1,
+      }));
 
       component.submit();
       tick();
 
       expect(jobService.postJob).toHaveBeenCalled();
-      expect(component.onCreateJobSuccess.emit).toHaveBeenCalled();
-    }));
-
-    it('should dispatch fetchJob action on success post job', fakeAsync(() => {
-      setUpMockAuthFormValidity(true);
-      component.onCreateJobSuccess = jasmine.createSpyObj('EventEmitter', [], {
-        emit: jasmine.createSpy(),
-      });
-      jobService.postJob.and.returnValue(Promise.resolve());
-
-      component.submit();
-      tick();
-
-      expect(mockStore.dispatch).toHaveBeenCalledWith(JobActions.fetchJob());
+      expect(component.onCreateJobSuccess.emit).toHaveBeenCalledWith(1);
     }));
 
     it('should handle error message on fail post job', fakeAsync(() => {

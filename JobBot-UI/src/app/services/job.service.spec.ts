@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 
-import { JobService } from 'src/app/services/job.service';
 import { JobApiService } from 'src/app/services/server-routes/job-api/job-api.service';
+import { JobService } from 'src/app/services/job.service';
 import { UserService } from './user.service';
 
 describe('JobService', () => {
@@ -17,6 +17,9 @@ describe('JobService', () => {
           provide: HttpClient,
           useValue: {
             post: jasmine.createSpy().and.returnValue({
+              subscribe: jasmine.createSpy(),
+            }),
+            get: jasmine.createSpy().and.returnValue({
               subscribe: jasmine.createSpy(),
             }),
           },
@@ -51,6 +54,39 @@ describe('JobService', () => {
         userId: 1,
       });
       expect(jobApi.getCreateJobURL).toHaveBeenCalled();
+    });
+  });
+
+  describe('getJob', () => {
+    it('should call getGetJobURL', () => {
+      spyOn(jobApi, 'getGetJobURL').and.returnValue('testUrl');
+
+      service.getJob();
+
+      expect(http.get).toHaveBeenCalledWith('testUrl');
+      expect(jobApi.getGetJobURL).toHaveBeenCalled();
+    });
+  });
+
+  describe('uploadImage', () => {
+    it('should call getUploadImageURL', () => {
+      spyOn(jobApi, 'getUploadImageURL').and.returnValue('testUrl');
+
+      service.uploadImage(1, {} as File);
+
+      expect(http.post).toHaveBeenCalledWith('testUrl', new FormData());
+      expect(jobApi.getUploadImageURL).toHaveBeenCalledWith(1);
+    });
+  });
+
+  describe('getJobImages', () => {
+    it('should call getGetJobImageURL', () => {
+      spyOn(jobApi, 'getGetJobImageURL').and.returnValue('testUrl');
+
+      service.getJobImages(1);
+
+      expect(http.get).toHaveBeenCalledWith('testUrl');
+      expect(jobApi.getGetJobImageURL).toHaveBeenCalledWith(1);
     });
   });
 });
