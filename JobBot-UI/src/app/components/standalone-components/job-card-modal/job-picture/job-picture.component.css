@@ -1,4 +1,4 @@
-.jb-job-picture-wrapper {
+.jb-job-pictures-wrapper {
   width: 690px;
   height: 840px;
   overflow-y: scroll;
@@ -8,12 +8,12 @@
 }
 
 /* Hide scrollbar in WebKit browsers */
-.jb-job-picture-wrapper::-webkit-scrollbar {
+.jb-job-pictures-wrapper::-webkit-scrollbar {
   display: none;
 }
 
 .jb-job-picture {
-  object-fit: cover;
+  object-fit: contain;
   width: 690px;
   height: 450px;
   margin-top: 15px;
@@ -44,7 +44,23 @@
   top: 10%;
 }
 
-.jb-job-picture-add-button {
-  position: relative;
+.jb-job-picture-wrapper {
+  margin-top: -100px;
+}
+
+.jb-job-picture-center {
+  position: absolute;
   top: 20%;
+}
+
+.jb-job-picture-delete-button {
+  border: none;
+  position: relative;
+  top: 115px;
+  left: 600px;
+}
+
+.jb-job-picture-delete-button-icon {
+  position: relative;
+  left: -5px;
 }

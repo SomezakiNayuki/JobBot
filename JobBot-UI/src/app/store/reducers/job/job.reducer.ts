@@ -4,7 +4,10 @@ import { JobActions } from 'src/app/store/actions/job/job.actions';
 import { JobState } from 'src/app/store/states/job/job.state';
 
 const initialState: JobState = {
-  jobs: [],
+  jobs: {
+    left: [],
+    right: [],
+  },
 };
 
 export const JobReducer = createReducer(
@@ -12,6 +15,9 @@ export const JobReducer = createReducer(
   on(JobActions.fetchJob, (state) => ({ ...state })),
   on(JobActions.fetchJobSuccess, (state, { jobs }) => ({
     ...state,
-    jobs,
-  }))
+    jobs: {
+      left: jobs.left,
+      right: jobs.right,
+    },
+  })),
 );

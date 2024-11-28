@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 
-import { JobService } from 'src/app/services/job.service';
 import Job from 'src/models/job.model';
-import { JobActions } from 'src/app/store/actions/job/job.actions';
+import { JobService } from 'src/app/services/job.service';
 
 @Component({
   selector: 'jb-job-detail',
@@ -13,25 +11,24 @@ import { JobActions } from 'src/app/store/actions/job/job.actions';
 })
 export class JobDetailComponent implements OnInit {
   @Input()
-  public isCreate: boolean = false;
+  public createMode: boolean = false;
   @Input()
-  public isBlank: boolean = false;
+  public jobCardMode: boolean = false;
   @Input()
   public job: Job;
 
   @Output()
-  public onCreateJobSuccess: EventEmitter<any> = new EventEmitter<any>();
+  public onCreateJobSuccess: EventEmitter<number> = new EventEmitter<number>();
 
   public jobDetailForm: FormGroup;
   public jobDetailFormError: string;
 
   constructor(
     private readonly jobService: JobService,
-    private readonly store: Store
   ) {}
 
   public ngOnInit(): void {
-    if (this.isCreate) {
+    if (this.createMode) {
       this.initJobForm();
     }
   }
@@ -55,17 +52,16 @@ export class JobDetailComponent implements OnInit {
 
     this.jobService
       .postJob(this.jobDetailForm.value)
-      .then(() => {
-        this.onPostSuccess();
+      .then(response => {
+        this.onPostSuccess(response.payload);
       })
       .catch((error) => {
         this.jobDetailFormError = error.error?.message;
       });
   }
 
-  private onPostSuccess(): void {
-    this.onCreateJobSuccess.emit();
-    this.store.dispatch(JobActions.fetchJob());
+  private onPostSuccess(jobId: number): void {
+    this.onCreateJobSuccess.emit(jobId);
   }
 
   public formatJobTime(jobTime: any): string {

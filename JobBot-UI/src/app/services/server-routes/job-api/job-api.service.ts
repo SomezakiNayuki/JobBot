@@ -23,4 +23,12 @@ export class JobApiService extends BaseServerRoutesService {
   public getGetJobDetailURL(id: number): string {
     return this.getBaseServerURL() + this.BASE_URL + '/get/' + id;
   }
+
+  public getUploadImageURL(id: number): string {
+    return this.getBaseServerURL() + this.BASE_URL + '/uploadImage/' + id;
+  }
+
+  public getGetJobImageURL(id: number): string {
+    return this.getBaseServerURL() + this.BASE_URL + '/get/' + id + '/images';
+  }
 }

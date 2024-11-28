@@ -2,6 +2,7 @@
   width: 690px;
   height: 645px;
   overflow-y: scroll;
+  overflow-x: hidden;
   position: absolute;
   padding: 5px;
 }

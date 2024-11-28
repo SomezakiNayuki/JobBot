@@ -1,17 +1,17 @@
 <jb-modal [template]="jobCardModalTemplate"></jb-modal>
 
 <ng-template #jobCardModalTemplate>
-  <jb-job-picture [isCreate]="isCreate"></jb-job-picture>
+  <jb-job-picture [job]="job" [createMode]="createMode"></jb-job-picture>
   <div class="jb-modal-container-bar jb-bg-clr-navy"></div>
   <div class="jb-job-detail-form-wrapper">
     <jb-job-detail
       [job]="job"
-      [isCreate]="isCreate"
-      (onCreateJobSuccess)="close()"
+      [createMode]="createMode"
+      (onCreateJobSuccess)="onUploadImage($event)"
     ></jb-job-detail>
   </div>
   <div class="jb-job-detail-func-group">
-    <div *ngIf="isCreate">
+    <div *ngIf="createMode">
       <!-- <button
         (click)="onDiscard()"
         class="btn btn-primary jb-job-discard-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-red jb-ft-pst-ctr jb-bdr-r-10"
@@ -26,7 +26,7 @@
       </button>
     </div>
     <button
-      *ngIf="!isCreate"
+      *ngIf="!createMode"
       class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"
     >
       <div class="jb-sd-ft">Accept</div>
