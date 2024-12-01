@@ -27,13 +27,11 @@ export class JobPictureComponent implements OnInit {
     if (!this.createMode && !!this.job) {
       this.jobService.getJobImages(this.job.id)
       .then((imageFiles: { id: number, image: string }[]) => {
-        console.log('HENRY TEST');
-        console.log(imageFiles);
         imageFiles.forEach(imageFile => {
           this.pictures.push({id: imageFile.id, url: this.convertToBlobUrl(imageFile.image)});
         })
       })
-      .catch(() => {});
+      .catch(error => console.error(error));
     } else {
       this.uploadIndex = 0;
     }
