@@ -3,7 +3,7 @@ const chalk = require('chalk');
 
 module.exports = (config, options, targetOptions) => {
   console.log(chalk.blue('\nBundling i18n package...'));
-  bundle_i18n();
+  bundle_i18n('en');
 
   return config;
 };

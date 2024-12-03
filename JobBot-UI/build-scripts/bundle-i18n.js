@@ -3,9 +3,9 @@ const path = require('path');
 const _ = require('lodash');
 const chalk = require('chalk');
 
-const bundle_i18n = () => {
+const bundle_i18n = (locale) => {
   const i18nDir = path.join('src', 'assets', 'i18n');
-  const outputFile = path.join(i18nDir, 'locale', 'en.json');
+  const outputFile = path.join(i18nDir, 'locale', `${locale}.json`);
 
   // Read all files in the i18n directory
   fs.readdir(i18nDir, (err, files) => {
