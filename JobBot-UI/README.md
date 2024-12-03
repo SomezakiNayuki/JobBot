@@ -1,6 +1,6 @@
 # JobBotUI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 19.0.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
 
 # Introduction
 
@@ -8,7 +8,7 @@ This project is the JobBot frontend server, please see details of JobBot fronten
 
 # Requirement
 
-This project bases on Angular 19.0.1. It also requires Node.js installed. Optionally, you can also install yarn.
+This project bases on Angular 16.2.12. It also requires Node.js installed. Optionally, you can also install yarn.
 
 # Boostrap
 
