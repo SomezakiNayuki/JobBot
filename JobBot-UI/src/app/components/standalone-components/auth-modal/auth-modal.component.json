@@ -1,0 +1,12 @@
+{
+  "auth-modal.loginForm.forget": "Forget password or account?",
+  "auth-modal.loginForm.register": "Don't have an account? Register here",
+  "auth-modal.registerForm.login": "Already have an account? Login here",
+  "auth-modal.registerForm.roleScreen.skip": "Skip for now",
+  "auth-modal.form.placeholder.username": "Username",
+  "auth-modal.form.placeholder.password": "Password",
+  "auth-modal.form.placeholder.reEnterPassword": "Re-enter password",
+  "auth-modal.form.placeholder.workingRight": "Do you have unretricted working right?",
+  "auth-modal.form.placeholder.visaType": "Visa Type",
+  "auth-modal.form.placeholder.idCardNumber": "ID card number"
+}

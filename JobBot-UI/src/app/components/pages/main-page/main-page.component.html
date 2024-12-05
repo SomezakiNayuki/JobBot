@@ -3,13 +3,13 @@
 >
   <!-- Brand -->
   <a (click)="openSideBar()" class="jb-navbar-brand jb-ft-clr-teal">
-    {{ isUserLoggedIn() ? 'Hi ' + getUserName() : 'JobBot' }}
+    {{ ( isUserLoggedIn() ? 'main-page.navbar.greeting' : 'main-page.navbar.brand' ) | translate: { username: getUserName() } }}
   </a>
 
   <!-- AI search bar -->
   <input
     class="form-control jb-search jb-bdr-r-10 jb-ft-clr-grey"
-    placeholder="Search everything..."
+    [placeholder]="'main-page.navbar.searchBar' | translate"
   />
 
   <!-- Functional buttons -->
@@ -18,14 +18,14 @@
     (click)="openCreateJobModal()"
     class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
-    <div class="jb-sd-ft">+</div>
+    <div class="jb-sd-ft">{{ 'main-page.navbar.button.create' | translate }}</div>
   </a>
   <a
     *ngIf="!isUserLoggedIn()"
     (click)="openAuthModal()"
     class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
-    <div class="jb-sd-ft">Login</div>
+    <div class="jb-sd-ft">{{ 'main-page.navbar.button.login' | translate }}</div>
   </a>
 </nav>
 
@@ -40,7 +40,7 @@
   <div class="jb-avatar">
     <jb-avatar></jb-avatar>
     <div class="jb-username">
-      <span>{{ getUserName() }}</span>
+      <span>{{ 'main-page.sidebar.username' | translate : { username: getUserName() } }}</span>
     </div>
   </div>
   <div class="jb-sidebar-btn">
@@ -48,27 +48,27 @@
       routerLink="/dashboard"
       class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green-active jb-bdr-r-10"
     >
-      <span class="jb-ft-clr-black">Dashboard</span>
+      <span class="jb-ft-clr-black">{{ 'main-page.sidebar.button.dashboard' | translate }}</span>
     </button>
     <button
       class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
     >
-      <span class="jb-ft-clr-black">My profile</span>
+      <span class="jb-ft-clr-black">{{ 'main-page.sidebar.button.profile' | translate }}</span>
     </button>
     <button
       class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
     >
-      <span class="jb-ft-clr-black">My current jobs</span>
+      <span class="jb-ft-clr-black">{{ 'main-page.sidebar.button.acceptedJobs' | translate }}</span>
     </button>
     <button
       class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
     >
-      <span class="jb-ft-clr-black">My posted jobs</span>
+      <span class="jb-ft-clr-black">{{ 'main-page.sidebar.button.postedJobs' | translate }}</span>
     </button>
     <button
       class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
     >
-      <span class="jb-ft-clr-black">Account</span>
+      <span class="jb-ft-clr-black">{{ 'main-page.sidebar.button.account' | translate }}</span>
     </button>
   </div>
   <div class="jb-sidebar-fn-btn">

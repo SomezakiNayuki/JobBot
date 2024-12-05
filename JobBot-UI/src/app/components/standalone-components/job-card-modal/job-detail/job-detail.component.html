@@ -6,23 +6,23 @@
     ></jb-prompt>
     <div>
       <jb-input
-        [placeholder]="'Job title'"
+        [placeholder]="'job-detail.form.placeholder.jobTitle' | translate"
         formControlName="jobTitle"
       ></jb-input>
       <jb-input [placeholder]="'$Pay'" formControlName="pay"></jb-input>
       <jb-dropdown
-        [placeholder]="'Location'"
+        [placeholder]="'job-detail.form.placeholder.location' | translate"
         formControlName="location"
         [type]="'typeahead'"
         [actionList]="['Sydney', 'North Sydney']"
       ></jb-dropdown>
       <jb-date-picker
-        [placeholder]="'Date'"
+        [placeholder]="'job-detail.form.placeholder.date' | translate"
         formControlName="date"
       ></jb-date-picker>
       <jb-time-picker formControlName="time"></jb-time-picker>
       <jb-textarea
-        [placeholder]="'Description'"
+        [placeholder]="'job-detail.form.placeholder.description' | translate"
         formControlName="description"
         [height]="'220px'"
       ></jb-textarea>
@@ -30,17 +30,17 @@
   </form>
   <div *ngIf="!createMode" [ngClass]="{ 'jb-detail-card': jobCardMode }">
     <p class="jb-ft-classic jb-detail-title jb-mtmb-0">
-      {{ 'Title: ' + job?.title }}
+      {{ 'job-detail.jobTitle' | translate: { title: job?.title } }}
     </p>
-    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">{{ '$' + job?.pay }}</p>
+    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">{{ 'job-detail.pay' | translate: { pay: job?.pay } }}</p>
     <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
-      {{ 'Location: ' + job?.location }}
+      {{ 'job-detail.location' | translate: { location: job?.location } }}
     </p>
     <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
-      {{ 'Time: ' + formatJobTime(job?.time) }}
+      {{ 'job-detail.time' | translate: { time: formatJobTime(job?.time) } }}
     </p>
     <div *ngIf="!jobCardMode">
-      <p class="jb-ft-classic jb-detail-info jb-mtmb-0">Description:</p>
+      <p class="jb-ft-classic jb-detail-info jb-mtmb-0">{{ 'job-detail.description' | translate }}</p>
       <p class="jb-ft-normal jb-detail-description jb-mtmb-0">
         {{ job?.description }}
       </p>

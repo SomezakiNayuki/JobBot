@@ -49,6 +49,6 @@ export class MainPageComponent implements OnInit {
   }
 
   public getUserName(): string {
-    return this.userService.getUser().username;
+    return this.userService.getUser()?.username;
   }
 }

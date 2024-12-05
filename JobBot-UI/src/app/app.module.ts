@@ -36,7 +36,12 @@ import { reducers } from 'src/app/store/reducers';
 // i18n
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
-import { CustomTranslateLoader } from 'src/app/services/translate.loader';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, '../assets/i18n/locale/', '.json');
+}
 
 @NgModule({
   // Please order alphabetically
@@ -80,7 +85,7 @@ import { CustomTranslateLoader } from 'src/app/services/translate.loader';
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useClass: CustomTranslateLoader,
+        useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
     }),

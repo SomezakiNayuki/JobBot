@@ -16,6 +16,7 @@
             "customWebpackConfig": {
               "path": "./webpack.config.js"
             },
+            "sourceMap": true,
             "outputPath": "dist/job-bot-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
