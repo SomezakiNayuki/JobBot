@@ -1,0 +1,13 @@
+{
+  "main-page.navbar.brand": "JobBot",
+  "main-page.navbar.greeting": "Hi {{ username }}",
+  "main-page.navbar.searchBar": "Tell me what job are you looking for...",
+  "main-page.navbar.button.create": "+",
+  "main-page.navbar.button.login": "Login",
+  "main-page.sidebar.username": "{{ username }}",
+  "main-page.sidebar.button.dashboard": "Dashboard",
+  "main-page.sidebar.button.profile": "My Profile",
+  "main-page.sidebar.button.acceptedJobs": "My Current Jobs",
+  "main-page.sidebar.button.postedJobs": "My Posted Jobs",
+  "main-page.sidebar.button.account": "Account"
+}

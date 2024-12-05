@@ -22,18 +22,18 @@
           formControlName="password"
         ></jb-input>
         <button class="btn btn-link jb-ft-classic jb-ft-clr-red">
-          Forget password or account?
+          {{ 'auth-modal.loginForm.forget' | translate }}
         </button>
       </div>
       <div *ngIf="!isLogin && !isRoleScreen">
         <jb-input
-          [placeholder]="'Username'"
+          [placeholder]="'auth-modal.form.placeholder.username' | translate"
           formControlName="username"
         ></jb-input>
         <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
         <jb-input
           [type]="'password'"
-          [placeholder]="'Password'"
+          [placeholder]="'auth-modal.form.placeholder.password' | translate"
           formControlName="password"
         ></jb-input>
         <jb-input
@@ -44,26 +44,26 @@
       </div>
       <div *ngIf="isRoleScreen">
         <jb-dropdown
-          [placeholder]="'Do you have unretricted working right?'"
+          [placeholder]="'auth-modal.form.placeholder.workingRight' | translate"
           [actionList]="['true', 'false']"
           formControlName="workEligibility"
         ></jb-dropdown>
         <jb-dropdown
           *ngIf="authFormGroup.get('workEligibility').value == 'false'"
           [type]="'typeahead'"
-          [placeholder]="'Visa type'"
+          [placeholder]="'auth-modal.form.placeholder.visaType' | translate"
           [actionList]="['500', '485']"
           formControlName="visaType"
         ></jb-dropdown>
         <jb-input
-          [placeholder]="'ID card number'"
+          [placeholder]="'auth-modal.form.placeholder.idCardNumber' | translate"
           formControlName="idCardNumber"
         ></jb-input>
         <button
           class="btn btn-link jb-ft-classic jb-ft-clr-red"
           (click)="skipRoleScreenAndSubmit()"
         >
-          Skip for now
+          {{ 'auth-modal.registerForm.roleScreen.skip' | translate }}
         </button>
       </div>
     </form>
@@ -74,11 +74,11 @@
       class="btn btn-link jb-auth-switch-button jb-ft-classic jb-ft-clr-teal"
       (click)="switchLoginRegister()"
     >
-      {{
-        isLogin
-          ? "Don't have an account? Register here"
-          : 'Already have an account? Login here'
-      }}
+      {{ (
+          isLogin
+          ? 'auth-modal.loginForm.register'
+          : 'auth-modal.registerForm.login'
+      ) | translate }}
     </button>
     <button
       (click)="onSubmit()"

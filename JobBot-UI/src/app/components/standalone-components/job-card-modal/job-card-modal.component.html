@@ -22,14 +22,14 @@
         (click)="onSubmit()"
         class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"
       >
-        <div class="jb-sd-ft">Post</div>
+        <div class="jb-sd-ft">{{ 'job-card-modal.form.button.submission' | translate }}</div>
       </button>
     </div>
     <button
       *ngIf="!createMode"
       class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"
     >
-      <div class="jb-sd-ft">Accept</div>
+      <div class="jb-sd-ft">{{ 'job-card-modal.job.button.accept' | translate }}</div>
     </button>
   </div>
 </ng-template>

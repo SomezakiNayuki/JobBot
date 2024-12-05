@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -32,6 +32,16 @@ import { StoreModule } from '@ngrx/store';
 
 import { JobEffects } from 'src/app/store/effects/job/job.effects';
 import { reducers } from 'src/app/store/reducers';
+
+// i18n
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, '../assets/i18n/locale/', '.json');
+}
 
 @NgModule({
   // Please order alphabetically
@@ -70,6 +80,15 @@ import { reducers } from 'src/app/store/reducers';
     // NgRx store dependencis
     EffectsModule.forRoot([JobEffects]),
     StoreModule.forRoot(reducers),
+
+    // i18n
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
