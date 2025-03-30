@@ -22,9 +22,7 @@ export class JobCardModalComponent implements OnInit {
   @Input()
   public job: Job;
 
-  constructor(
-    private readonly store: Store,
-  ) {}
+  constructor(private readonly store: Store) {}
 
   public ngOnInit(): void {}
 

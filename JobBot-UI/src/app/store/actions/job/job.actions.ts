@@ -6,7 +6,7 @@ const fetchJob = createAction('[job][fetch]');
 
 const fetchJobSuccess = createAction(
   '[job][fetch][success]',
-  props<{ jobs: { left: Job[], right: Job[], } }>()
+  props<{ jobs: { left: Job[]; right: Job[] } }>()
 );
 
 export const JobActions = {

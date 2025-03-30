@@ -23,9 +23,7 @@ export class JobDetailComponent implements OnInit {
   public jobDetailForm: FormGroup;
   public jobDetailFormError: string;
 
-  constructor(
-    private readonly jobService: JobService,
-  ) {}
+  constructor(private readonly jobService: JobService) {}
 
   public ngOnInit(): void {
     if (this.createMode) {
@@ -52,7 +50,7 @@ export class JobDetailComponent implements OnInit {
 
     this.jobService
       .postJob(this.jobDetailForm.value)
-      .then(response => {
+      .then((response) => {
         this.onPostSuccess(response.payload);
       })
       .catch((error) => {

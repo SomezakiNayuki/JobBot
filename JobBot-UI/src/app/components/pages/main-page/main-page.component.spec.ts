@@ -36,7 +36,7 @@ describe('MainPageComponent', () => {
         {
           provide: Store,
           useValue: MockStore,
-        }
+        },
       ],
     }).compileComponents();
 

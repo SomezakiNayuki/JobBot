@@ -22,7 +22,8 @@
 }
 
 .jb-icon-red {
-  filter: brightness(0) saturate(100%) invert(26%) sepia(100%) saturate(7411%) hue-rotate(358deg) brightness(105%) contrast(111%);
+  filter: brightness(0) saturate(100%) invert(26%) sepia(100%) saturate(7411%)
+    hue-rotate(358deg) brightness(105%) contrast(111%);
 }
 
 .jb-i-stars {

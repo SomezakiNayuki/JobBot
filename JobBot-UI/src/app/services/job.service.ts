@@ -50,7 +50,9 @@ export class JobService {
     return new Promise((resolve, reject) => {
       let pictureFilePayload: FormData = new FormData();
       pictureFilePayload.append('file', picture);
-      firstValueFrom(this.http.post(this.jobApi.getUploadImageURL(id), pictureFilePayload))
+      firstValueFrom(
+        this.http.post(this.jobApi.getUploadImageURL(id), pictureFilePayload)
+      )
         .then((response) => {
           return resolve(response);
         })

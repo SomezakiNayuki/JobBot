@@ -19,5 +19,5 @@ export const JobReducer = createReducer(
       left: jobs.left,
       right: jobs.right,
     },
-  })),
+  }))
 );

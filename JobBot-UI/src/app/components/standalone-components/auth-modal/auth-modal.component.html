@@ -74,11 +74,12 @@
       class="btn btn-link jb-auth-switch-button jb-ft-classic jb-ft-clr-teal"
       (click)="switchLoginRegister()"
     >
-      {{ (
-          isLogin
+      {{
+        (isLogin
           ? 'auth-modal.loginForm.register'
           : 'auth-modal.registerForm.login'
-      ) | translate }}
+        ) | translate
+      }}
     </button>
     <button
       (click)="onSubmit()"

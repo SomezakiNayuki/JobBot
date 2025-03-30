@@ -68,9 +68,11 @@ describe('JobDetailComponent', () => {
 
     it('should post job', () => {
       setUpMockAuthFormValidity(true);
-      jobService.postJob.and.returnValue(Promise.resolve({
-        payload: 1,
-      }));
+      jobService.postJob.and.returnValue(
+        Promise.resolve({
+          payload: 1,
+        })
+      );
 
       component.submit();
 
@@ -82,9 +84,11 @@ describe('JobDetailComponent', () => {
       component.onCreateJobSuccess = jasmine.createSpyObj('EventEmitter', [], {
         emit: jasmine.createSpy(),
       });
-      jobService.postJob.and.returnValue(Promise.resolve({
-        payload: 1,
-      }));
+      jobService.postJob.and.returnValue(
+        Promise.resolve({
+          payload: 1,
+        })
+      );
 
       component.submit();
       tick();
