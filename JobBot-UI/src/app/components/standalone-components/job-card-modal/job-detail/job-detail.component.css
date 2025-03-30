@@ -22,10 +22,13 @@
 
 .jb-detail-description {
   font-size: 200%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .jb-detail-card {
   position: relative;
+  width: 450px;
   top: 255px;
   left: 25px;
   font-size: 65%;

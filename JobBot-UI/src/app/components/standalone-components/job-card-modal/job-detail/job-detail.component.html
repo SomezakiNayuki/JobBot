@@ -1,4 +1,4 @@
-<div class="jb-job-detail-wrapper">
+<div [ngClass]="{ 'jb-detail-card': jobCardMode, 'jb-job-detail-wrapper': !jobCardMode }">
   <form *ngIf="createMode" [formGroup]="jobDetailForm">
     <jb-prompt
       *ngIf="!!jobDetailFormError"
@@ -28,7 +28,7 @@
       ></jb-textarea>
     </div>
   </form>
-  <div *ngIf="!createMode" [ngClass]="{ 'jb-detail-card': jobCardMode }">
+  <div *ngIf="!createMode">
     <p class="jb-ft-classic jb-detail-title jb-mtmb-0">
       {{ 'job-detail.jobTitle' | translate: { title: job?.title } }}
     </p>

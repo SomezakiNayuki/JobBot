@@ -46,7 +46,8 @@
   <div class="jb-sidebar-btn">
     <button
       routerLink="/dashboard"
-      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green-active jb-bdr-r-10"
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green{{ activePage == 'dashboard' ? '-active' : '' }} jb-bdr-r-10"
+      (click)="onClickPage('dashboard')"
     >
       <span class="jb-ft-clr-black">{{ 'main-page.sidebar.button.dashboard' | translate }}</span>
     </button>
@@ -61,7 +62,9 @@
       <span class="jb-ft-clr-black">{{ 'main-page.sidebar.button.acceptedJobs' | translate }}</span>
     </button>
     <button
-      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+      routerLink="/my-posted-jobs"
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green{{ activePage == 'my-posted-jobs' ? '-active' : '' }} jb-mt-5 jb-bdr-r-10"
+      (click)="onClickPage('my-posted-jobs')"
     >
       <span class="jb-ft-clr-black">{{ 'main-page.sidebar.button.postedJobs' | translate }}</span>
     </button>

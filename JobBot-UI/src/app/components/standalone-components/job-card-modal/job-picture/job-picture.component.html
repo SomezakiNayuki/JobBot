@@ -1,32 +1,30 @@
-<div class="jb-job-pictures-wrapper jb-bdr-r-50">
-  <div *ngIf="jobCardMode && pictures.length !== 0">
-    <img class="jb-job-picture-card jb-bdr-r-50" [src]="pictures[0].url" />
-  </div>
-  <div *ngIf="!jobCardMode">
-    <div [ngClass]="{'jb-job-picture-wrapper' : createMode}" *ngFor="let picture of pictures">
-      <button
-        *ngIf="createMode"
-        class="jb-job-picture-delete-button jb-btn-clr-white jb-btn-l-sqr jb-bdr-c"
-        (click)="deleteImage(picture.id)"
-      >
-        <div class="jb-job-picture-delete-button-icon jb-btn-l-sqr jb-icon jb-i-close jb-icon-red"></div>
-      </button>
-      <div [ngClass]="{ 'jb-job-picture-center': pictures.length === 1 && !createMode }">
-        <img class="jb-job-picture jb-bdr-r-50 jb-bg-clr-grey" [src]="picture.url" />
-      </div>
-    </div>
-    <input type="file" #imageInput (change)="onImageSelected($event)" hidden />
+<div *ngIf="jobCardMode && pictures.length !== 0">
+  <img class="jb-job-picture-card jb-bdr-r-50" [src]="pictures[0].url" />
+</div>
+<div *ngIf="!jobCardMode" class="jb-job-pictures-wrapper jb-bdr-r-50">
+  <div [ngClass]="{'jb-job-picture-wrapper' : createMode}" *ngFor="let picture of pictures">
     <button
       *ngIf="createMode"
-      class="jb-job-picture jb-bdr-r-50 jb-bg-clr-grey jb-bdr-wth-none jb-sd-el-inner"
-      [ngClass]="{ 'jb-job-picture-center': pictures.length === 0 }"
-      (click)="triggerImageInput(imageInput)"
+      class="jb-job-picture-delete-button jb-btn-clr-white jb-btn-l-sqr jb-bdr-c"
+      (click)="deleteImage(picture.id)"
     >
-      <div class="jb-job-picture-add jb-bdr-c jb-sd-el jb-bg-clr-white">
-        <div
-          class="jb-job-picture-add-icon jb-btn-l-sqr jb-icon jb-i-plus jb-icon-grey"
-        ></div>
-      </div>
+      <div class="jb-job-picture-delete-button-icon jb-btn-l-sqr jb-icon jb-i-close jb-icon-red"></div>
     </button>
+    <div [ngClass]="{ 'jb-job-picture-center': pictures.length === 1 && !createMode }">
+      <img class="jb-job-picture jb-bdr-r-50 jb-bg-clr-grey" [src]="picture.url" />
+    </div>
   </div>
+  <input type="file" #imageInput (change)="onImageSelected($event)" hidden />
+  <button
+    *ngIf="createMode"
+    class="jb-job-picture jb-bdr-r-50 jb-bg-clr-grey jb-bdr-wth-none jb-sd-el-inner"
+    [ngClass]="{ 'jb-job-picture-center': pictures.length === 0 }"
+    (click)="triggerImageInput(imageInput)"
+  >
+    <div class="jb-job-picture-add jb-bdr-c jb-sd-el jb-bg-clr-white">
+      <div
+        class="jb-job-picture-add-icon jb-btn-l-sqr jb-icon jb-i-plus jb-icon-grey"
+      ></div>
+    </div>
+  </button>
 </div>

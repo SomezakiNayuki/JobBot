@@ -1,18 +1,18 @@
-.jb-jobcard-container {
+.jb-job-card-container {
   width: 1500px;
   position: absolute;
   top: 150px;
   left: calc(50% - 750px);
 }
 
-.jb-jobcard-column-left {
+.jb-job-card-column-left {
   width: 500px;
   position: absolute;
   left: 235px;
   display: inline-block;
 }
 
-.jb-jobcard-column-right {
+.jb-job-card-column-right {
   width: 500px;
   position: absolute;
   left: 750px;

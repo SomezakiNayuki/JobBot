@@ -133,4 +133,14 @@ describe('MainPageComponent', () => {
       expect(component.getUserName()).toEqual('test username');
     });
   });
+
+  describe('onClickPage', () => {
+    it('should set current page to clicked page', () => {
+      expect(component['activePage']).toEqual('dashboard');
+
+      component.onClickPage('my-posted-jobs');
+
+      expect(component['activePage']).toEqual('my-posted-jobs');
+    });
+  });
 });

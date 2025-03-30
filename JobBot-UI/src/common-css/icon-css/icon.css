@@ -48,3 +48,11 @@
 .jb-i-plus {
   background-image: url('src/assets/icons/plus-lg.svg');
 }
+
+.jb-i-dot {
+  background-image: url('src/assets/icons/dot.svg');
+}
+
+.jb-i-down {
+  background-image: url('src/assets/icons/caret-down-fill.svg');
+}
