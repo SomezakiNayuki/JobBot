@@ -28,6 +28,7 @@
     "@popperjs/core": "^2.11.8",
     "@types/node": "22",
     "bootstrap": "^5.3.3",
+    "job-bot-ui": "file:",
     "jquery": "^3.7.1",
     "lodash": "^4.17.21",
     "ngx-bootstrap": "^11.0.2",

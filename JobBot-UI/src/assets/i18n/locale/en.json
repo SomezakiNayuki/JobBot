@@ -1,7 +1,11 @@
 {
+  "posted-job.filter.cancel": "Cancel",
+  "posted-job.filter.close": "Close",
+  "posted-job.filter.confirm": "Confirm",
   "posted-job.filter.location": "Location",
   "posted-job.filter.pay": "Pay",
   "posted-job.filter.time": "Time",
+  "posted-job.filter.to": "To",
   "posted-job.job.options": "Options",
   "posted-job.job.time": "2025-03",
   "main-page.navbar.brand": "JobBot",

@@ -1,25 +1,118 @@
 <div class="jb-posted-job-filter-bar jb-bdr-r-50 jb-bg-clr-white jb-sd-el">
   <div class="jb-posted-job-filter-buttons">
     <button
-      class="jb-posted-job-filter-button jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      class="jb-posted-job-filter-button jb-anmt-drop-down jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      [ngStyle]="{ height: isPayFilterOpen ? '250px' : '80px' }"
+      (click)="openPayFilter()"
     >
       <span class="jb-ft-clr-white">{{
         'posted-job.filter.pay' | translate
       }}</span>
+      <div *ngIf="isPayFilterOpen">
+        <div class="jb-posted-job-filter-buttons">
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closePayFilter($event)"
+          >
+            {{ 'posted-job.filter.confirm' | translate }}
+          </button>
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closePayFilter($event)"
+          >
+            {{ 'posted-job.filter.cancel' | translate }}
+          </button>
+        </div>
+        <div class="jb-posted-job-filter-function-items">
+          <input />
+          <span class="jb-ft-clr-white jb-ft-normal">{{
+            'posted-job.filter.to' | translate
+          }}</span>
+          <input />
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closePayFilter($event)"
+          >
+            {{ 'posted-job.filter.close' | translate }}
+          </button>
+        </div>
+      </div>
     </button>
     <button
-      class="jb-posted-job-filter-button jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      class="jb-posted-job-filter-button jb-anmt-drop-down jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      [ngStyle]="{ height: isLocationFilterOpen ? '250px' : '80px' }"
+      (click)="openLocationFilter()"
     >
       <span class="jb-ft-clr-white">{{
         'posted-job.filter.location' | translate
       }}</span>
+      <div *ngIf="isLocationFilterOpen">
+        <div class="jb-posted-job-filter-buttons">
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closeLocationFilter($event)"
+          >
+            {{ 'posted-job.filter.confirm' | translate }}
+          </button>
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closeLocationFilter($event)"
+          >
+            {{ 'posted-job.filter.cancel' | translate }}
+          </button>
+        </div>
+        <div class="jb-posted-job-filter-function-items">
+          <input />
+          <span class="jb-ft-clr-white jb-ft-normal">{{
+            'posted-job.filter.to' | translate
+          }}</span>
+          <input />
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closeLocationFilter($event)"
+          >
+            {{ 'posted-job.filter.close' | translate }}
+          </button>
+        </div>
+      </div>
     </button>
     <button
-      class="jb-posted-job-filter-button jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      class="jb-posted-job-filter-button jb-anmt-drop-down jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      [ngStyle]="{ height: isTimeFilterOpen ? '250px' : '80px' }"
+      (click)="openTimeFilter()"
     >
       <span class="jb-ft-clr-white">{{
         'posted-job.filter.time' | translate
       }}</span>
+      <div *ngIf="isTimeFilterOpen">
+        <div class="jb-posted-job-filter-buttons">
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closeTimeFilter($event)"
+          >
+            {{ 'posted-job.filter.confirm' | translate }}
+          </button>
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closeTimeFilter($event)"
+          >
+            {{ 'posted-job.filter.cancel' | translate }}
+          </button>
+        </div>
+        <div class="jb-posted-job-filter-function-items">
+          <input />
+          <span class="jb-ft-clr-white jb-ft-normal">{{
+            'posted-job.filter.to' | translate
+          }}</span>
+          <input />
+          <button
+            class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal"
+            (click)="closeTimeFilter($event)"
+          >
+            {{ 'posted-job.filter.close' | translate }}
+          </button>
+        </div>
+      </div>
     </button>
   </div>
 </div>
@@ -27,7 +120,7 @@
 <div class="jb-job-card-column">
   <div class="jb-posted-job-group">
     <div class="jb-posted-job-group-option">
-      <div class="jb-posted-job-icon-text-container">
+      <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
         <div class="jb-btn-l-sqr jb-icon jb-i-dot jb-icon-black"></div>
         <span class="jb-ft-classic jb-posted-job-date">{{
           'posted-job.job.time' | translate
@@ -36,7 +129,7 @@
     </div>
     <div class="jb-posted-job-group-card"><jb-job-card></jb-job-card></div>
     <div class="jb-posted-job-group-option">
-      <div class="jb-posted-job-icon-text-container">
+      <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
         <span class="jb-ft-classic">{{
           'posted-job.job.options' | translate
         }}</span>
@@ -47,7 +140,7 @@
 
   <div class="jb-posted-job-group">
     <div class="jb-posted-job-group-option">
-      <div class="jb-posted-job-icon-text-container">
+      <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
         <div class="jb-btn-l-sqr jb-icon jb-i-dot jb-icon-black"></div>
         <span class="jb-ft-classic jb-posted-job-date">{{
           'posted-job.job.time' | translate
@@ -56,7 +149,7 @@
     </div>
     <div class="jb-posted-job-group-card"><jb-job-card></jb-job-card></div>
     <div class="jb-posted-job-group-option">
-      <div class="jb-posted-job-icon-text-container">
+      <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
         <span class="jb-ft-classic">{{
           'posted-job.job.options' | translate
         }}</span>
