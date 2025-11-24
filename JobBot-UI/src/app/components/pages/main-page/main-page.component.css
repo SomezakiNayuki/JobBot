@@ -23,7 +23,6 @@
   font-size: 70px;
   position: relative;
   left: 5%;
-  text-decoration: none;
 }
 
 .jb-navbar-btn {
@@ -66,7 +65,9 @@
 
 .jb-sidebar-fn-btn {
   padding: 2%;
-  display: inline !important;
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
 }
 
 .jb-sidebar-btn-collapse {

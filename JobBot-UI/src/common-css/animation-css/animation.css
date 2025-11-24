@@ -8,9 +8,10 @@
 }
 
 /* This dropdown animation is used only for changing the height of the element, not for element controlled by *ngIf directive. */
-.jb-anmt-drop-down {
+.jb-anmt-dropdown {
   overflow: hidden !important;
   transition:
     height 0.3s ease,
-    margin-top 0.3s ease !important;
+    min-height 0.3s ease,
+    max-height 0.3s ease;
 }

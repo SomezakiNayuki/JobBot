@@ -7,8 +7,9 @@ spring:
         username: root
         password: password
     jpa:
+        database-platform: org.hibernate.dialect.MySQL8Dialect
         hibernate:
-            ddl-auto: create
+            ddl-auto: create-drop
         show-sql: false
     jackson:
         date-format: yyyy-MM-dd'T'HH:mm:ss

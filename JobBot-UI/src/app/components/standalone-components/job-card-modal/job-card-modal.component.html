@@ -11,7 +11,7 @@
     ></jb-job-detail>
   </div>
   <div class="jb-job-detail-func-group">
-    <div *ngIf="createMode">
+    <ng-container *ngIf="createMode">
       <!-- <button
         (click)="onDiscard()"
         class="btn btn-primary jb-job-discard-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-red jb-ft-pst-ctr jb-bdr-r-10"
@@ -26,7 +26,7 @@
           {{ 'job-card-modal.form.button.submission' | translate }}
         </div>
       </button>
-    </div>
+    </ng-container>
     <button
       *ngIf="!createMode"
       class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"

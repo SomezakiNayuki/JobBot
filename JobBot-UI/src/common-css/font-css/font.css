@@ -12,3 +12,7 @@
   justify-content: center !important; /* Aligns horizontally */
   align-items: center !important; /* Aligns vertically */
 }
+
+.jb-ft-remove-hyperlink-decoration {
+  text-decoration: none !important;
+}

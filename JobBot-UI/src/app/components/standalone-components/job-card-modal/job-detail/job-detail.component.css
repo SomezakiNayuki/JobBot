@@ -7,6 +7,11 @@
   padding: 5px;
 }
 
+.jb-job-detail-form {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 /* Hide scrollbar in WebKit browsers */
 .jb-job-detail-wrapper::-webkit-scrollbar {
   display: none;

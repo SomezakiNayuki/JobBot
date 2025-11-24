@@ -1,6 +1,6 @@
-<div *ngIf="jobCardMode && pictures.length !== 0">
+<ng-container *ngIf="jobCardMode && pictures.length !== 0">
   <img class="jb-job-picture-card jb-bdr-r-50" [src]="pictures[0].url" />
-</div>
+</ng-container>
 <div *ngIf="!jobCardMode" class="jb-job-pictures-wrapper jb-bdr-r-50">
   <div
     [ngClass]="{ 'jb-job-picture-wrapper': createMode }"

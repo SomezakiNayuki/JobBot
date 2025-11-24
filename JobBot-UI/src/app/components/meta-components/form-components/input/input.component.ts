@@ -27,6 +27,8 @@ export class InputComponent extends BaseFormElementComponent implements OnInit {
   public width: string = '100%';
   @Input()
   public height: string = '50px';
+  @Input()
+  public class: any;
 
   public ngOnInit(): void {}
 }

@@ -9,6 +9,7 @@ export class MyPostedJobsComponent {
   public isLocationFilterOpen: boolean = false;
   public isPayFilterOpen: boolean = false;
   public isTimeFilterOpen: boolean = false;
+  public isJobOptionsOpen: boolean = false;
 
   public openLocationFilter(): void {
     this.isLocationFilterOpen = true;
@@ -35,5 +36,9 @@ export class MyPostedJobsComponent {
   public closeTimeFilter($event: Event): void {
     this.isTimeFilterOpen = false;
     $event.stopPropagation();
+  }
+
+  public toggleJobOptions(): void {
+    this.isJobOptionsOpen = !this.isJobOptionsOpen;
   }
 }
