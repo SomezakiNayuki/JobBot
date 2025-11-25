@@ -13,14 +13,21 @@ export class JobEffects {
       ofType(JobActions.fetchJob),
       mergeMap(() =>
         from(this.jobService.getJob()).pipe(
-          map(jobs => JobActions.fetchJobSuccess({ jobs: { left: jobs.filter((_, index) => index % 2 === 0), right: jobs.filter((_, index) => index % 2 !== 0), }, })),
-        ),
-      ),
-    ),
+          map((jobs) =>
+            JobActions.fetchJobSuccess({
+              jobs: {
+                left: jobs.filter((_, index) => index % 2 === 0),
+                right: jobs.filter((_, index) => index % 2 !== 0),
+              },
+            })
+          )
+        )
+      )
+    )
   );
 
   constructor(
     private readonly actions$: Actions,
-    private readonly jobService: JobService,
+    private readonly jobService: JobService
   ) {}
 }

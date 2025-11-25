@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import Job from 'src/models/job.model';
@@ -8,6 +8,7 @@ import { JobService } from 'src/app/services/job.service';
   selector: 'jb-job-detail',
   templateUrl: './job-detail.component.html',
   styleUrls: ['./job-detail.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class JobDetailComponent implements OnInit {
   @Input()
@@ -23,9 +24,7 @@ export class JobDetailComponent implements OnInit {
   public jobDetailForm: FormGroup;
   public jobDetailFormError: string;
 
-  constructor(
-    private readonly jobService: JobService,
-  ) {}
+  constructor(private readonly jobService: JobService) {}
 
   public ngOnInit(): void {
     if (this.createMode) {
@@ -52,7 +51,7 @@ export class JobDetailComponent implements OnInit {
 
     this.jobService
       .postJob(this.jobDetailForm.value)
-      .then(response => {
+      .then((response) => {
         this.onPostSuccess(response.payload);
       })
       .catch((error) => {

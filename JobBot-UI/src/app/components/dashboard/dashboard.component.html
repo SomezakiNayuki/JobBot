@@ -1,10 +1,10 @@
-<div class="jb-jobcard-container">
-  <div class="jb-jobcard-column-left">
+<div class="jb-job-card-container">
+  <div class="jb-job-card-column-left">
     <div *ngFor="let job of (jobs$ | async).left">
       <jb-job-card [job]="job"></jb-job-card>
     </div>
   </div>
-  <div class="jb-jobcard-column-right">
+  <div class="jb-job-card-column-right">
     <div *ngFor="let job of (jobs$ | async).right">
       <jb-job-card [job]="job"></jb-job-card>
     </div>

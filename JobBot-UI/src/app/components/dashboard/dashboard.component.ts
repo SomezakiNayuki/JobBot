@@ -14,18 +14,17 @@ import { JobSelectors } from 'src/app/store/selectors/job/job.selectors';
 export class DashboardComponent implements OnInit {
   private destroy$: Subject<void> = new Subject<void>();
   public jobs$: Observable<{
-    left: Job[],
-    right: Job[],
+    left: Job[];
+    right: Job[];
   }>;
 
-  constructor(private readonly store: Store) { }
+  constructor(private readonly store: Store) {}
 
   public ngOnInit(): void {
-    this.jobs$ = this.store.select(JobSelectors.job)
-    .pipe(
-      takeUntil(this.destroy$),
-    );
-    this.jobs$.subscribe(test => {
+    this.jobs$ = this.store
+      .select(JobSelectors.job)
+      .pipe(takeUntil(this.destroy$));
+    this.jobs$.subscribe((test) => {
       console.log(test);
     });
     this.store.dispatch(JobActions.fetchJob());

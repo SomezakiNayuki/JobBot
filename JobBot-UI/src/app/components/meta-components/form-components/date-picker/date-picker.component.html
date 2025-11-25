@@ -1,7 +1,11 @@
 <input
   type="text"
   bsDatepicker
-  [bsConfig]="{ showWeekNumbers: true, dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true }"
+  [bsConfig]="{
+    showWeekNumbers: true,
+    dateInputFormat: 'YYYY-MM-DD',
+    adaptivePosition: true,
+  }"
   [placeholder]="placeholder"
   class="form-control jb-date-picker
     {{ border ? 'jb-bdr-wth-1' : 'jb-bdr-wth-none' }}

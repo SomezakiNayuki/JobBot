@@ -15,23 +15,25 @@ export class JobPictureComponent implements OnInit {
   @Input()
   public job: Job;
 
-  public pictures: {id: number, file?: File, url: string}[] = [];
-  
+  public pictures: { id: number; file?: File; url: string }[] = [];
+
   private uploadIndex: number;
 
-  constructor(
-    private readonly jobService: JobService,
-  ) {}
+  constructor(private readonly jobService: JobService) {}
 
   public ngOnInit(): void {
     if (!this.createMode && !!this.job) {
-      this.jobService.getJobImages(this.job.id)
-      .then((imageFiles: { id: number, image: string }[]) => {
-        imageFiles.forEach(imageFile => {
-          this.pictures.push({id: imageFile.id, url: this.convertToBlobUrl(imageFile.image)});
+      this.jobService
+        .getJobImages(this.job.id)
+        .then((imageFiles: { id: number; image: string }[]) => {
+          imageFiles.forEach((imageFile) => {
+            this.pictures.push({
+              id: imageFile.id,
+              url: this.convertToBlobUrl(imageFile.image),
+            });
+          });
         })
-      })
-      .catch(error => console.error(error));
+        .catch((error) => console.error(error));
     } else {
       this.uploadIndex = 0;
     }
@@ -55,7 +57,11 @@ export class JobPictureComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
-          this.pictures.push({id: this.uploadIndex, file: imageFile, url: reader.result.toString()});
+          this.pictures.push({
+            id: this.uploadIndex,
+            file: imageFile,
+            url: reader.result.toString(),
+          });
           this.uploadIndex++;
         }
       };
@@ -65,14 +71,14 @@ export class JobPictureComponent implements OnInit {
 
   public deleteImage(id: number) {
     if (this.createMode) {
-      this.pictures = this.pictures.filter(pic => pic.id !== id);
+      this.pictures = this.pictures.filter((pic) => pic.id !== id);
     }
   }
 
   public uploadImage(jobId: number): void {
-    const pictureFiles: File[] = this.pictures.map(picture => picture.file);
-    pictureFiles.forEach(picture => {
+    const pictureFiles: File[] = this.pictures.map((picture) => picture.file);
+    pictureFiles.forEach((picture) => {
       this.jobService.uploadImage(jobId, picture);
-    })
+    });
   }
 }

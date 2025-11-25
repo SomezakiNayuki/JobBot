@@ -6,6 +6,11 @@
   padding: 5px;
 }
 
+.jb-auth-form {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .jb-auth-submit-button {
   border: none;
   padding: 0px !important;
@@ -23,7 +28,7 @@
 }
 
 .jb-auth-func-group {
-  display: inline;
+  display: inline-block;
 }
 
 .jb-auth-container-bar {

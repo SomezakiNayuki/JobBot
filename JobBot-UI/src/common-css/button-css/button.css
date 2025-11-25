@@ -13,3 +13,7 @@
   width: 100% !important;
   border: 0px !important;
 }
+
+.jb-btn-cursor-pointer {
+  cursor: pointer !important;
+}

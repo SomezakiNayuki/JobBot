@@ -37,6 +37,7 @@ import { reducers } from 'src/app/store/reducers';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MyPostedJobsComponent } from './components/my-posted-jobs/my-posted-jobs.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -64,6 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // ngx-bootstrap dependencies
     DatePickerComponent,
     TimePickerComponent,
+    MyPostedJobsComponent,
   ],
   imports: [
     AppRoutingModule,

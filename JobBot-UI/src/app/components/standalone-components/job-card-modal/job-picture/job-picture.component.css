@@ -26,9 +26,9 @@
   height: 220px;
   margin-top: 15px;
   margin-bottom: 15px;
-  position: relative;
-  top: -15px;
-  left: -125px;
+  position: absolute;
+  left: 30px;
+  top: 15px;
 }
 
 .jb-job-picture-add {

@@ -14,9 +14,10 @@
         *ngIf="!!authResponseError"
         [prompt]="authResponseError"
       ></jb-prompt>
-      <div *ngIf="isLogin">
-        <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
+      <ng-container *ngIf="isLogin">
+        <jb-input class="jb-auth-form" [placeholder]="'Email'" formControlName="email"></jb-input>
         <jb-input
+          class="jb-auth-form"
           [type]="'password'"
           [placeholder]="'Password'"
           formControlName="password"
@@ -24,25 +25,28 @@
         <button class="btn btn-link jb-ft-classic jb-ft-clr-red">
           {{ 'auth-modal.loginForm.forget' | translate }}
         </button>
-      </div>
-      <div *ngIf="!isLogin && !isRoleScreen">
+      </ng-container>
+      <ng-container *ngIf="!isLogin && !isRoleScreen">
         <jb-input
+          class="jb-auth-form"
           [placeholder]="'auth-modal.form.placeholder.username' | translate"
           formControlName="username"
         ></jb-input>
-        <jb-input [placeholder]="'Email'" formControlName="email"></jb-input>
+        <jb-input class="jb-auth-form" [placeholder]="'Email'" formControlName="email"></jb-input>
         <jb-input
+          class="jb-auth-form"
           [type]="'password'"
           [placeholder]="'auth-modal.form.placeholder.password' | translate"
           formControlName="password"
         ></jb-input>
         <jb-input
+          class="jb-auth-form"
           [type]="'password'"
           [placeholder]="'Re-enter password'"
           formControlName="reEnterPassword"
         ></jb-input>
-      </div>
-      <div *ngIf="isRoleScreen">
+      </ng-container>
+      <ng-container *ngIf="isRoleScreen">
         <jb-dropdown
           [placeholder]="'auth-modal.form.placeholder.workingRight' | translate"
           [actionList]="['true', 'false']"
@@ -65,7 +69,7 @@
         >
           {{ 'auth-modal.registerForm.roleScreen.skip' | translate }}
         </button>
-      </div>
+      </ng-container>
     </form>
   </div>
   <div class="jb-auth-func-group">
@@ -74,11 +78,12 @@
       class="btn btn-link jb-auth-switch-button jb-ft-classic jb-ft-clr-teal"
       (click)="switchLoginRegister()"
     >
-      {{ (
-          isLogin
+      {{
+        (isLogin
           ? 'auth-modal.loginForm.register'
           : 'auth-modal.registerForm.login'
-      ) | translate }}
+        ) | translate
+      }}
     </button>
     <button
       (click)="onSubmit()"

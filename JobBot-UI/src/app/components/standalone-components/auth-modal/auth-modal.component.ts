@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
   selector: 'jb-auth-modal',
   templateUrl: './auth-modal.component.html',
   styleUrls: ['./auth-modal.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AuthModalComponent implements OnInit {
   @ViewChild(ModalComponent) jbModal: ModalComponent;

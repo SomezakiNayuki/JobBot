@@ -7,6 +7,11 @@
   padding: 5px;
 }
 
+.jb-job-detail-form {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 /* Hide scrollbar in WebKit browsers */
 .jb-job-detail-wrapper::-webkit-scrollbar {
   display: none;
@@ -22,10 +27,13 @@
 
 .jb-detail-description {
   font-size: 200%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .jb-detail-card {
   position: relative;
+  width: 450px;
   top: 255px;
   left: 25px;
   font-size: 65%;

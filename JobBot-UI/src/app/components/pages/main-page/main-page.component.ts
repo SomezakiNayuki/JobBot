@@ -15,6 +15,8 @@ export class MainPageComponent implements OnInit {
 
   public isSideBarEnabled: boolean = false;
 
+  protected activePage: string = 'dashboard';
+
   constructor(private readonly userService: UserService) {}
 
   public ngOnInit(): void {
@@ -50,5 +52,9 @@ export class MainPageComponent implements OnInit {
 
   public getUserName(): string {
     return this.userService.getUser()?.username;
+  }
+
+  public onClickPage(page: string): void {
+    this.activePage = page;
   }
 }

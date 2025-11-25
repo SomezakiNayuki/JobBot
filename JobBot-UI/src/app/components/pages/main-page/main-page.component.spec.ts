@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { MockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
@@ -36,8 +37,9 @@ describe('MainPageComponent', () => {
         {
           provide: Store,
           useValue: MockStore,
-        }
+        },
       ],
+      imports: [TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MainPageComponent);
@@ -131,6 +133,16 @@ describe('MainPageComponent', () => {
       userService.getUser.and.returnValue(user);
 
       expect(component.getUserName()).toEqual('test username');
+    });
+  });
+
+  describe('onClickPage', () => {
+    it('should set current page to clicked page', () => {
+      expect(component['activePage']).toEqual('dashboard');
+
+      component.onClickPage('my-posted-jobs');
+
+      expect(component['activePage']).toEqual('my-posted-jobs');
     });
   });
 });

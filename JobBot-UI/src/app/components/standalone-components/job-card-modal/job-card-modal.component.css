@@ -22,7 +22,7 @@
 }
 
 .jb-job-detail-func-group {
-  display: inline;
+  display: inline-block;
 }
 
 .jb-modal-container-bar {

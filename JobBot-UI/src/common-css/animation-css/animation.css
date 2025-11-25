@@ -6,3 +6,12 @@
 .jb-anmt-fade.visible {
   opacity: 1 !important;
 }
+
+/* This dropdown animation is used only for changing the height of the element, not for element controlled by *ngIf directive. */
+.jb-anmt-dropdown {
+  overflow: hidden !important;
+  transition:
+    height 0.3s ease,
+    min-height 0.3s ease,
+    max-height 0.3s ease;
+}

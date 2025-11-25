@@ -1,4 +1,6 @@
-<div class="jb-job-detail-wrapper">
+<div
+  [ngClass]="{ 'jb-detail-card': jobCardMode, 'jb-job-detail-wrapper': !jobCardMode }"
+>
   <form *ngIf="createMode" [formGroup]="jobDetailForm">
     <jb-prompt
       *ngIf="!!jobDetailFormError"
@@ -6,10 +8,11 @@
     ></jb-prompt>
     <div>
       <jb-input
+        class="jb-job-detail-form"
         [placeholder]="'job-detail.form.placeholder.jobTitle' | translate"
         formControlName="jobTitle"
       ></jb-input>
-      <jb-input [placeholder]="'$Pay'" formControlName="pay"></jb-input>
+      <jb-input class="jb-job-detail-form" [placeholder]="'$Pay'" formControlName="pay"></jb-input>
       <jb-dropdown
         [placeholder]="'job-detail.form.placeholder.location' | translate"
         formControlName="location"
@@ -28,22 +31,26 @@
       ></jb-textarea>
     </div>
   </form>
-  <div *ngIf="!createMode" [ngClass]="{ 'jb-detail-card': jobCardMode }">
+  <ng-container *ngIf="!createMode">
     <p class="jb-ft-classic jb-detail-title jb-mtmb-0">
       {{ 'job-detail.jobTitle' | translate: { title: job?.title } }}
     </p>
-    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">{{ 'job-detail.pay' | translate: { pay: job?.pay } }}</p>
+    <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
+      {{ 'job-detail.pay' | translate: { pay: job?.pay } }}
+    </p>
     <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
       {{ 'job-detail.location' | translate: { location: job?.location } }}
     </p>
     <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
       {{ 'job-detail.time' | translate: { time: formatJobTime(job?.time) } }}
     </p>
-    <div *ngIf="!jobCardMode">
-      <p class="jb-ft-classic jb-detail-info jb-mtmb-0">{{ 'job-detail.description' | translate }}</p>
+    <ng-container *ngIf="!jobCardMode">
+      <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
+        {{ 'job-detail.description' | translate }}
+      </p>
       <p class="jb-ft-normal jb-detail-description jb-mtmb-0">
         {{ job?.description }}
       </p>
-    </div>
-  </div>
+    </ng-container>
+  </ng-container>
 </div>
