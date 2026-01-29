@@ -3,7 +3,7 @@
   "job-detail.form.placeholder.location": "Location",
   "job-detail.form.placeholder.date": "Date",
   "job-detail.form.placeholder.description": "Description",
-  "job-detail.jobTitle": "Title: {{ title }}",
+  "job-detail.jobTitle": "{{ title }}",
   "job-detail.pay": "$ {{ pay }}",
   "job-detail.location": "Location: {{ location }}",
   "job-detail.time": "Time: {{ time }}",

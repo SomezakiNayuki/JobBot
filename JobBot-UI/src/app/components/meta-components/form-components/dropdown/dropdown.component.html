@@ -11,7 +11,7 @@
   [value]="value"
   (click)="switchCollapseDropdownList()"
 >
-  {{ value != '' ? placeholder + ' ' + value : placeholder }}
+  {{ value !== '' ? placeholder + ' ' + value : placeholder }}
 </button>
 <input
   *ngIf="type == 'typeahead'"

@@ -24,9 +24,6 @@ export class DashboardComponent implements OnInit {
     this.jobs$ = this.store
       .select(JobSelectors.job)
       .pipe(takeUntil(this.destroy$));
-    this.jobs$.subscribe((test) => {
-      console.log(test);
-    });
     this.store.dispatch(JobActions.fetchJob());
   }
 

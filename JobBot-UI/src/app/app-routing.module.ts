@@ -2,7 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
-import { MyPostedJobsComponent } from 'src/app//components/my-posted-jobs/my-posted-jobs.component';
+import { MyPostedJobsComponent } from 'src/app//components/pages/my-posted-jobs/my-posted-jobs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/my-posted-jobs', pathMatch: 'full' },

@@ -29,9 +29,17 @@ export class DatePickerComponent
   @Input()
   public height: string = '50px';
 
+  public selectedDate: string | null = '';
+
   public ngOnInit(): void {}
 
   public onDateChange(event: Date): void {
+    if (!event) {
+      this.onChange(null);
+      this.formControl.markAsUntouched();
+      return;
+    }
+
     const date: string = this.formDate(event);
     this.onChange(date); // Pass the selected date to onChange
     this.onTouched(); // Mark the control as touched
@@ -50,5 +58,6 @@ export class DatePickerComponent
   public override writeValue(value: any): void {
     // If value is valid, update the model
     this.value = value || null;
+    this.selectedDate = value;
   }
 }

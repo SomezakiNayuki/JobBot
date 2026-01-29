@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "rimraf ./.angular && ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "prettier --write \"src/**/*.{ts,html,css,scss}\""
+    "lint": "prettier --write \"src/**/*.{ts,html,css,scss}\"",
+    "clean-cache": "rimraf ./.angular"
   },
   "private": true,
   "dependencies": {

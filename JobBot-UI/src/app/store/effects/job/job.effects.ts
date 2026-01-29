@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { mergeMap, map, from } from 'rxjs';
 
-import Job from 'src/models/job.model';
 import { JobActions } from 'src/app/store/actions/job/job.actions';
 import { JobService } from 'src/app/services/job.service';
 
@@ -16,10 +15,23 @@ export class JobEffects {
           map((jobs) =>
             JobActions.fetchJobSuccess({
               jobs: {
-                left: jobs.filter((_, index) => index % 2 === 0),
+                left: jobs.filter((_, index) => index % 2 == 0),
                 right: jobs.filter((_, index) => index % 2 !== 0),
               },
             })
+          )
+        )
+      )
+    )
+  );
+
+  fetchMyPostedJobs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(JobActions.fetchMyPostedJobs),
+      mergeMap(({ userId }) =>
+        from(this.jobService.getPostedJobsByUserId(userId)).pipe(
+          map((myPostedJobs) =>
+            JobActions.fetchMyPostedJobsSuccess({ myPostedJobs })
           )
         )
       )

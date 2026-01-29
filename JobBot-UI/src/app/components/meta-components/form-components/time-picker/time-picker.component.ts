@@ -45,5 +45,9 @@ export class TimePickerComponent
   public override writeValue(value: any): void {
     // If value is valid, update the model
     this.value = value || null;
+    let date = new Date(Date.now());
+    const [hours, minutes] = value;
+    date.setHours(hours, minutes, 0, 0);
+    this.selectedTime = new Date(date);
   }
 }

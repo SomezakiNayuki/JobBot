@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MyPostedJobsComponent } from 'src/app/components/my-posted-jobs/my-posted-jobs.component';
+import { MyPostedJobsComponent } from 'src/app/components/pages/my-posted-jobs/my-posted-jobs.component';
 
 describe('MyPostedJobsComponent', () => {
   let component: MyPostedJobsComponent;

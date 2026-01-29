@@ -12,6 +12,10 @@ export class JobCardComponent implements OnInit {
   @ViewChild(JobCardModalComponent) jobCardModal: JobCardModalComponent;
 
   @Input()
+  public createMode: boolean = false;
+  @Input()
+  public viewOnlyMode: boolean = false;
+  @Input()
   public job: Job;
 
   constructor() {}
