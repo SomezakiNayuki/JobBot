@@ -12,4 +12,6 @@ public interface JobService {
 
     public Job findById(Long id);
 
+    public void deleteJob(Long id);
+
 }

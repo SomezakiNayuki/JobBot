@@ -3,6 +3,7 @@ package org.dizzybot.jobbot.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.dizzybot.jobbot.enums.JobStatusEnum;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Getter
 @Setter
@@ -36,7 +38,7 @@ public class Job {
     private String description;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JobImage> images = new ArrayList<>();
 
     @JsonIgnore
@@ -44,10 +46,12 @@ public class Job {
 
     private JobStatusEnum jobStatusEnum;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "employer_id")
     private User employer;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private User employee;

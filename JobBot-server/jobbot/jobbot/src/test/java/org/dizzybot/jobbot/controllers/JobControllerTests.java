@@ -1,9 +1,9 @@
 package org.dizzybot.jobbot.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.dizzybot.jobbot.controllers.job.JobController;
-import org.dizzybot.jobbot.controllers.job.requests.CreateJobRequest;
-import org.dizzybot.jobbot.entities.Job;
+import org.dizzybot.jobbot.controllers.job.requests.Job;
 import org.dizzybot.jobbot.entities.JobImage;
 import org.dizzybot.jobbot.entities.User;
 import org.dizzybot.jobbot.services.JobService;
@@ -20,7 +20,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -45,7 +48,7 @@ public class JobControllerTests {
 
     @Test
     public void testCreateJobSuccess() throws Exception {
-        CreateJobRequest request = new CreateJobRequest();
+        Job request = new Job();
         request.setJobTitle("title");
         request.setLocation("location");
         request.setPay(2000);
@@ -77,6 +80,30 @@ public class JobControllerTests {
     }
 
     @Test
+    public void testGetJobPostedByUserId() throws Exception {
+        User user = new User("username", "password", "email@mail.com");
+        user.setId(1L);
+
+        List<org.dizzybot.jobbot.entities.Job> jobPosted = new ArrayList<>();
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job("Title", 50D, "Sydney", LocalDateTime.now(), "Description", user);
+        job.setId(1L);
+        jobPosted.add(job);
+        user.setJobPosted(jobPosted);
+
+        when(userService.findById(Mockito.any())).thenReturn(user);
+
+        ResultActions resultActions = mockMvc.perform(get("/api/job/get/1"));
+
+        resultActions.andExpect(status().isOk());
+        List<org.dizzybot.jobbot.entities.Job> result = objectMapper.readValue(resultActions.andReturn().getResponse().getContentAsString(), new TypeReference<>() {
+        });
+        job.setEmployer(null);
+        List<org.dizzybot.jobbot.entities.Job> expectedJobPosted = new ArrayList<>();
+        expectedJobPosted.add(job);
+        assertEquals(expectedJobPosted.get(0), result.get(0));
+    }
+
+    @Test
     public void testUploadImageSuccess() throws Exception {
         MockMultipartFile mockFile = new MockMultipartFile(
                 "file",
@@ -85,7 +112,7 @@ public class JobControllerTests {
                 "1234567890".getBytes()
         );
 
-        when(jobService.findById(Mockito.any())).thenReturn(new Job());
+        when(jobService.findById(Mockito.any())).thenReturn(new org.dizzybot.jobbot.entities.Job());
 
         ResultActions resultActions = mockMvc.perform(multipart("/api/job/uploadImage/1")
                 .file(mockFile)
@@ -97,7 +124,7 @@ public class JobControllerTests {
 
     @Test
     public void testGetJobImages() throws Exception {
-        Job job = new Job();
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job();
         JobImage image = new JobImage();
         image.setId(1L);
         image.setImage("12345".getBytes());

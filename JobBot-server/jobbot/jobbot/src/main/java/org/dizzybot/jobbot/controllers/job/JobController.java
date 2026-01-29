@@ -1,8 +1,7 @@
 package org.dizzybot.jobbot.controllers.job;
 
 import org.dizzybot.jobbot.controllers.general.responses.GeneralResponse;
-import org.dizzybot.jobbot.controllers.job.requests.CreateJobRequest;
-import org.dizzybot.jobbot.entities.Job;
+import org.dizzybot.jobbot.controllers.job.requests.Job;
 import org.dizzybot.jobbot.entities.JobImage;
 import org.dizzybot.jobbot.entities.User;
 import org.dizzybot.jobbot.services.JobService;
@@ -28,9 +27,9 @@ public class JobController {
     private UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity create(@RequestBody CreateJobRequest request) {
-        User user = userService.findById(request.getUserId());
-        Job job = new Job(request.getJobTitle(), request.getPay(), request.getLocation(), request.getTime(), request.getDescription(), user);
+    public ResponseEntity create(@RequestBody Job body) {
+        User user = userService.findById(body.getUserId());
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job(body.getJobTitle(), body.getPay(), body.getLocation(), body.getTime(), body.getDescription(), user);
         user.getJobPosted().add(job);
 
         jobService.saveJob(job);
@@ -40,13 +39,38 @@ public class JobController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<Job>> get() {
+    public ResponseEntity<List<org.dizzybot.jobbot.entities.Job>> get() {
         return new ResponseEntity(jobService.getAllJob(), HttpStatus.OK);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity update(@RequestBody Job body) {
+        org.dizzybot.jobbot.entities.Job job = jobService.findById(body.getId());
+        job.setTitle(body.getJobTitle());
+        job.setPay(body.getPay());
+        job.setLocation(body.getLocation());
+        job.setTime(body.getTime());
+        job.setDescription(body.getDescription());
+        jobService.saveJob(job);
+        return new ResponseEntity(new GeneralResponse("success", "Job updated", job.getId()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        jobService.deleteJob(id);
+        return new ResponseEntity(new GeneralResponse("success", "Job deleted"), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/{userId}")
+    public ResponseEntity<List<org.dizzybot.jobbot.entities.Job>> getJobPostedByUserId(@PathVariable Long userId) {
+        User user = userService.findById(userId);
+        List<org.dizzybot.jobbot.entities.Job> jobs = user.getJobPosted();
+        return new ResponseEntity(jobs, HttpStatus.OK);
     }
 
     @PostMapping("/uploadImage/{id}")
     public ResponseEntity uploadImage(@RequestParam("file") MultipartFile file, @PathVariable Long id) {
-        Job job = jobService.findById(id);
+        org.dizzybot.jobbot.entities.Job job = jobService.findById(id);
         try {
             JobImage image = new JobImage(file.getBytes());
             job.getImages().add(image);
@@ -58,9 +82,17 @@ public class JobController {
         }
     }
 
+    @DeleteMapping("/deleteImage/{jobId}/{imageId}")
+    public ResponseEntity deleteImage(@PathVariable Long jobId, @PathVariable Long imageId) {
+        org.dizzybot.jobbot.entities.Job job = jobService.findById(jobId);
+        job.getImages().removeIf(image -> image.getId().equals(imageId));
+        jobService.saveJob(job);
+        return new ResponseEntity(new GeneralResponse("success", "Job image deleted"), HttpStatus.OK);
+    }
+
     @GetMapping("/get/{id}/images")
     public ResponseEntity<List<JobImage>> getJobImages(@PathVariable Long id) {
-        Job job = jobService.findById(id);
+        org.dizzybot.jobbot.entities.Job job = jobService.findById(id);
         return new ResponseEntity(job.getImages(), HttpStatus.OK);
     }
 
