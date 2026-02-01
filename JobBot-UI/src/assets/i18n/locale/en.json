@@ -11,6 +11,7 @@
   "main-page.sidebar.button.postedJobs": "My Posted Jobs",
   "main-page.sidebar.button.account": "Account",
   "posted-job.filter.cancel": "Cancel",
+  "posted-job.filter.clear": "Clear",
   "posted-job.filter.close": "Close",
   "posted-job.filter.confirm": "Confirm",
   "posted-job.filter.location": "Location",
