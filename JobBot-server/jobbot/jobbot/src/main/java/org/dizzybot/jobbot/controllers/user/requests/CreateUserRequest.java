@@ -2,7 +2,6 @@ package org.dizzybot.jobbot.controllers.user.requests;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.dizzybot.jobbot.enums.VisaEnum;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ public class CreateUserRequest {
 
     public String password;
 
-    public boolean workEligibility;
+    public boolean workEligible;
 
     public String visaType;
 

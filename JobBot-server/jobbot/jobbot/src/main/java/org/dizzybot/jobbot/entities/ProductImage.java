@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductImage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,4 +21,5 @@ public class ProductImage {
 
     public ProductImage() {
     }
+
 }

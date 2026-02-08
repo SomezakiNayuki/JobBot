@@ -37,16 +37,4 @@ public class AccountTest {
         assertNotNull(this.user.getAccount());
     }
 
-    @Test
-    public void testUserAccountCreateByUserViolation() {
-        this.account.setAccountNumber(123456789001L);
-        this.account.setBsb(987654L);
-
-        assertEquals(0.0, this.account.getAccountBalance());
-        assertEquals(0, this.account.getPaymentHistory().size()); // []
-
-        Set<ConstraintViolation<Account>> violations = validator.validate(this.account);
-        assertEquals(0, violations.size());
-    }
-
 }

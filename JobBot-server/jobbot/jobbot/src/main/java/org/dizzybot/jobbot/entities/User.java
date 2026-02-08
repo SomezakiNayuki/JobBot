@@ -59,6 +59,9 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = new Role();
+        this.userProfile = new UserProfile();
+        this.account = new Account();
     }
 
     public void setRole(Role role) {

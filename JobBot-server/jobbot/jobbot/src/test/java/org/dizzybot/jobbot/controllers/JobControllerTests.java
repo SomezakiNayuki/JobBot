@@ -2,7 +2,9 @@ package org.dizzybot.jobbot.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.dizzybot.jobbot.controllers.general.responses.ResponseStatusEnum;
 import org.dizzybot.jobbot.controllers.job.JobController;
+import org.dizzybot.jobbot.controllers.job.messages.JobControllerMessage;
 import org.dizzybot.jobbot.controllers.job.requests.Job;
 import org.dizzybot.jobbot.entities.JobImage;
 import org.dizzybot.jobbot.entities.User;
@@ -67,7 +69,8 @@ public class JobControllerTests {
                 .content(bodyJson));
 
         resultActions.andExpect(status().isCreated())
-                .andExpect(content().json("{\"status\":\"success\",\"message\":\"Job created\"}"));
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.JOB_CREATED.getMessage()));
     }
 
     @Test
@@ -104,7 +107,7 @@ public class JobControllerTests {
     }
 
     @Test
-    public void testUploadImageSuccess() throws Exception {
+    public void testUploadImageSUCCESS() throws Exception {
         MockMultipartFile mockFile = new MockMultipartFile(
                 "file",
                 "image.jpeg",
@@ -119,7 +122,8 @@ public class JobControllerTests {
                 .contentType(MediaType.MULTIPART_FORM_DATA));
 
         resultActions.andExpect(status().isOk())
-                .andExpect(content().json("{\"status\":\"success\",\"message\":\"Job image uploaded\"}"));
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.IMAGE_UPLOADED.getMessage()));
     }
 
     @Test
@@ -138,6 +142,119 @@ public class JobControllerTests {
         resultActions.andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    public void testCreateJobCallsServices() throws Exception {
+        Job request = new Job();
+        request.setJobTitle("title");
+        request.setLocation("location");
+        request.setPay(2000);
+        request.setTime(LocalDateTime.now());
+        request.setDescription("description");
+
+        String bodyJson = objectMapper.writeValueAsString(request);
+
+        User user = new User("username", "password", "email@mail.com");
+        user.setId(1L);
+
+        when(userService.findById(Mockito.any())).thenReturn(user);
+
+        mockMvc.perform(post("/api/job/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bodyJson))
+                .andExpect(status().isCreated());
+
+        Mockito.verify(jobService).saveJob(Mockito.any());
+        Mockito.verify(userService).saveUser(Mockito.any());
+    }
+
+    @Test
+    public void testUploadImageSavesImage() throws Exception {
+        MockMultipartFile mockFile = new MockMultipartFile(
+                "file",
+                "image.jpeg",
+                "image/jpeg",
+                "1234567890".getBytes()
+        );
+
+        when(jobService.findById(Mockito.any())).thenReturn(new org.dizzybot.jobbot.entities.Job());
+
+        mockMvc.perform(multipart("/api/job/uploadImage/1")
+                .file(mockFile)
+                .contentType(MediaType.MULTIPART_FORM_DATA))
+                .andExpect(status().isOk());
+
+        Mockito.verify(jobService).saveJob(Mockito.any());
+    }
+
+    @Test
+    public void testGetJobWithOneEntry() throws Exception {
+        when(jobService.getAllJob()).thenReturn(java.util.Collections.singletonList(new org.dizzybot.jobbot.entities.Job()));
+
+        mockMvc.perform(get("/api/job/get"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(1));
+    }
+
+    @Test
+    public void testUpdateJobSuccess() throws Exception {
+        Job request = new Job();
+        request.setId(1L);
+        request.setJobTitle("new title");
+        request.setLocation("new location");
+        request.setPay(1500);
+        request.setTime(LocalDateTime.now());
+        request.setDescription("new description");
+
+        org.dizzybot.jobbot.entities.Job existing = new org.dizzybot.jobbot.entities.Job("old", 1000D, "oldloc", LocalDateTime.now(), "old", new User());
+        existing.setId(1L);
+
+        when(jobService.findById(Mockito.any())).thenReturn(existing);
+
+        String bodyJson = objectMapper.writeValueAsString(request);
+
+        mockMvc.perform(post("/api/job/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bodyJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.JOB_UPDATED.getMessage()));
+
+        Mockito.verify(jobService).saveJob(Mockito.any());
+    }
+
+    @Test
+    public void testDeleteJobSuccess() throws Exception {
+        mockMvc.perform(delete("/api/job/delete/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.JOB_DELETED.getMessage()));
+
+        Mockito.verify(jobService).deleteJob(Mockito.eq(1L));
+    }
+
+    @Test
+    public void testDeleteImageSuccess() throws Exception {
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job();
+        JobImage image = new JobImage();
+        image.setId(2L);
+        image.setImage("data".getBytes());
+        image.setJob(job);
+        job.getImages().add(image);
+
+        when(jobService.findById(Mockito.any())).thenReturn(job);
+
+        mockMvc.perform(delete("/api/job/deleteImage/1/2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.IMAGE_DELETED.getMessage()));
+
+        // image should be removed and job saved
+        assertEquals(0, job.getImages().size());
+        Mockito.verify(jobService).saveJob(Mockito.any());
     }
 
 }
