@@ -2,8 +2,7 @@ package org.dizzybot.jobbot.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.dizzybot.jobbot.controllers.job.JobController;
-import org.dizzybot.jobbot.controllers.job.requests.CreateJobRequest;
-import org.dizzybot.jobbot.entities.Job;
+import org.dizzybot.jobbot.controllers.job.requests.Job.Job;
 import org.dizzybot.jobbot.entities.JobImage;
 import org.dizzybot.jobbot.entities.User;
 import org.dizzybot.jobbot.services.JobService;
@@ -45,7 +44,7 @@ public class JobControllerTests {
 
     @Test
     public void testCreateJobSuccess() throws Exception {
-        CreateJobRequest request = new CreateJobRequest();
+        Job request = new Job();
         request.setJobTitle("title");
         request.setLocation("location");
         request.setPay(2000);
@@ -85,7 +84,7 @@ public class JobControllerTests {
                 "1234567890".getBytes()
         );
 
-        when(jobService.findById(Mockito.any())).thenReturn(new Job());
+        when(jobService.findById(Mockito.any())).thenReturn(new org.dizzybot.jobbot.entities.Job());
 
         ResultActions resultActions = mockMvc.perform(multipart("/api/job/uploadImage/1")
                 .file(mockFile)
@@ -97,7 +96,7 @@ public class JobControllerTests {
 
     @Test
     public void testGetJobImages() throws Exception {
-        Job job = new Job();
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job();
         JobImage image = new JobImage();
         image.setId(1L);
         image.setImage("12345".getBytes());
@@ -111,6 +110,97 @@ public class JobControllerTests {
         resultActions.andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    public void testCreateJobCallsServices() throws Exception {
+        Job request = new Job();
+        request.setJobTitle("title");
+        request.setLocation("location");
+        request.setPay(2000);
+        request.setTime(LocalDateTime.now());
+        request.setDescription("description");
+
+        String bodyJson = objectMapper.writeValueAsString(request);
+
+        User user = new User("username", "password", "email@mail.com");
+        user.setId(1L);
+
+        when(userService.findById(Mockito.any())).thenReturn(user);
+
+        mockMvc.perform(post("/api/job/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bodyJson))
+                .andExpect(status().isCreated());
+
+        Mockito.verify(jobService).saveJob(Mockito.any());
+        Mockito.verify(userService).saveUser(Mockito.any());
+    }
+
+    @Test
+    public void testCreateJobWhenUserNotFound() throws Exception {
+        Job request = new Job();
+        request.setJobTitle("title");
+        request.setLocation("location");
+        request.setPay(2000);
+        request.setTime(LocalDateTime.now());
+        request.setDescription("description");
+
+        String bodyJson = objectMapper.writeValueAsString(request);
+
+        when(userService.findById(Mockito.any())).thenReturn(null);
+
+        mockMvc.perform(post("/api/job/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bodyJson))
+                .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    public void testUploadImageSavesImage() throws Exception {
+        MockMultipartFile mockFile = new MockMultipartFile(
+                "file",
+                "image.jpeg",
+                "image/jpeg",
+                "1234567890".getBytes()
+        );
+
+        when(jobService.findById(Mockito.any())).thenReturn(new org.dizzybot.jobbot.entities.Job());
+
+        mockMvc.perform(multipart("/api/job/uploadImage/1")
+                .file(mockFile)
+                .contentType(MediaType.MULTIPART_FORM_DATA))
+                .andExpect(status().isOk());
+
+        Mockito.verify(jobService).saveJob(Mockito.any());
+    }
+
+    @Test
+    public void testUploadImageWhenJobNotFound() throws Exception {
+        MockMultipartFile mockFile = new MockMultipartFile(
+                "file",
+                "image.jpeg",
+                "image/jpeg",
+                "1234567890".getBytes()
+        );
+
+        when(jobService.findById(Mockito.any())).thenReturn(null);
+
+        mockMvc.perform(multipart("/api/job/uploadImage/1")
+                .file(mockFile)
+                .contentType(MediaType.MULTIPART_FORM_DATA))
+                .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    public void testGetJobWithOneEntry() throws Exception {
+        when(jobService.getAllJob()).thenReturn(java.util.Collections.singletonList(new org.dizzybot.jobbot.entities.Job()));
+
+        mockMvc.perform(get("/api/job/get"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(1));
     }
 
 }

@@ -1,13 +1,10 @@
 package org.dizzybot.jobbot.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.dizzybot.jobbot.enums.JobStatusEnum;
-import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

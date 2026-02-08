@@ -1,6 +1,7 @@
 package org.dizzybot.jobbot.enums;
 
 public enum VisaEnum {
+
     NONE("0"),
     STUDENT_VISA("500"),
     TEMPORARY_GRADUATE_VISA("485"),

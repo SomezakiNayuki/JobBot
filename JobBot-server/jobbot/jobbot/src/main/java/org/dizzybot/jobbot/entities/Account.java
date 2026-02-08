@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,4 +45,5 @@ public class Account {
         this.cardNumber = cardNumber;
         this.paymentHistory = new ArrayList<>();
     }
+
 }

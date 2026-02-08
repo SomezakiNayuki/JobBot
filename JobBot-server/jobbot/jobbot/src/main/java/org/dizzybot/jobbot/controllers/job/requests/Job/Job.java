@@ -1,0 +1,26 @@
+package org.dizzybot.jobbot.controllers.job.requests.Job;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+public class Job {
+
+    public String jobTitle;
+
+    public double pay;
+
+    public String location;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    public LocalDateTime time;
+
+    public String description;
+
+    public Long userId;
+
+}
