@@ -5,4 +5,5 @@ export interface JobState {
     left: Job[];
     right: Job[];
   };
+  myPostedJobs: Job[];
 }

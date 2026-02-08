@@ -99,7 +99,7 @@ export class UserService {
   }
 
   public isLoggedIn(): boolean {
-    return this.getUser() != null;
+    return this.getUser() !== null;
   }
 
   public logout(): void {

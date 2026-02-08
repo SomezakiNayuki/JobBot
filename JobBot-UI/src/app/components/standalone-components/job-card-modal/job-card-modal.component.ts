@@ -20,7 +20,11 @@ export class JobCardModalComponent implements OnInit {
   @Input()
   public createMode: boolean = false;
   @Input()
+  public viewOnlyMode: boolean = false;
+  @Input()
   public job: Job;
+  @Input()
+  public submitFunction: Function | null = null;
 
   constructor(private readonly store: Store) {}
 

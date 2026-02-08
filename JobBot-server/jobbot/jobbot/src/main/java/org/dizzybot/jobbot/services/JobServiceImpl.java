@@ -29,4 +29,9 @@ public class JobServiceImpl implements JobService {
         return jobRepository.findById(id);
     }
 
+    public void deleteJob(Long id) {
+        Job job = jobRepository.findById(id);
+        jobRepository.delete(job);
+    }
+
 }

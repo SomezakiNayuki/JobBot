@@ -8,6 +8,7 @@ const initialState: JobState = {
     left: [],
     right: [],
   },
+  myPostedJobs: [],
 };
 
 export const JobReducer = createReducer(
@@ -19,5 +20,10 @@ export const JobReducer = createReducer(
       left: jobs.left,
       right: jobs.right,
     },
-  }))
+  })),
+  on(JobActions.fetchMyPostedJobs, (state) => ({ ...state })),
+  on(JobActions.fetchMyPostedJobsSuccess, (state, { myPostedJobs }) => ({
+    ...state,
+    myPostedJobs: myPostedJobs,
+  })),
 );

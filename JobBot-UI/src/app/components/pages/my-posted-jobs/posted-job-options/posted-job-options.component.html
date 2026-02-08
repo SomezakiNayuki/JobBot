@@ -1,0 +1,29 @@
+<div class="jb-ft-pst-ctr">
+  <a class="jb-ft-classic jb-ft-clr-black jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer"
+    (click)="toggleJobOptions()"
+  >{{
+    'posted-job.job.options' | translate
+  }}</a>
+  <div class="jb-btn-l-sqr jb-icon jb-i-down jb-icon-orange"></div>
+</div>
+<div
+  class="jb-posted-job-options-dropdown-menu jb-anmt-dropdown"
+  [ngStyle]="{ height: isJobOptionsOpen ? '120px' : '0px' }"
+>
+  <ng-container>
+    <a
+      class="jb-ft-classic jb-ft-clr-black jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer"
+      (click)="openCreateJobModal()"
+    >{{
+      'posted-job.job.option.edit' | translate
+    }}</a>
+    <a
+      class="jb-ft-classic jb-ft-clr-red jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer"
+      (click)="deleteJob(job.id)"
+    >{{
+      'posted-job.job.option.delete' | translate
+    }}</a>
+  </ng-container>
+</div>
+
+<jb-job-card-modal [job]="job" [createMode]="true" [submitFunction]="this.updateJob()"></jb-job-card-modal>

@@ -18,11 +18,12 @@ export class JobPictureComponent implements OnInit {
   public pictures: { id: number; file?: File; url: string }[] = [];
 
   private uploadIndex: number;
+  private picturesToDelete: { id: number; file?: File; url: string }[] = [];
 
   constructor(private readonly jobService: JobService) {}
 
   public ngOnInit(): void {
-    if (!this.createMode && !!this.job) {
+    if (this.job) {
       this.jobService
         .getJobImages(this.job.id)
         .then((imageFiles: { id: number; image: string }[]) => {
@@ -71,14 +72,25 @@ export class JobPictureComponent implements OnInit {
 
   public deleteImage(id: number) {
     if (this.createMode) {
+      const picture = this.pictures.find((pic) => pic.id == id);
+      if (picture && !picture.file) {
+        this.picturesToDelete.push(picture);
+      }
       this.pictures = this.pictures.filter((pic) => pic.id !== id);
     }
   }
 
   public uploadImage(jobId: number): void {
-    const pictureFiles: File[] = this.pictures.map((picture) => picture.file);
-    pictureFiles.forEach((picture) => {
-      this.jobService.uploadImage(jobId, picture);
+    this.picturesToDelete.forEach((image) => {
+      if (!image.file) {
+        this.jobService.deleteJobImage(jobId, image.id);
+      }
+    });
+
+    this.pictures.forEach((image) => {
+      if (image.file) {
+        this.jobService.uploadImage(jobId, image.file);
+      }
     });
   }
 }

@@ -15,6 +15,8 @@ public class UserTests {
         assertEquals(user.getPassword(), "Password");
         assertEquals(user.getEmail(), "dizzybot@mail.com");
         assertNotNull(user.getRole());
+        assertNotNull(user.getUserProfile());
+        assertNotNull(user.getAccount());
     }
 
 }

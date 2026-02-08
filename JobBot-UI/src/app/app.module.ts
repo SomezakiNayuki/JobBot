@@ -14,6 +14,8 @@ import { InputComponent } from 'src/app/components/meta-components/form-componen
 import { JobCardComponent } from 'src/app/components/standalone-components/job-card/job-card.component';
 import { MainPageComponent } from 'src/app/components/pages/main-page/main-page.component';
 import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
+import { MyPostedJobsComponent } from 'src/app/components/pages/my-posted-jobs/my-posted-jobs.component';
+import { PostedJobOptionsComponent } from 'src/app/components/pages/my-posted-jobs/posted-job-options/posted-job-options.component';
 import { PromptComponent } from 'src/app/components/meta-components/prompt/prompt.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
 import { JobPictureComponent } from 'src/app/components/standalone-components/job-card-modal/job-picture/job-picture.component';
@@ -36,8 +38,10 @@ import { reducers } from 'src/app/store/reducers';
 // i18n
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
+// Pipes
+import { TimePipe } from 'src/app/pipes/time.pipe';
+
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { MyPostedJobsComponent } from './components/my-posted-jobs/my-posted-jobs.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -66,6 +70,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     DatePickerComponent,
     TimePickerComponent,
     MyPostedJobsComponent,
+    PostedJobOptionsComponent,
+
+    // Pipes
+    TimePipe,
   ],
   imports: [
     AppRoutingModule,

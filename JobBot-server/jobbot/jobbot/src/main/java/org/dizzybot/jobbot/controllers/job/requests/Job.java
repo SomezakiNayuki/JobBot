@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CreateJobRequest {
+public class Job {
+
+    public Long id;
 
     public String jobTitle;
 

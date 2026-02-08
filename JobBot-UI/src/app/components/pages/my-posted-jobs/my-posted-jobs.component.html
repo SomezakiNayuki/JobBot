@@ -75,11 +75,13 @@
       }}</span>
       <ng-container *ngIf="isTimeFilterOpen">
         <div class="jb-posted-job-filter-function-items">
-          <jb-input [placeholder]="'posted-job.filter.from' | translate"></jb-input>
+          <!-- <jb-input [placeholder]="'posted-job.filter.from' | translate"></jb-input> -->
+          <jb-date-picker [placeholder]="'posted-job.filter.from' | translate"></jb-date-picker>
           <span class="jb-ft-clr-white jb-ft-normal">{{
             'posted-job.filter.to' | translate
           }}</span>
-          <jb-input [placeholder]="'posted-job.filter.to' | translate"></jb-input>
+          <!-- <jb-input [placeholder]="'posted-job.filter.to' | translate"></jb-input> -->
+          <jb-date-picker [placeholder]="'posted-job.filter.to' | translate"></jb-date-picker>
           <div class="jb-posted-job-filter-buttons">
             <button
               class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-green jb-ft-clr-white"
@@ -101,58 +103,22 @@
 </div>
 
 <div class="jb-job-card-column">
-  <div class="jb-posted-job-group">
-    <div class="jb-posted-job-group-option">
-      <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
-        <div class="jb-btn-l-sqr jb-icon jb-i-dot jb-icon-black"></div>
-        <span class="jb-ft-classic jb-posted-job-date">{{
-          'posted-job.job.time' | translate
-        }}</span>
+  <ng-container *ngFor="let job of myPostedJobs$ | async as myPostedJobs">
+    <div class="jb-posted-job-group">
+      <div class="jb-posted-job-group-option">
+        <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
+          <div class="jb-btn-l-sqr jb-icon jb-i-dot jb-icon-black"></div>
+          <span class="jb-ft-classic jb-posted-job-date">{{
+            job.time | timePipe
+          }}</span>
+        </div>
+      </div>
+      <div class="jb-posted-job-group-card">
+        <jb-job-card [job]="job" [viewOnlyMode]="true"></jb-job-card>
+      </div>
+      <div class="jb-posted-job-group-option jb-posted-job-icon-text-container">
+        <jb-posted-job-options [job]="job"></jb-posted-job-options>
       </div>
     </div>
-    <div class="jb-posted-job-group-card"><jb-job-card></jb-job-card></div>
-    <div class="jb-posted-job-group-option">
-      <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
-        <a class="jb-ft-classic jb-ft-clr-black jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer"
-          (click)="toggleJobOptions()"
-        >{{
-          'posted-job.job.options' | translate
-        }}</a>
-        <div class="jb-btn-l-sqr jb-icon jb-i-down jb-icon-orange"></div>
-      </div>
-      <div
-        class="jb-posted-job-options-dropdown-menu jb-anmt-dropdown"
-        [ngStyle]="{ height: isJobOptionsOpen ? '120px' : '0px' }"
-      >
-        <ng-container>
-          <a class="jb-ft-classic jb-ft-clr-black jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer">{{
-            'posted-job.job.option.edit' | translate
-          }}</a>
-          <a class="jb-ft-classic jb-ft-clr-red jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer">{{
-            'posted-job.job.option.delete' | translate
-          }}</a>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-
-  <div class="jb-posted-job-group">
-    <div class="jb-posted-job-group-option">
-      <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
-        <div class="jb-btn-l-sqr jb-icon jb-i-dot jb-icon-black"></div>
-        <span class="jb-ft-classic jb-posted-job-date">{{
-          'posted-job.job.time' | translate
-        }}</span>
-      </div>
-    </div>
-    <div class="jb-posted-job-group-card"><jb-job-card></jb-job-card></div>
-    <div class="jb-posted-job-group-option">
-      <div class="jb-posted-job-icon-text-container jb-ft-pst-ctr">
-        <span class="jb-ft-classic">{{
-          'posted-job.job.options' | translate
-        }}</span>
-        <div class="jb-btn-l-sqr jb-icon jb-i-down jb-icon-orange"></div>
-      </div>
-    </div>
-  </div>
+  </ng-container>
 </div>

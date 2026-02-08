@@ -16,7 +16,7 @@
       ></div>
     </button>
     <div
-      [ngClass]="{ 'jb-job-picture-center': pictures.length === 1 && !createMode }"
+      [ngClass]="{ 'jb-job-picture-center': pictures.length == 1 && !createMode }"
     >
       <img
         class="jb-job-picture jb-bdr-r-50 jb-bg-clr-grey"
@@ -28,7 +28,7 @@
   <button
     *ngIf="createMode"
     class="jb-job-picture jb-bdr-r-50 jb-bg-clr-grey jb-bdr-wth-none jb-sd-el-inner"
-    [ngClass]="{ 'jb-job-picture-center': pictures.length === 0 }"
+    [ngClass]="{ 'jb-job-picture-center': pictures.length == 0 }"
     (click)="triggerImageInput(imageInput)"
   >
     <div class="jb-job-picture-add jb-bdr-c jb-sd-el jb-bg-clr-white">

@@ -1,0 +1,7 @@
+.jb-posted-job-options-dropdown-menu {
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  font-size: 40px;
+  width: 115px;
+}

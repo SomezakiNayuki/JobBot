@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
+import { JobService } from 'src/app/services/job.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, OnDestroy {
   @ViewChild(AuthModalComponent) authModal: AuthModalComponent;
   @ViewChild(JobCardModalComponent) jobCardModal: JobCardModalComponent;
 
@@ -17,13 +18,18 @@ export class MainPageComponent implements OnInit {
 
   protected activePage: string = 'dashboard';
 
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly jobService: JobService,
+    private readonly userService: UserService
+  ) {}
 
   public ngOnInit(): void {
     // TODO: Dev function, to be removed in PROD
     // TODO: Design and develop "remember me" in the future with session control
     this.userService.autoLogin();
   }
+
+  public ngOnDestroy(): void {}
 
   public openSideBar(): void {
     this.isSideBarEnabled = this.isUserLoggedIn();
@@ -56,5 +62,9 @@ export class MainPageComponent implements OnInit {
 
   public onClickPage(page: string): void {
     this.activePage = page;
+  }
+
+  public postJob(): Function {
+    return this.jobService.postJob.bind(this.jobService);
   }
 }

@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import Job from 'src/models/job.model';
-import { JobService } from 'src/app/services/job.service';
 
 @Component({
   selector: 'jb-job-detail',
@@ -17,18 +16,24 @@ export class JobDetailComponent implements OnInit {
   public jobCardMode: boolean = false;
   @Input()
   public job: Job;
+  @Input()
+  public submitFunction: Function | null = null;
 
   @Output()
-  public onCreateJobSuccess: EventEmitter<number> = new EventEmitter<number>();
+  public onSubmitSuccess: EventEmitter<number> = new EventEmitter<number>();
 
   public jobDetailForm: FormGroup;
   public jobDetailFormError: string;
 
-  constructor(private readonly jobService: JobService) {}
+  constructor() {}
 
   public ngOnInit(): void {
     if (this.createMode) {
-      this.initJobForm();
+      if (this.job) {
+        this.loadJobFormFromJob(this.job);
+      } else {
+        this.initJobForm();
+      }
     }
   }
 
@@ -43,24 +48,48 @@ export class JobDetailComponent implements OnInit {
     });
   }
 
+  public loadJobFormFromJob(job: Job): void {
+    this.jobDetailForm = new FormGroup({
+      id: new FormControl(job.id),
+      jobTitle: new FormControl(job.title, [Validators.required]),
+      pay: new FormControl(job.pay, [Validators.required]),
+      location: new FormControl(job.location, [Validators.required]),
+      date: new FormControl(this.transformExistingDate(job.time), [Validators.required]),
+      time: new FormControl(this.transformExistingTime(job.time), [Validators.required]),
+      description: new FormControl(job.description, [Validators.required]),
+    });
+  }
+
+  private transformExistingDate(time: number[]): string {
+    return `${time[0]}-${time[1]}-${time[2]}`;
+  }
+
+  private transformExistingTime(time: number[]): [number, number] {
+    return [time[3], time[4]];
+  }
+
   public submit(): void {
+    if (this.submitFunction == null) {
+      console.error('Submit function is not provided.');
+      return;
+    }
+
     if (!this.jobDetailForm.valid) {
       this.jobDetailForm.markAllAsTouched();
       return;
     }
 
-    this.jobService
-      .postJob(this.jobDetailForm.value)
+    this.submitFunction(this.jobDetailForm.value)
       .then((response) => {
-        this.onPostSuccess(response.payload);
+        this.handleSubmitSuccess(response.payload);
       })
       .catch((error) => {
         this.jobDetailFormError = error.error?.message;
       });
   }
 
-  private onPostSuccess(jobId: number): void {
-    this.onCreateJobSuccess.emit(jobId);
+  private handleSubmitSuccess(jobId: number): void {
+    this.onSubmitSuccess.emit(jobId);
   }
 
   public formatJobTime(jobTime: any): string {

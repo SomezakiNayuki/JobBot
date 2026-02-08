@@ -7,7 +7,8 @@
     <jb-job-detail
       [job]="job"
       [createMode]="createMode"
-      (onCreateJobSuccess)="onUploadImage($event)"
+      (onSubmitSuccess)="onUploadImage($event)"
+      [submitFunction]="submitFunction"
     ></jb-job-detail>
   </div>
   <div class="jb-job-detail-func-group">
@@ -28,7 +29,7 @@
       </button>
     </ng-container>
     <button
-      *ngIf="!createMode"
+      *ngIf="!createMode && !viewOnlyMode"
       class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"
     >
       <div class="jb-sd-ft">
