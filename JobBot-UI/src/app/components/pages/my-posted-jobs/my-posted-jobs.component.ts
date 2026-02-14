@@ -28,6 +28,9 @@ export class MyPostedJobsComponent implements OnInit, OnDestroy {
   public isLocationFilterOpen: boolean = false;
   public isPayFilterOpen: boolean = false;
   public isTimeFilterOpen: boolean = false;
+  public payFilter: { from: number | null; to: number | null } = { from: null, to: null };
+  public locationFilter: string = '';
+  public timeFilter: { from: string | null; to: string | null } = { from: null, to: null };
 
   // Filters
   public payFilter: { from: number | null; to: number | null } = {
@@ -178,3 +181,4 @@ export class MyPostedJobsComponent implements OnInit, OnDestroy {
     event.stopPropagation();
   }
 }
+
