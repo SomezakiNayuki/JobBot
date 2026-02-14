@@ -10,17 +10,23 @@
       }}</span>
       <ng-container *ngIf="isPayFilterOpen">
         <div class="jb-posted-job-filter-function-items">
-          <jb-input [placeholder]="'posted-job.filter.from' | translate"></jb-input>
+          <jb-input [placeholder]="'posted-job.filter.from' | translate" [(ngModel)]="payFilter.from"></jb-input>
           <span class="jb-ft-clr-white jb-ft-normal">{{
             'posted-job.filter.to' | translate
           }}</span>
-          <jb-input [placeholder]="'posted-job.filter.to' | translate"></jb-input>
+          <jb-input [placeholder]="'posted-job.filter.to' | translate" [(ngModel)]="payFilter.to"></jb-input>
           <div class="jb-posted-job-filter-buttons">
             <button
               class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-green jb-ft-clr-white"
-              (click)="closePayFilter($event)"
+              (click)="confirmPayFilter($event)"
             >
               {{ 'posted-job.filter.confirm' | translate }}
+            </button>
+            <button
+              class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="clearPayFilter($event)"
+            >
+              {{ 'posted-job.filter.clear' | translate }}
             </button>
             <button
               class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
@@ -47,13 +53,20 @@
             [type]="'typeahead'"
             [placeholder]="'posted-job.filter.location' | translate"
             [actionList]="['Sydney', 'Wollongong', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Canberra', 'Hobart']"
+            [(ngModel)]="locationFilter"
           ></jb-dropdown>
           <div class="jb-posted-job-filter-buttons">
             <button
               class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-green jb-ft-clr-white"
-              (click)="closeLocationFilter($event)"
+              (click)="confirmLocationFilter($event)"
             >
               {{ 'posted-job.filter.confirm' | translate }}
+            </button>
+            <button
+              class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="clearLocationFilter($event)"
+            >
+              {{ 'posted-job.filter.clear' | translate }}
             </button>
             <button
               class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
@@ -76,18 +89,24 @@
       <ng-container *ngIf="isTimeFilterOpen">
         <div class="jb-posted-job-filter-function-items">
           <!-- <jb-input [placeholder]="'posted-job.filter.from' | translate"></jb-input> -->
-          <jb-date-picker [placeholder]="'posted-job.filter.from' | translate"></jb-date-picker>
+          <jb-date-picker [placeholder]="'posted-job.filter.from' | translate" [(ngModel)]="timeFilter.from"></jb-date-picker>
           <span class="jb-ft-clr-white jb-ft-normal">{{
             'posted-job.filter.to' | translate
           }}</span>
           <!-- <jb-input [placeholder]="'posted-job.filter.to' | translate"></jb-input> -->
-          <jb-date-picker [placeholder]="'posted-job.filter.to' | translate"></jb-date-picker>
+          <jb-date-picker [placeholder]="'posted-job.filter.to' | translate" [(ngModel)]="timeFilter.to"></jb-date-picker>
           <div class="jb-posted-job-filter-buttons">
             <button
               class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-green jb-ft-clr-white"
-              (click)="closeTimeFilter($event)"
+              (click)="confirmTimeFilter($event)"
             >
               {{ 'posted-job.filter.confirm' | translate }}
+            </button>
+            <button
+              class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="clearTimeFilter($event)"
+            >
+              {{ 'posted-job.filter.clear' | translate }}
             </button>
             <button
               class="jb-posted-job-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
