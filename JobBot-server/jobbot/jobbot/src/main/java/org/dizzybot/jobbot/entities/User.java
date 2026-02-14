@@ -1,13 +1,10 @@
 package org.dizzybot.jobbot.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.dizzybot.jobbot.enums.JobStatusEnum;
-import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +59,9 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = new Role();
+        this.userProfile = new UserProfile();
+        this.account = new Account();
     }
 
     public void setRole(Role role) {

@@ -1,7 +1,9 @@
 package org.dizzybot.jobbot.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.dizzybot.jobbot.controllers.general.responses.ResponseStatusEnum;
 import org.dizzybot.jobbot.controllers.user.UserController;
+import org.dizzybot.jobbot.controllers.user.messages.UserControllerMessage;
 import org.dizzybot.jobbot.controllers.user.requests.AuthenticateUserRequest;
 import org.dizzybot.jobbot.controllers.user.requests.CreateUserRequest;
 import org.dizzybot.jobbot.entities.User;
@@ -59,11 +61,14 @@ public class UserControllerTests {
                 .content(bodyJson));
 
         resultActions.andExpect(status().isCreated())
-                .andExpect(content().json("{\"status\":\"success\",\"message\":\"User created\",\"payload\":{\"userId\":1}}"));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(UserControllerMessage.USER_CREATED.getMessage()))
+                .andExpect(jsonPath("$.payload.userId").value(1));
     }
 
     @Test
-    public void testCreateUserFailure() throws Exception {
+    public void testCreateUserFailure_EmailOccupied() throws Exception {
         String username = "testUsername";
         String password = "testPassword";
         String email = "test@email.com";
@@ -75,14 +80,16 @@ public class UserControllerTests {
 
         String bodyJson = objectMapper.writeValueAsString(request);
 
-        when(userService.saveUser(Mockito.any())).thenThrow(new RuntimeException());
+        // Simulate existing email
+        when(userService.findByEmail(Mockito.anyString())).thenReturn(new User());
 
         ResultActions resultActions = mockMvc.perform(post("/api/user/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bodyJson));
 
         resultActions.andExpect(status().isInternalServerError())
-                .andExpect(content().json("{\"status\":\"error\",\"message\":\"Error creating user\",\"payload\":null}"));
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.ERROR.toString()))
+                .andExpect(jsonPath("$.message").value(UserControllerMessage.EMAIL_OCCUPIED.getMessage()));
     }
 
     @Test
@@ -96,6 +103,7 @@ public class UserControllerTests {
         request.setPassword(password);
 
         User user = new User(username, password, email);
+        user.setId(2L);
 
         String bodyJson = objectMapper.writeValueAsString(request);
 
@@ -106,12 +114,13 @@ public class UserControllerTests {
                 .content(bodyJson));
 
         resultActions.andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("success"))
-                .andExpect(jsonPath("$.message").value("User authenticated"));
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(UserControllerMessage.USER_AUTHENTICATED.getMessage()))
+                .andExpect(jsonPath("$.payload.userId").value(2));
     }
 
     @Test
-    public void testAuthenticateUserFailure() throws Exception {
+    public void testAuthenticateUserFailure_InvalidCredentials() throws Exception {
         String email = "test@email.com";
         String password = "testPassword";
 
@@ -127,16 +136,15 @@ public class UserControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bodyJson));
 
-        resultActions.andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.status").value("error"))
-                .andExpect(jsonPath("$.message").value("Invalid account or password"));
+        resultActions.andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.ERROR.toString()))
+                .andExpect(jsonPath("$.message").value(UserControllerMessage.USER_INVALID_CREDENTIALS.getMessage()));
     }
 
     @Test
     public void testGetUserSuccess() throws Exception {
         Long id = Long.valueOf(1);
 
-        // TODO: set up mock user
         when(userService.findById(Mockito.anyLong())).thenReturn(new User());
 
         ResultActions resultActions = mockMvc.perform(get("/api/user/get/1")
@@ -144,5 +152,5 @@ public class UserControllerTests {
 
         resultActions.andExpect(status().isOk());
     }
-
+    
 }

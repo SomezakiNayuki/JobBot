@@ -35,7 +35,9 @@ public class Outcome {
     public Outcome() {
     }
 
+    // TODO: to implement
     public void verify() {
         // return this.status == OutcomeStatusEnum.COMPLETED;
-    } //todo
+    }
+
 }

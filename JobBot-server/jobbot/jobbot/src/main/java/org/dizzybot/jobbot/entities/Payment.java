@@ -37,10 +37,10 @@ public class Payment {
     public Payment() {
     }
 
-    // todo
     public Payment(double amount, User payer, User payee) {
         this.amount = amount;
         this.payer = payer;
         this.payee = payee;
     }
+
 }
