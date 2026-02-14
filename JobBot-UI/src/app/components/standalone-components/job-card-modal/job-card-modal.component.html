@@ -7,7 +7,7 @@
     <jb-job-detail
       [job]="job"
       [editMode]="editMode"
-      (onSubmitSuccess)="onUploadImage(job.id)"
+      (onSubmitSuccess)="onUploadImage($event)"
       [submitFunction]="submitFunction"
     ></jb-job-detail>
   </div>
