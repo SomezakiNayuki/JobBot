@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
 import { UserService } from 'src/app/services/user.service';
@@ -18,13 +19,25 @@ import { UserService } from 'src/app/services/user.service';
 export class AuthModalComponent implements OnInit {
   @ViewChild(ModalComponent) jbModal: ModalComponent;
 
+  public readonly USERNAME = 'username';
+  public readonly RE_ENTER_PASSWORD = 'reEnterPassword';
+  public readonly WORK_ELIGIBILITY = 'workEligibility';
+  public readonly VISA_TYPE = 'visaType';
+  public readonly ID_CARD_NUMBER = 'idCardNumber';
+  public readonly EMAIL = 'email';
+  public readonly PASSWORD = 'password';
+
   public authFormGroup: FormGroup;
   public authResponseError: string;
   public isLogin: boolean = true;
   public isRoleScreen: boolean = false;
+
   private skipRoleScreen: boolean = false;
 
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly translate: TranslateService,
+    private readonly userService: UserService
+  ) {}
 
   public ngOnInit(): void {
     this.initAuthForm();
@@ -40,11 +53,11 @@ export class AuthModalComponent implements OnInit {
       this.initAuthForm();
     } else {
       this.authFormGroup.addControl(
-        'username',
+        this.USERNAME,
         new FormControl('', [Validators.required])
       );
       this.authFormGroup.addControl(
-        'reEnterPassword',
+        this.RE_ENTER_PASSWORD,
         new FormControl('', [Validators.required])
       );
     }
@@ -52,21 +65,21 @@ export class AuthModalComponent implements OnInit {
 
   private initRoleForm(): void {
     this.authFormGroup.addControl(
-      'workEligibility',
+      this.WORK_ELIGIBILITY,
       new FormControl('', [Validators.required])
     );
-    this.authFormGroup.addControl('visaType', new FormControl(''));
+    this.authFormGroup.addControl(this.VISA_TYPE, new FormControl(''));
     this.authFormGroup.addControl(
-      'idCardNumber',
+      this.ID_CARD_NUMBER,
       new FormControl('', [Validators.required])
     );
     this.skipRoleScreen = false;
   }
 
   private resetRoleForm(): void {
-    this.authFormGroup.get('workEligibility').reset();
-    this.authFormGroup.get('visaType').reset();
-    this.authFormGroup.get('idCardNumber').reset();
+    this.authFormGroup.get(this.WORK_ELIGIBILITY).reset();
+    this.authFormGroup.get(this.VISA_TYPE).reset();
+    this.authFormGroup.get(this.ID_CARD_NUMBER).reset();
   }
 
   private closeAuthModal(): void {
@@ -113,16 +126,16 @@ export class AuthModalComponent implements OnInit {
 
   private checkPasswordMatch(): boolean {
     this.authResponseError = null;
-    const passwordControl: AbstractControl = this.authFormGroup.get('password');
+    const passwordControl: AbstractControl = this.authFormGroup.get(this.PASSWORD);
     const reEnterPasswordControl: AbstractControl =
-      this.authFormGroup.get('reEnterPassword');
+      this.authFormGroup.get(this.RE_ENTER_PASSWORD);
     const result: boolean =
       passwordControl.value == reEnterPasswordControl.value;
     if (!result) {
-      this.authResponseError = 'Password re-enetered does not match';
+      this.authResponseError = this.translate.instant('auth-modal.form.placeholder.reEnterPassword.mismatch');
       return result;
     }
-    this.authFormGroup.removeControl('reEnterPassword');
+    this.authFormGroup.removeControl(this.RE_ENTER_PASSWORD);
     return result;
   }
 
@@ -133,7 +146,7 @@ export class AuthModalComponent implements OnInit {
   private handleUserRegister(): void {
     this.userService
       .registerUser(this.authFormGroup.value)
-      .then((response) => {
+      .then(() => {
         this.closeAuthModal();
       })
       .catch((error) => {
@@ -144,7 +157,7 @@ export class AuthModalComponent implements OnInit {
   private handleUserLogin(): void {
     this.userService
       .authenticateUser(this.authFormGroup.value)
-      .then((response) => {
+      .then(() => {
         this.closeAuthModal();
       })
       .catch((error) => {

@@ -1,12 +1,13 @@
 import { createAction, props } from '@ngrx/store';
+import DashboardJobs from 'src/common-types/dashboard-jobs.type';
 
 import Job from 'src/models/job.model';
 
-const fetchJob = createAction('[job][fetch]');
+const fetchJobs = createAction('[job][fetch]');
 
-const fetchJobSuccess = createAction(
+const fetchJobsSuccess = createAction(
   '[job][fetch][success]',
-  props<{ jobs: { left: Job[]; right: Job[] } }>()
+  props<{ jobs: DashboardJobs }>()
 );
 
 const fetchMyPostedJobs = createAction(
@@ -20,8 +21,8 @@ const fetchMyPostedJobsSuccess = createAction(
 );
 
 export const JobActions = {
-  fetchJob,
-  fetchJobSuccess,
+  fetchJobs,
+  fetchJobsSuccess,
   fetchMyPostedJobs,
   fetchMyPostedJobsSuccess,
 };

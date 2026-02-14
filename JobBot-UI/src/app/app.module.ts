@@ -18,7 +18,7 @@ import { MyPostedJobsComponent } from 'src/app/components/pages/my-posted-jobs/m
 import { PostedJobOptionsComponent } from 'src/app/components/pages/my-posted-jobs/posted-job-options/posted-job-options.component';
 import { PromptComponent } from 'src/app/components/meta-components/prompt/prompt.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
-import { JobPictureComponent } from 'src/app/components/standalone-components/job-card-modal/job-picture/job-picture.component';
+import { JobImageComponent } from 'src/app/components/standalone-components/job-card-modal/job-image/job-image.component';
 import { JobDetailComponent } from 'src/app/components/standalone-components/job-card-modal/job-detail/job-detail.component';
 import { TextareaComponent } from 'src/app/components/meta-components/form-components/textarea/textarea.component';
 import { TimePickerComponent } from 'src/app/components/meta-components/form-components/time-picker/time-picker.component';
@@ -38,10 +38,8 @@ import { reducers } from 'src/app/store/reducers';
 // i18n
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
-// Pipes
-import { TimePipe } from 'src/app/pipes/time.pipe';
-
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,7 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MainPageComponent,
     ModalComponent,
     PromptComponent,
-    JobPictureComponent,
+    JobImageComponent,
     JobDetailComponent,
     TextareaComponent,
 
@@ -71,9 +69,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     TimePickerComponent,
     MyPostedJobsComponent,
     PostedJobOptionsComponent,
-
-    // Pipes
-    TimePipe,
   ],
   imports: [
     AppRoutingModule,
@@ -90,6 +85,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // NgRx store dependencis
     EffectsModule.forRoot([JobEffects]),
     StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument(),
 
     // i18n
     TranslateModule.forRoot({

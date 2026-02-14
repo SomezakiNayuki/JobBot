@@ -28,9 +28,9 @@ describe('MainPageComponent', () => {
         {
           provide: UserService,
           useValue: {
-            isLoggedIn: jasmine.createSpy(),
+            isLoggedIn$: jasmine.createSpy(),
             logout: jasmine.createSpy(),
-            getUser: jasmine.createSpy(),
+            getUser$: jasmine.createSpy(),
             autoLogin: jasmine.createSpy(),
           },
         },
@@ -61,13 +61,13 @@ describe('MainPageComponent', () => {
 
   describe('openSideBar', () => {
     it('should open side bar based on login status', () => {
-      userService.isLoggedIn.and.returnValue(true);
+      userService.isLoggedIn$.and.returnValue(true);
 
       component.openSideBar();
 
       expect(component.isSideBarEnabled).toBeTruthy();
 
-      userService.isLoggedIn.and.returnValue(false);
+      userService.isLoggedIn$.and.returnValue(false);
 
       component.openSideBar();
 
@@ -105,15 +105,15 @@ describe('MainPageComponent', () => {
     });
   });
 
-  describe('isUserLoggedIn', () => {
+  describe('isUserLoggedIn$', () => {
     it('should check if user is logged in', () => {
-      userService.isLoggedIn.and.returnValue(true);
+      userService.isLoggedIn$.and.returnValue(true);
 
-      expect(component.isUserLoggedIn()).toBeTruthy();
+      expect(component.isUserLoggedIn$()).toBeTruthy();
 
-      userService.isLoggedIn.and.returnValue(false);
+      userService.isLoggedIn$.and.returnValue(false);
 
-      expect(component.isUserLoggedIn()).toBeFalsy();
+      expect(component.isUserLoggedIn$()).toBeFalsy();
     });
   });
 
@@ -126,13 +126,13 @@ describe('MainPageComponent', () => {
     });
   });
 
-  describe('getUserName', () => {
+  describe('getUserName$', () => {
     it('should return username', () => {
       let user: User = new User();
       user.username = 'test username';
-      userService.getUser.and.returnValue(user);
+      userService.getUser$.and.returnValue(user);
 
-      expect(component.getUserName()).toEqual('test username');
+      expect(component.getUserName$()).toEqual('test username');
     });
   });
 

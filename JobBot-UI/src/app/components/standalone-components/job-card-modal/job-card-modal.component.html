@@ -1,24 +1,18 @@
 <jb-modal [template]="jobCardModalTemplate"></jb-modal>
 
 <ng-template #jobCardModalTemplate>
-  <jb-job-picture [job]="job" [createMode]="createMode"></jb-job-picture>
+  <jb-job-image [job]="job" [editMode]="editMode"></jb-job-image>
   <div class="jb-modal-container-bar jb-bg-clr-navy"></div>
   <div class="jb-job-detail-form-wrapper">
     <jb-job-detail
       [job]="job"
-      [createMode]="createMode"
-      (onSubmitSuccess)="onUploadImage($event)"
+      [editMode]="editMode"
+      (onSubmitSuccess)="onUploadImage(job.id)"
       [submitFunction]="submitFunction"
     ></jb-job-detail>
   </div>
   <div class="jb-job-detail-func-group">
-    <ng-container *ngIf="createMode">
-      <!-- <button
-        (click)="onDiscard()"
-        class="btn btn-primary jb-job-discard-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-red jb-ft-pst-ctr jb-bdr-r-10"
-      >
-        <div class="jb-sd-ft">Discard</div>
-      </button> -->
+    <ng-container *ngIf="editMode">
       <button
         (click)="onSubmit()"
         class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"
@@ -29,7 +23,7 @@
       </button>
     </ng-container>
     <button
-      *ngIf="!createMode && !viewOnlyMode"
+      *ngIf="!editMode && !viewOnlyMode"
       class="btn btn-primary jb-job-accept-button btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-green jb-ft-pst-ctr jb-bdr-r-10"
     >
       <div class="jb-sd-ft">

@@ -6,6 +6,7 @@
   "auth-modal.form.placeholder.username": "Username",
   "auth-modal.form.placeholder.password": "Password",
   "auth-modal.form.placeholder.reEnterPassword": "Re-enter password",
+  "auth-modal.form.placeholder.reEnterPassword.mismatch": "Password re-enetered does not match",
   "auth-modal.form.placeholder.workingRight": "Do you have unretricted working right?",
   "auth-modal.form.placeholder.visaType": "Visa Type",
   "auth-modal.form.placeholder.idCardNumber": "ID card number"

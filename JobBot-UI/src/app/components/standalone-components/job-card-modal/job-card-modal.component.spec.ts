@@ -45,7 +45,7 @@ describe('JobCardModalComponent', () => {
   describe('onUploadImage', () => {
     beforeEach(() => {
       spyOn(modalComponent, 'close');
-      component.jbJobPicture = jasmine.createSpyObj('JobPictureComponent', [], {
+      component.jbJobPicture = jasmine.createSpyObj('JobImageComponent', [], {
         uploadImage: jasmine.createSpy(),
       });
     });
