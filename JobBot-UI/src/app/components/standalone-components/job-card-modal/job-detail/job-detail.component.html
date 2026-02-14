@@ -1,7 +1,10 @@
 <div
-  [ngClass]="{ 'jb-detail-card': jobCardMode, 'jb-job-detail-wrapper': !jobCardMode }"
+  [ngClass]="{
+    'jb-detail-card': jobCardMode,
+    'jb-job-detail-wrapper': !jobCardMode,
+  }"
 >
-  <form *ngIf="createMode" [formGroup]="jobDetailForm">
+  <form *ngIf="editMode" [formGroup]="jobDetailForm">
     <jb-prompt
       *ngIf="!!jobDetailFormError"
       [prompt]="jobDetailFormError"
@@ -12,7 +15,11 @@
         [placeholder]="'job-detail.form.placeholder.jobTitle' | translate"
         formControlName="jobTitle"
       ></jb-input>
-      <jb-input class="jb-job-detail-form" [placeholder]="'$Pay'" formControlName="pay"></jb-input>
+      <jb-input
+        class="jb-job-detail-form"
+        [placeholder]="'$Pay'"
+        formControlName="pay"
+      ></jb-input>
       <jb-dropdown
         [placeholder]="'job-detail.form.placeholder.location' | translate"
         formControlName="location"
@@ -31,7 +38,7 @@
       ></jb-textarea>
     </div>
   </form>
-  <ng-container *ngIf="!createMode">
+  <ng-container *ngIf="!editMode">
     <p class="jb-ft-classic jb-detail-title jb-mtmb-0">
       {{ 'job-detail.jobTitle' | translate: { title: job?.title } }}
     </p>
@@ -42,7 +49,7 @@
       {{ 'job-detail.location' | translate: { location: job?.location } }}
     </p>
     <p class="jb-ft-classic jb-detail-info jb-mtmb-0">
-      {{ 'job-detail.time' | translate: { time: formatJobTime(job?.time) } }}
+      {{ 'job-detail.time' | translate: { time: job?.time.toString() } }}
     </p>
     <ng-container *ngIf="!jobCardMode">
       <p class="jb-ft-classic jb-detail-info jb-mtmb-0">

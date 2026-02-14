@@ -1,4 +1,4 @@
-.jb-job-pictures-wrapper {
+.jb-job-images-wrapper {
   width: 690px;
   height: 840px;
   overflow-y: scroll;
@@ -8,11 +8,11 @@
 }
 
 /* Hide scrollbar in WebKit browsers */
-.jb-job-pictures-wrapper::-webkit-scrollbar {
+.jb-job-images-wrapper::-webkit-scrollbar {
   display: none;
 }
 
-.jb-job-picture {
+.jb-job-image {
   object-fit: contain;
   width: 690px;
   height: 450px;
@@ -20,7 +20,7 @@
   margin-bottom: 15px;
 }
 
-.jb-job-picture-card {
+.jb-job-image-card {
   object-fit: cover;
   width: 440px;
   height: 220px;
@@ -31,36 +31,36 @@
   top: 15px;
 }
 
-.jb-job-picture-add {
+.jb-job-image-add {
   position: relative;
   left: 42.5%;
   width: 100px;
   height: 100px;
 }
 
-.jb-job-picture-add-icon {
+.jb-job-image-add-icon {
   position: relative;
   left: 9.75%;
   top: 10%;
 }
 
-.jb-job-picture-wrapper {
+.jb-job-image-wrapper {
   margin-top: -100px;
 }
 
-.jb-job-picture-center {
+.jb-job-image-center {
   position: absolute;
   top: 20%;
 }
 
-.jb-job-picture-delete-button {
+.jb-job-image-delete-button {
   border: none;
   position: relative;
   top: 115px;
   left: 600px;
 }
 
-.jb-job-picture-delete-button-icon {
+.jb-job-image-delete-button-icon {
   position: relative;
   left: -5px;
 }

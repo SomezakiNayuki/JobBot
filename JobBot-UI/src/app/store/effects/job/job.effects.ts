@@ -7,16 +7,16 @@ import { JobService } from 'src/app/services/job.service';
 
 @Injectable()
 export class JobEffects {
-  fetchJob$ = createEffect(() =>
+  fetchJobs$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(JobActions.fetchJob),
+      ofType(JobActions.fetchJobs),
       mergeMap(() =>
-        from(this.jobService.getJob()).pipe(
+        from(this.jobService.getJobs()).pipe(
           map((jobs) =>
-            JobActions.fetchJobSuccess({
+            JobActions.fetchJobsSuccess({
               jobs: {
-                left: jobs.filter((_, index) => index % 2 == 0),
-                right: jobs.filter((_, index) => index % 2 !== 0),
+                leftColumn: jobs.filter((_, index) => index % 2 == 0),
+                rightColumn: jobs.filter((_, index) => index % 2 !== 0),
               },
             })
           )

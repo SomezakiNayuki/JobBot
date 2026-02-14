@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { map, Observable, Subject, takeUntil } from 'rxjs';
 
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
@@ -18,6 +19,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   protected activePage: string = 'dashboard';
 
+  private $destroy: Subject<void> = new Subject<void>();
+
   constructor(
     private readonly jobService: JobService,
     private readonly userService: UserService
@@ -29,10 +32,17 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.userService.autoLogin();
   }
 
-  public ngOnDestroy(): void {}
+  public ngOnDestroy(): void {
+    this.$destroy.next();
+    this.$destroy.complete();
+  }
 
   public openSideBar(): void {
-    this.isSideBarEnabled = this.isUserLoggedIn();
+    this.isUserLoggedIn$()
+      .pipe(takeUntil(this.$destroy))
+      .subscribe((isLoggedIn$) => {
+        this.isSideBarEnabled = isLoggedIn$;
+      });
   }
 
   public collapseSideBar(): void {
@@ -47,8 +57,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.jobCardModal.show();
   }
 
-  public isUserLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
+  public isUserLoggedIn$(): Observable<boolean> {
+    return this.userService.isLoggedIn$();
   }
 
   public logout(): void {
@@ -56,8 +66,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.userService.logout();
   }
 
-  public getUserName(): string {
-    return this.userService.getUser()?.username;
+  public getUserName$(): Observable<string> {
+    return this.userService.getUser$().pipe(map((user) => user.username));
   }
 
   public onClickPage(page: string): void {

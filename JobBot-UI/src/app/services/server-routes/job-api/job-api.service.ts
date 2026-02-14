@@ -20,7 +20,7 @@ export class JobApiService extends BaseServerRoutesService {
     return this.getBaseServerURL() + this.BASE_URL + '/update';
   }
 
-  public getGetJobURL(): string {
+  public getGetJobsURL(): string {
     return this.getBaseServerURL() + this.BASE_URL + '/get';
   }
 
@@ -41,7 +41,14 @@ export class JobApiService extends BaseServerRoutesService {
   }
 
   public getDeleteJobImageURL(jobId: number, imageId: number): string {
-    return this.getBaseServerURL() + this.BASE_URL + '/deleteImage/' + jobId + '/' + imageId;
+    return (
+      this.getBaseServerURL() +
+      this.BASE_URL +
+      '/deleteImage/' +
+      jobId +
+      '/' +
+      imageId
+    );
   }
 
   public getGetJobImageURL(id: number): string {

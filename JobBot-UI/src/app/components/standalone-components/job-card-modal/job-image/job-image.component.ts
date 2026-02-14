@@ -1,24 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { JobService } from 'src/app/services/job.service';
+
+import ImageFile from 'src/common-types/image-file.type';
 import Job from 'src/models/job.model';
+import { JobService } from 'src/app/services/job.service';
 
 @Component({
-  selector: 'jb-job-picture',
-  templateUrl: './job-picture.component.html',
-  styleUrls: ['./job-picture.component.css'],
+  selector: 'jb-job-image',
+  templateUrl: './job-image.component.html',
+  styleUrls: ['./job-image.component.css'],
 })
-export class JobPictureComponent implements OnInit {
+export class JobImageComponent implements OnInit {
   @Input()
-  public createMode: boolean = false;
+  public editMode: boolean = false;
   @Input()
   public jobCardMode: boolean = false;
   @Input()
   public job: Job;
 
-  public pictures: { id: number; file?: File; url: string }[] = [];
+  public images: ImageFile[] = [];
 
   private uploadIndex: number;
-  private picturesToDelete: { id: number; file?: File; url: string }[] = [];
+  private imagesToDelete: ImageFile[] = [];
 
   constructor(private readonly jobService: JobService) {}
 
@@ -28,7 +30,7 @@ export class JobPictureComponent implements OnInit {
         .getJobImages(this.job.id)
         .then((imageFiles: { id: number; image: string }[]) => {
           imageFiles.forEach((imageFile) => {
-            this.pictures.push({
+            this.images.push({
               id: imageFile.id,
               url: this.convertToBlobUrl(imageFile.image),
             });
@@ -58,7 +60,7 @@ export class JobPictureComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
-          this.pictures.push({
+          this.images.push({
             id: this.uploadIndex,
             file: imageFile,
             url: reader.result.toString(),
@@ -71,26 +73,22 @@ export class JobPictureComponent implements OnInit {
   }
 
   public deleteImage(id: number) {
-    if (this.createMode) {
-      const picture = this.pictures.find((pic) => pic.id == id);
-      if (picture && !picture.file) {
-        this.picturesToDelete.push(picture);
+    if (this.editMode) {
+      const image = this.images.find((image) => image.id == id);
+      if (image && !image.file) {
+        this.imagesToDelete.push(image);
       }
-      this.pictures = this.pictures.filter((pic) => pic.id !== id);
+      this.images = this.images.filter((image) => image.id !== id);
     }
   }
 
   public uploadImage(jobId: number): void {
-    this.picturesToDelete.forEach((image) => {
-      if (!image.file) {
-        this.jobService.deleteJobImage(jobId, image.id);
-      }
+    this.imagesToDelete.forEach((image) => {
+      this.jobService.deleteJobImage(jobId, image.id);
     });
 
-    this.pictures.forEach((image) => {
-      if (image.file) {
-        this.jobService.uploadImage(jobId, image.file);
-      }
+    this.images.forEach((image) => {
+      this.jobService.uploadImage(jobId, image.file);
     });
   }
 }

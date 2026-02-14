@@ -1,9 +1,9 @@
 <div class="jb-ft-pst-ctr">
-  <a class="jb-ft-classic jb-ft-clr-black jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer"
+  <a
+    class="jb-ft-classic jb-ft-clr-black jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer"
     (click)="toggleJobOptions()"
-  >{{
-    'posted-job.job.options' | translate
-  }}</a>
+    >{{ 'posted-job.job.options' | translate }}</a
+  >
   <div class="jb-btn-l-sqr jb-icon jb-i-down jb-icon-orange"></div>
 </div>
 <div
@@ -14,16 +14,18 @@
     <a
       class="jb-ft-classic jb-ft-clr-black jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer"
       (click)="openCreateJobModal()"
-    >{{
-      'posted-job.job.option.edit' | translate
-    }}</a>
+      >{{ 'posted-job.job.option.edit' | translate }}</a
+    >
     <a
       class="jb-ft-classic jb-ft-clr-red jb-ft-remove-hyperlink-decoration jb-btn-cursor-pointer"
       (click)="deleteJob(job.id)"
-    >{{
-      'posted-job.job.option.delete' | translate
-    }}</a>
+      >{{ 'posted-job.job.option.delete' | translate }}</a
+    >
   </ng-container>
 </div>
 
-<jb-job-card-modal [job]="job" [createMode]="true" [submitFunction]="this.updateJob()"></jb-job-card-modal>
+<jb-job-card-modal
+  [job]="job"
+  [editMode]="true"
+  [submitFunction]="this.updateJob()"
+></jb-job-card-modal>

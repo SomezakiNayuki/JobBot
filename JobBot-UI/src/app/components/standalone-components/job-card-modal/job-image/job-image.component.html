@@ -1,0 +1,35 @@
+<ng-container *ngIf="jobCardMode && images.length !== 0">
+  <img class="jb-job-image-card jb-bdr-r-50" [src]="images[0].url" />
+</ng-container>
+<div *ngIf="!jobCardMode" class="jb-job-images-wrapper jb-bdr-r-50">
+  <div
+    [ngClass]="{ 'jb-job-image-wrapper': editMode }"
+    *ngFor="let image of images"
+  >
+    <button
+      *ngIf="editMode"
+      class="jb-job-image-delete-button jb-btn-clr-white jb-btn-l-sqr jb-bdr-c"
+      (click)="deleteImage(image.id)"
+    >
+      <div
+        class="jb-job-image-delete-button-icon jb-btn-l-sqr jb-icon jb-i-close jb-icon-red"
+      ></div>
+    </button>
+    <div [ngClass]="{ 'jb-job-image-center': images.length == 1 && !editMode }">
+      <img class="jb-job-image jb-bdr-r-50 jb-bg-clr-grey" [src]="image.url" />
+    </div>
+  </div>
+  <input type="file" #imageInput (change)="onImageSelected($event)" hidden />
+  <button
+    *ngIf="editMode"
+    class="jb-job-image jb-bdr-r-50 jb-bg-clr-grey jb-bdr-wth-none jb-sd-el-inner"
+    [ngClass]="{ 'jb-job-image-center': images.length == 0 }"
+    (click)="triggerImageInput(imageInput)"
+  >
+    <div class="jb-job-image-add jb-bdr-c jb-sd-el jb-bg-clr-white">
+      <div
+        class="jb-job-image-add-icon jb-btn-l-sqr jb-icon jb-i-plus jb-icon-grey"
+      ></div>
+    </div>
+  </button>
+</div>

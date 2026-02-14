@@ -1,19 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { filter, firstValueFrom, map, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import User from 'src/models/user.model';
 import { UserApiService } from 'src/app/services/server-routes/user-api/user-api.service';
+import { UserActions } from 'src/app/store/actions/user/user.action';
+import { UserSelectors } from 'src/app/store/selectors/user/user.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private user: User = null;
-
   constructor(
-    private readonly userApi: UserApiService,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly store: Store,
+    private readonly userApi: UserApiService
   ) {}
 
   public registerUser(registerUserRequest: any): Promise<any> {
@@ -76,40 +78,33 @@ export class UserService {
   }
 
   private preserveUser(response: any): void {
-    if (this.user == null) {
-      this.user = new User();
-    }
-    this.user.id = response.payload.userId;
-    this.fetchUser(this.user.id);
+    this.fetchUser(response.payload.userId);
   }
 
   public fetchUser(userId: number): void {
     firstValueFrom(this.http.get(this.userApi.getGetUserURL(userId)))
       .then((response) => {
-        this.cacheUser(response);
+        this.store.dispatch(
+          UserActions.preserveUser({ user: response as User })
+        );
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
-  private cacheUser(response: any) {
-    this.user.username = response.username;
-    this.user.email = response.email;
-  }
-
-  public isLoggedIn(): boolean {
-    return this.getUser() !== null;
+  public isLoggedIn$(): Observable<boolean> {
+    return this.getUser$().pipe(map((user) => !!user));
   }
 
   public logout(): void {
     // TODO: Dev function, to be removed in PROD
     this.endSession('currentUserEmail');
     this.endSession('currentUserPassword');
-    this.user = null;
+    this.store.dispatch(UserActions.clearUser());
   }
 
-  public getUser(): User {
-    return this.user;
+  public getUser$(): Observable<User> {
+    return this.store.select(UserSelectors.user).pipe(filter(Boolean));
   }
 }

@@ -6,17 +6,17 @@ import {
 } from '@angular/core/testing';
 
 import Job from 'src/models/job.model';
-import { JobPictureComponent } from 'src/app/components/standalone-components/job-card-modal/job-picture/job-picture.component';
+import { JobImageComponent } from 'src/app/components/standalone-components/job-card-modal/job-image/job-image.component';
 import { JobService } from 'src/app/services/job.service';
 
-describe('JobPictureComponent', () => {
-  let component: JobPictureComponent;
-  let fixture: ComponentFixture<JobPictureComponent>;
+describe('JobImageComponent', () => {
+  let component: JobImageComponent;
+  let fixture: ComponentFixture<JobImageComponent>;
   let jobService: jasmine.SpyObj<JobService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [JobPictureComponent],
+      declarations: [JobImageComponent],
       providers: [
         {
           provide: JobService,
@@ -28,7 +28,7 @@ describe('JobPictureComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(JobPictureComponent);
+    fixture = TestBed.createComponent(JobImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -40,9 +40,9 @@ describe('JobPictureComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should call jobService.getJobImages if is not createMode', () => {
+    it('should call jobService.getJobImages if is not editMode', () => {
       jobService.getJobImages.and.returnValue(Promise.resolve());
-      component.createMode = false;
+      component.editMode = false;
       component.job = new Job();
       component.job.id = 1;
 
@@ -51,11 +51,11 @@ describe('JobPictureComponent', () => {
       expect(jobService.getJobImages).toHaveBeenCalledWith(1);
     });
 
-    it('should call populate image if is not createMode (convert to blob url)', fakeAsync(() => {
+    it('should call populate image if is not editMode (convert to blob url)', fakeAsync(() => {
       jobService.getJobImages.and.returnValue(
         Promise.resolve([{ id: 1, image: 'data' }])
       );
-      component.createMode = false;
+      component.editMode = false;
       component.job = new Job();
       component.job.id = 1;
 
@@ -63,13 +63,13 @@ describe('JobPictureComponent', () => {
       tick();
 
       expect(jobService.getJobImages).toHaveBeenCalledWith(1);
-      expect(component.pictures).toEqual([
+      expect(component.images).toEqual([
         { id: 1, url: 'data:image/jpeg;base64,data' },
       ]);
     }));
 
-    it('should set uploadIndex to 0 if is createMode', () => {
-      component.createMode = true;
+    it('should set uploadIndex to 0 if is editMode', () => {
+      component.editMode = true;
       component['uploadIndex'] = 1;
 
       component.ngOnInit();
@@ -80,19 +80,19 @@ describe('JobPictureComponent', () => {
 
   describe('deleteImage', () => {
     it('should delete image with given uploadIndex', () => {
-      component.createMode = true;
-      component.pictures = [{ id: 1, file: null, url: 'data' }];
+      component.editMode = true;
+      component.images = [{ id: 1, file: null, url: 'data' }];
 
       component.deleteImage(1);
 
-      expect(component.pictures).toEqual([]);
+      expect(component.images).toEqual([]);
     });
   });
 
   describe('uploadImage', () => {
     it('should upload all images', () => {
-      component.createMode = true;
-      component.pictures = [
+      component.editMode = true;
+      component.images = [
         { id: 1, file: {} as File, url: 'data' },
         { id: 2, file: {} as File, url: 'data' },
         { id: 3, file: {} as File, url: 'data' },

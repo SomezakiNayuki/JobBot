@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { filter, firstValueFrom, take } from 'rxjs';
 
 import { JobApiService } from 'src/app/services/server-routes/job-api/job-api.service';
-import { UserService } from 'src/app/services/user.service';
 import Job from 'src/models/job.model';
 import { JobActions } from '../store/actions/job/job.actions';
 import { Store } from '@ngrx/store';
+import Time from 'src/models/time.model';
+import { UserSelectors } from 'src/app/store/selectors/user/user.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -15,32 +16,33 @@ export class JobService {
   constructor(
     private readonly jobApi: JobApiService,
     private readonly http: HttpClient,
-    private readonly store: Store,
-    private readonly userService: UserService
+    private readonly store: Store
   ) {}
 
-  public postJob(createJobRequest: any): Promise<any> {
+  public async postJob(createJobRequest: any): Promise<any> {
     const { date, time, ...rest } = createJobRequest;
+
+    const user = await firstValueFrom(
+      this.store.select(UserSelectors.user).pipe(filter(Boolean), take(1))
+    );
 
     createJobRequest = {
       ...rest,
       time: `${date} ${time}`,
-      userId: this.userService.getUser().id,
+      userId: user.id,
     };
 
-    return new Promise((resolve, reject) => {
-      firstValueFrom(
-        this.http.post(this.jobApi.getCreateJobURL(), createJobRequest)
-      )
-        .then((response) => {
-          return resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
+    return firstValueFrom(
+      this.http.post(this.jobApi.getCreateJobURL(), createJobRequest)
+    );
   }
 
-  public updateJob(updateJobRequest: any): Promise<any> {
+  public async updateJob(updateJobRequest: any): Promise<any> {
     const { date, time, ...rest } = updateJobRequest;
+
+    const user = await firstValueFrom(
+      this.store.select(UserSelectors.user).pipe(filter(Boolean), take(1))
+    );
 
     updateJobRequest = {
       ...rest,
@@ -50,29 +52,38 @@ export class JobService {
     return new Promise((resolve, reject) => {
       firstValueFrom(
         this.http.post(this.jobApi.getUpdateJobURL(), updateJobRequest)
-      ).then((response) => {
-          this.store.dispatch(JobActions.fetchMyPostedJobs({ userId: this.userService.getUser().id }));
+      )
+        .then((response) => {
+          this.store.dispatch(
+            JobActions.fetchMyPostedJobs({ userId: user.id })
+          );
           return resolve(response);
         })
         .catch((error) => reject(error));
     });
   }
 
-  public getJob(): Promise<Job[]> {
+  public getJobs(): Promise<Job[]> {
     return new Promise((resolve, reject) => {
-      firstValueFrom(this.http.get(this.jobApi.getGetJobURL()))
+      firstValueFrom(this.http.get(this.jobApi.getGetJobsURL()))
         .then((response) => {
-          return resolve(response as Job[]);
+          return resolve(this.fromRestJobsToJobs(response as any[]));
         })
         .catch((error) => reject(error));
     });
   }
 
-  public deleteJob(id: number): Promise<any> {
+  public async deleteJob(id: number): Promise<any> {
+    const user = await firstValueFrom(
+      this.store.select(UserSelectors.user).pipe(filter(Boolean), take(1))
+    );
+
     return new Promise((resolve, reject) => {
       firstValueFrom(this.http.delete(this.jobApi.getDeleteJobURL(id)))
         .then((response) => {
-          this.store.dispatch(JobActions.fetchMyPostedJobs({ userId: this.userService.getUser().id }));
+          this.store.dispatch(
+            JobActions.fetchMyPostedJobs({ userId: user.id })
+          );
           return resolve(response);
         })
         .catch((error) => reject(error));
@@ -81,45 +92,43 @@ export class JobService {
 
   public getPostedJobsByUserId(userId: number): Promise<Job[]> {
     return new Promise((resolve, reject) => {
-      firstValueFrom(this.http.get(this.jobApi.getGetPostedJobsByUserIdURL(userId)))
+      firstValueFrom(
+        this.http.get(this.jobApi.getGetPostedJobsByUserIdURL(userId))
+      )
         .then((response) => {
-          return resolve(response as Job[]);
+          return resolve(this.fromRestJobsToJobs(response as any[]));
         })
         .catch((error) => reject(error));
     });
   }
 
-  public uploadImage(id: number, picture: File): Promise<any> {
-    return new Promise((resolve, reject) => {
-      let pictureFilePayload: FormData = new FormData();
-      pictureFilePayload.append('file', picture);
-      firstValueFrom(
-        this.http.post(this.jobApi.getUploadImageURL(id), pictureFilePayload)
-      ).then((response) => {
-          return resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
+  public uploadImage(id: number, image: File): Promise<any> {
+    let imageFilePayload: FormData = new FormData();
+    imageFilePayload.append('file', image);
+
+    return firstValueFrom(
+      this.http.post(this.jobApi.getUploadImageURL(id), imageFilePayload)
+    );
   }
 
   public deleteJobImage(jobId: number, imageId: number): Promise<any> {
-    return new Promise((resolve, reject) => {
-      firstValueFrom(
-        this.http.delete(this.jobApi.getDeleteJobImageURL(jobId, imageId))
-      ).then((response) => {
-          return resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
+    return firstValueFrom(
+      this.http.delete(this.jobApi.getDeleteJobImageURL(jobId, imageId))
+    );
   }
 
   public getJobImages(id: number): Promise<any> {
-    return new Promise((resolve, reject) => {
-      firstValueFrom(this.http.get(this.jobApi.getGetJobImageURL(id)))
-        .then((response) => {
-          return resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
+    return firstValueFrom(this.http.get(this.jobApi.getGetJobImageURL(id)));
+  }
+
+  private fromRestJobsToJobs(jobs: any[]): Job[] {
+    let jobObjects: Job[] = [];
+    for (let job of jobs) {
+      jobObjects.push({
+        ...job,
+        time: new Time(job.time),
+      });
+    }
+    return jobObjects;
   }
 }

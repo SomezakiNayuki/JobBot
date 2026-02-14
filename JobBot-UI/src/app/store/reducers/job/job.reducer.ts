@@ -2,28 +2,26 @@ import { createReducer, on } from '@ngrx/store';
 
 import { JobActions } from 'src/app/store/actions/job/job.actions';
 import { JobState } from 'src/app/store/states/job/job.state';
+import DashboardJobs from 'src/common-types/dashboard-jobs.type';
 
 const initialState: JobState = {
-  jobs: {
-    left: [],
-    right: [],
-  },
+  jobs: new DashboardJobs(),
   myPostedJobs: [],
 };
 
 export const JobReducer = createReducer(
   initialState,
-  on(JobActions.fetchJob, (state) => ({ ...state })),
-  on(JobActions.fetchJobSuccess, (state, { jobs }) => ({
+  on(JobActions.fetchJobs, (state) => ({ ...state })),
+  on(JobActions.fetchJobsSuccess, (state, { jobs }) => ({
     ...state,
     jobs: {
-      left: jobs.left,
-      right: jobs.right,
+      leftColumn: jobs.leftColumn,
+      rightColumn: jobs.rightColumn,
     },
   })),
   on(JobActions.fetchMyPostedJobs, (state) => ({ ...state })),
   on(JobActions.fetchMyPostedJobsSuccess, (state, { myPostedJobs }) => ({
     ...state,
     myPostedJobs: myPostedJobs,
-  })),
+  }))
 );

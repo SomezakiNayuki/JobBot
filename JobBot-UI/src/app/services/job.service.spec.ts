@@ -27,7 +27,7 @@ describe('JobService', () => {
         {
           provide: UserService,
           useValue: {
-            getUser: jasmine.createSpy().and.returnValue({ id: 1 }),
+            getUser$: jasmine.createSpy().and.returnValue({ id: 1 }),
           },
         },
         JobApiService,

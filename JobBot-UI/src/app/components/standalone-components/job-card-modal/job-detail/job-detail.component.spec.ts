@@ -45,8 +45,8 @@ describe('JobDetailComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should init job form if createMode is true', () => {
-      component.createMode = true;
+    it('should init job form if editMode is true', () => {
+      component.editMode = true;
       component.initJobForm();
 
       expect(component.jobDetailForm.get('jobTitle')).not.toEqual(null);

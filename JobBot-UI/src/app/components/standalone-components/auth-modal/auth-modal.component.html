@@ -15,12 +15,16 @@
         [prompt]="authResponseError"
       ></jb-prompt>
       <ng-container *ngIf="isLogin">
-        <jb-input class="jb-auth-form" [placeholder]="'Email'" formControlName="email"></jb-input>
+        <jb-input
+          class="jb-auth-form"
+          [placeholder]="'Email'"
+          [formControlName]="EMAIL"
+        ></jb-input>
         <jb-input
           class="jb-auth-form"
           [type]="'password'"
           [placeholder]="'Password'"
-          formControlName="password"
+          [formControlName]="PASSWORD"
         ></jb-input>
         <button class="btn btn-link jb-ft-classic jb-ft-clr-red">
           {{ 'auth-modal.loginForm.forget' | translate }}
@@ -30,38 +34,42 @@
         <jb-input
           class="jb-auth-form"
           [placeholder]="'auth-modal.form.placeholder.username' | translate"
-          formControlName="username"
+          [formControlName]="USERNAME"
         ></jb-input>
-        <jb-input class="jb-auth-form" [placeholder]="'Email'" formControlName="email"></jb-input>
+        <jb-input
+          class="jb-auth-form"
+          [placeholder]="'Email'"
+          [formControlName]="EMAIL"
+        ></jb-input>
         <jb-input
           class="jb-auth-form"
           [type]="'password'"
           [placeholder]="'auth-modal.form.placeholder.password' | translate"
-          formControlName="password"
+          [formControlName]="PASSWORD"
         ></jb-input>
         <jb-input
           class="jb-auth-form"
           [type]="'password'"
           [placeholder]="'Re-enter password'"
-          formControlName="reEnterPassword"
+          [formControlName]="RE_ENTER_PASSWORD"
         ></jb-input>
       </ng-container>
       <ng-container *ngIf="isRoleScreen">
         <jb-dropdown
           [placeholder]="'auth-modal.form.placeholder.workingRight' | translate"
           [actionList]="['true', 'false']"
-          formControlName="workEligibility"
+          [formControlName]="WORK_ELIGIBILITY"
         ></jb-dropdown>
         <jb-dropdown
-          *ngIf="authFormGroup.get('workEligibility').value == 'false'"
+          *ngIf="authFormGroup.get(WORK_ELIGIBILITY).value == 'false'"
           [type]="'typeahead'"
           [placeholder]="'auth-modal.form.placeholder.visaType' | translate"
           [actionList]="['500', '485']"
-          formControlName="visaType"
+          [formControlName]="VISA_TYPE"
         ></jb-dropdown>
         <jb-input
           [placeholder]="'auth-modal.form.placeholder.idCardNumber' | translate"
-          formControlName="idCardNumber"
+          [formControlName]="ID_CARD_NUMBER"
         ></jb-input>
         <button
           class="btn btn-link jb-ft-classic jb-ft-clr-red"

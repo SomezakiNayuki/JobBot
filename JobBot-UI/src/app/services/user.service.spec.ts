@@ -56,15 +56,15 @@ describe('UserService', () => {
     });
   });
 
-  describe('isLoggedIn', () => {
+  describe('isLoggedIn$', () => {
     it('should check if user is null', () => {
-      spyOn(service, 'getUser').and.returnValue(null);
+      spyOn(service, 'getUser$').and.returnValue(null);
 
-      expect(service.isLoggedIn()).toBeFalsy();
+      expect(service.isLoggedIn$()).toBeFalsy();
 
-      (service.getUser as jasmine.Spy).and.returnValue(new User());
+      (service.getUser$ as jasmine.Spy).and.returnValue(new User());
 
-      expect(service.isLoggedIn()).toBeTruthy();
+      expect(service.isLoggedIn$()).toBeTruthy();
     });
   });
 
@@ -78,13 +78,13 @@ describe('UserService', () => {
     });
   });
 
-  describe('getUser', () => {
+  describe('getUser$', () => {
     it('should return user', () => {
       const user: User = new User();
       user.username = 'test';
       service['user'] = user;
 
-      expect(service.getUser().username).toBe(user.username);
+      expect(service.getUser$().username).toBe(user.username);
     });
   });
 });

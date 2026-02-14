@@ -2,12 +2,15 @@
   class="navbar navbar-expand-lg navbar-light bg-light jb-navbar jb-bg-clr-navy jb-ft-classic jb-sd-el"
 >
   <!-- Brand -->
-  <a (click)="openSideBar()" class="jb-navbar-brand jb-ft-clr-teal jb-ft-remove-hyperlink-decoration">
+  <a
+    (click)="openSideBar()"
+    class="jb-navbar-brand jb-ft-clr-teal jb-ft-remove-hyperlink-decoration"
+  >
     {{
-      (isUserLoggedIn()
+      ((isUserLoggedIn$() | async)
         ? 'main-page.navbar.greeting'
         : 'main-page.navbar.brand'
-      ) | translate: { username: getUserName() }
+      ) | translate: { username: (getUserName$() | async) }
     }}
   </a>
 
@@ -19,7 +22,7 @@
 
   <!-- Functional buttons -->
   <a
-    *ngIf="isUserLoggedIn()"
+    *ngIf="isUserLoggedIn$() | async"
     (click)="openCreateJobModal()"
     class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
@@ -28,7 +31,7 @@
     </div>
   </a>
   <a
-    *ngIf="!isUserLoggedIn()"
+    *ngIf="!(isUserLoggedIn$() | async)"
     (click)="openAuthModal()"
     class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
@@ -39,7 +42,10 @@
 </nav>
 
 <jb-auth-modal></jb-auth-modal>
-<jb-job-card-modal [createMode]="true" [submitFunction]="this.postJob()"></jb-job-card-modal>
+<jb-job-card-modal
+  [editMode]="true"
+  [submitFunction]="this.postJob()"
+></jb-job-card-modal>
 
 <!-- Side bar -->
 <div
@@ -50,7 +56,8 @@
     <jb-avatar></jb-avatar>
     <div class="jb-username">
       <span>{{
-        'main-page.sidebar.username' | translate: { username: getUserName() }
+        'main-page.sidebar.username'
+          | translate: { username: (getUserName$() | async) }
       }}</span>
     </div>
   </div>

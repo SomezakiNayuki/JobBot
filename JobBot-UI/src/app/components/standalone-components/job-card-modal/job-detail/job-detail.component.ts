@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import Job from 'src/models/job.model';
@@ -11,7 +18,7 @@ import Job from 'src/models/job.model';
 })
 export class JobDetailComponent implements OnInit {
   @Input()
-  public createMode: boolean = false;
+  public editMode: boolean = false;
   @Input()
   public jobCardMode: boolean = false;
   @Input()
@@ -28,7 +35,7 @@ export class JobDetailComponent implements OnInit {
   constructor() {}
 
   public ngOnInit(): void {
-    if (this.createMode) {
+    if (this.editMode) {
       if (this.job) {
         this.loadJobFormFromJob(this.job);
       } else {
@@ -54,18 +61,10 @@ export class JobDetailComponent implements OnInit {
       jobTitle: new FormControl(job.title, [Validators.required]),
       pay: new FormControl(job.pay, [Validators.required]),
       location: new FormControl(job.location, [Validators.required]),
-      date: new FormControl(this.transformExistingDate(job.time), [Validators.required]),
-      time: new FormControl(this.transformExistingTime(job.time), [Validators.required]),
+      date: new FormControl(job.time.toDateString(), [Validators.required]),
+      time: new FormControl(job.time.toTimeString(), [Validators.required]),
       description: new FormControl(job.description, [Validators.required]),
     });
-  }
-
-  private transformExistingDate(time: number[]): string {
-    return `${time[0]}-${time[1]}-${time[2]}`;
-  }
-
-  private transformExistingTime(time: number[]): [number, number] {
-    return [time[3], time[4]];
   }
 
   public submit(): void {
@@ -90,18 +89,5 @@ export class JobDetailComponent implements OnInit {
 
   private handleSubmitSuccess(jobId: number): void {
     this.onSubmitSuccess.emit(jobId);
-  }
-
-  public formatJobTime(jobTime: any): string {
-    if (jobTime == null) {
-      return '';
-    }
-
-    const date: string = `${jobTime[0]}-${jobTime[1]}-${jobTime[2]}`;
-    const time: string =
-      (jobTime[3] < 10 ? `0${jobTime[3]}` : `${jobTime[3]}`) +
-      ':' +
-      (jobTime[4] < 10 ? `0${jobTime[4]}` : `${jobTime[4]}`);
-    return date + ' ' + time;
   }
 }
