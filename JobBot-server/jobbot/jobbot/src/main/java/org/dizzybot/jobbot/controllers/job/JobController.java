@@ -45,7 +45,7 @@ public class JobController {
     @PostMapping("/create")
     public ResponseEntity<GeneralResponse> create(@org.springframework.web.bind.annotation.RequestBody Job request) {
         User user = userService.findById(request.getUserId());
-        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job(request.getJobTitle(), request.getPay(), request.getLocation(), request.getTime(), request.getDescription(), user);
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job(request.getTitle(), request.getPay(), request.getLocation(), request.getTime(), request.getDescription(), user);
         user.getJobPosted().add(job);
 
         jobService.saveJob(job);
@@ -72,7 +72,7 @@ public class JobController {
     public ResponseEntity<GeneralResponse> update(@org.springframework.web.bind.annotation.RequestBody Job body) {
         org.dizzybot.jobbot.entities.Job job = jobService.findById(body.getId());
 
-        job.setTitle(body.getJobTitle());
+        job.setTitle(body.getTitle());
         job.setPay(body.getPay());
         job.setLocation(body.getLocation());
         job.setTime(body.getTime());

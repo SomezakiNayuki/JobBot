@@ -46,7 +46,7 @@ export class JobDetailComponent implements OnInit {
 
   public initJobForm(): void {
     this.jobDetailForm = new FormGroup({
-      jobTitle: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required]),
       pay: new FormControl('', [Validators.required]),
       location: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
@@ -58,7 +58,7 @@ export class JobDetailComponent implements OnInit {
   public loadJobFormFromJob(job: Job): void {
     this.jobDetailForm = new FormGroup({
       id: new FormControl(job.id),
-      jobTitle: new FormControl(job.title, [Validators.required]),
+      title: new FormControl(job.title, [Validators.required]),
       pay: new FormControl(job.pay, [Validators.required]),
       location: new FormControl(job.location, [Validators.required]),
       date: new FormControl(job.time.toDateString(), [Validators.required]),

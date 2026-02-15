@@ -23,6 +23,7 @@ describe('JobImageComponent', () => {
           useValue: {
             getJobImages: jasmine.createSpy(),
             uploadImage: jasmine.createSpy(),
+            deleteJobImage: jasmine.createSpy(),
           },
         },
       ],
@@ -79,7 +80,7 @@ describe('JobImageComponent', () => {
   });
 
   describe('deleteImage', () => {
-    it('should delete image with given uploadIndex', () => {
+    it('should delete unuploaded image with given uploadIndex', () => {
       component.editMode = true;
       component.images = [{ id: 1, file: null, url: 'data' }];
 
@@ -87,9 +88,31 @@ describe('JobImageComponent', () => {
 
       expect(component.images).toEqual([]);
     });
+
+    it('should delete uploaded image with given uploadIndex', () => {
+      component.editMode = true;
+      component.images = [{ id: 1, file: null, url: 'data' }];
+
+      component.deleteImage(1);
+
+      expect(component['imagesToDelete']).toEqual([{ id: 1, file: null, url: 'data' }]);
+    });
   });
 
   describe('uploadImage', () => {
+    it('should delete all images in imagesToDelete', () => {
+      component.editMode = true;
+      component['imagesToDelete'] = [
+        { id: 1, file: null, url: 'data' },
+        { id: 2, file: null, url: 'data' },
+        { id: 3, file: null, url: 'data' },
+      ];
+
+      component.uploadImage(1);
+
+      expect(jobService.deleteJobImage).toHaveBeenCalledTimes(3);
+    });
+
     it('should upload all images', () => {
       component.editMode = true;
       component.images = [
@@ -101,6 +124,19 @@ describe('JobImageComponent', () => {
       component.uploadImage(1);
 
       expect(jobService.uploadImage).toHaveBeenCalledTimes(3);
+    });
+
+    it('should not upload images with no file (images from server)', () => {
+      component.editMode = true;
+      component.images = [
+        { id: 1, file: null, url: 'data' },
+        { id: 2, file: null, url: 'data' },
+        { id: 3, file: null, url: 'data' },
+      ];
+
+      component.uploadImage(1);
+
+      expect(jobService.uploadImage).toHaveBeenCalledTimes(0);
     });
   });
 });

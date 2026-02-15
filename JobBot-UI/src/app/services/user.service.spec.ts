@@ -1,13 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
 
-import { UserService } from 'src/app/services/user.service';
 import User from 'src/models/user.model';
-import { UserApiService } from './server-routes/user-api/user-api.service';
+import { UserActions } from 'src/app/store/actions/user/user.action';
+import { UserApiService } from 'src/app/services/server-routes/user-api/user-api.service';
+import { UserService } from 'src/app/services/user.service';
 
 describe('UserService', () => {
   let service: UserService;
   let http: jasmine.SpyObj<HttpClient>;
+  let store: jasmine.SpyObj<Store>;
   let userApi: UserApiService;
 
   beforeEach(() => {
@@ -22,11 +26,18 @@ describe('UserService', () => {
           },
         },
         UserApiService,
+        {
+          provide: Store,
+          useValue: {
+            dispatch: jasmine.createSpy(),
+          },
+        }
       ],
     });
     service = TestBed.inject(UserService);
 
     http = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
+    store = TestBed.inject(Store) as jasmine.SpyObj<Store>;
     userApi = TestBed.inject(UserApiService);
   });
 
@@ -58,33 +69,35 @@ describe('UserService', () => {
 
   describe('isLoggedIn$', () => {
     it('should check if user is null', () => {
-      spyOn(service, 'getUser$').and.returnValue(null);
+      const spy = jasmine.createSpy();
+      spyOn(service, 'getUser$').and.returnValue(of(null));
 
-      expect(service.isLoggedIn$()).toBeFalsy();
+      service.isLoggedIn$().subscribe(spy);
 
-      (service.getUser$ as jasmine.Spy).and.returnValue(new User());
+      expect(spy).toHaveBeenCalledWith(false);
 
-      expect(service.isLoggedIn$()).toBeTruthy();
+      (service.getUser$ as jasmine.Spy).and.returnValue(of(new User()));
+
+      service.isLoggedIn$().subscribe(spy);
+      expect(spy).toHaveBeenCalledWith(true);
     });
   });
 
   describe('logout', () => {
     it('should set user to null', () => {
-      service['user'] = new User();
-
       service.logout();
 
-      expect(service['user']).toBe(null);
+      expect(store.dispatch).toHaveBeenCalledWith(UserActions.clearUser());
     });
   });
 
   describe('getUser$', () => {
     it('should return user', () => {
-      const user: User = new User();
-      user.username = 'test';
-      service['user'] = user;
+      const spy = jasmine.createSpy();
+      store.select = jasmine.createSpy().and.returnValue(of({ username: 'test' }));
 
-      expect(service.getUser$().username).toBe(user.username);
+      service.getUser$().subscribe(spy);
+      expect(spy).toHaveBeenCalledWith({ username: 'test' });
     });
   });
 });

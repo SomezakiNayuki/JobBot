@@ -12,7 +12,7 @@ public class Job {
 
     public Long id;
 
-    public String jobTitle;
+    public String title;
 
     public double pay;
 
