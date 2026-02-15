@@ -61,7 +61,7 @@ describe('JobCardModalComponent', () => {
 
       component.onUploadImage(1);
 
-      expect(mockStore.dispatch).toHaveBeenCalledWith(JobActions.fetchJob());
+      expect(mockStore.dispatch).toHaveBeenCalledWith(JobActions.fetchJobs());
     });
 
     it('should close modal', () => {

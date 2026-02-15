@@ -34,7 +34,7 @@ describe('DashboardComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should select JobSelectors.job from store', () => {
+    it('should select JobSelectors.jobs from store', () => {
       mockStore.select = jasmine.createSpy().and.returnValue({
         pipe: jasmine.createSpy().and.returnValue({
           subscribe: jasmine.createSpy(),
@@ -43,7 +43,7 @@ describe('DashboardComponent', () => {
 
       component.ngOnInit();
 
-      expect(mockStore.select).toHaveBeenCalledWith(JobSelectors.job);
+      expect(mockStore.select).toHaveBeenCalledWith(JobSelectors.jobs);
     });
 
     it('should populate jobs$ property', fakeAsync(() => {
@@ -55,18 +55,18 @@ describe('DashboardComponent', () => {
       expect(jobsSpy).toHaveBeenCalledWith(jobs);
     }));
 
-    it('should dispatch fetchJob action', () => {
+    it('should dispatch fetchJobs action', () => {
       mockStore.dispatch = jasmine.createSpy();
 
       component.ngOnInit();
 
-      expect(mockStore.dispatch).toHaveBeenCalledWith(JobActions.fetchJob());
+      expect(mockStore.dispatch).toHaveBeenCalledWith(JobActions.fetchJobs());
     });
   });
 });
 
 const jobs = {
-  left: [
+  leftColumn: [
     {
       id: 1,
       title: '1',
@@ -198,7 +198,7 @@ const jobs = {
       outcome: null,
     },
   ],
-  right: [
+  rightColumn: [
     {
       id: 1,
       title: '1',
@@ -333,7 +333,9 @@ const jobs = {
 };
 
 const mockInitialState: AppState = {
-  job: {
-    jobs: jobs,
+  jobs: {
+    jobs: jobs as any,
+    myPostedJobs: [],
   },
+  user: null,
 };

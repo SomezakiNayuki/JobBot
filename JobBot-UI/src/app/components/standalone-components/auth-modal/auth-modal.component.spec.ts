@@ -5,15 +5,20 @@ import { AuthModalComponent } from 'src/app/components/standalone-components/aut
 import { ModalComponent } from 'src/app/components/meta-components/modal/modal.component';
 import { UserService } from 'src/app/services/user.service';
 
+// Add imports for ngx-translate
+import { TranslateService, TranslateModule, TranslateStore } from '@ngx-translate/core';
+
 describe('AuthModalComponent', () => {
   let authModalComponent: AuthModalComponent;
   let fixture: ComponentFixture<AuthModalComponent>;
   let modalComponent: ModalComponent;
+  let translateService: TranslateService;
   let userService: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AuthModalComponent],
+      imports: [TranslateModule.forRoot()],
       providers: [
         {
           provide: HttpClient,
@@ -34,6 +39,8 @@ describe('AuthModalComponent', () => {
             }),
           },
         },
+        TranslateService,
+        TranslateStore,
       ],
     }).compileComponents();
 
@@ -43,6 +50,7 @@ describe('AuthModalComponent', () => {
 
     modalComponent = TestBed.createComponent(ModalComponent).componentInstance;
     authModalComponent.jbModal = modalComponent;
+    translateService = TestBed.inject(TranslateService);
     userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
   });
 
@@ -174,7 +182,7 @@ describe('AuthModalComponent', () => {
         authModalComponent.onSubmit();
 
         expect(authModalComponent.authResponseError).toBe(
-          'Password re-enetered does not match'
+          'auth-modal.form.placeholder.reEnterPassword.mismatch'
         );
       });
     });

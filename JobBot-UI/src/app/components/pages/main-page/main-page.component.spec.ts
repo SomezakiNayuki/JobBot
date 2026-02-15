@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { MockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
@@ -13,9 +14,9 @@ import { UserService } from 'src/app/services/user.service';
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
   let fixture: ComponentFixture<MainPageComponent>;
-  let userService: jasmine.SpyObj<UserService>;
   let authModal: AuthModalComponent;
   let jobCardModal: JobCardModalComponent;
+  let userService: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -30,7 +31,9 @@ describe('MainPageComponent', () => {
           useValue: {
             isLoggedIn$: jasmine.createSpy(),
             logout: jasmine.createSpy(),
-            getUser$: jasmine.createSpy(),
+            getUser$: jasmine.createSpy().and.returnValue({
+              pipe: jasmine.createSpy(),
+            }),
             autoLogin: jasmine.createSpy(),
           },
         },
@@ -61,13 +64,13 @@ describe('MainPageComponent', () => {
 
   describe('openSideBar', () => {
     it('should open side bar based on login status', () => {
-      userService.isLoggedIn$.and.returnValue(true);
+      userService.isLoggedIn$.and.returnValue(of(true));
 
       component.openSideBar();
 
       expect(component.isSideBarEnabled).toBeTruthy();
 
-      userService.isLoggedIn$.and.returnValue(false);
+      userService.isLoggedIn$.and.returnValue(of(false));
 
       component.openSideBar();
 
@@ -107,13 +110,16 @@ describe('MainPageComponent', () => {
 
   describe('isUserLoggedIn$', () => {
     it('should check if user is logged in', () => {
-      userService.isLoggedIn$.and.returnValue(true);
+      const spy = jasmine.createSpy();
+      userService.isLoggedIn$.and.returnValue(of(true));
+      component.isUserLoggedIn$().subscribe(spy);
 
-      expect(component.isUserLoggedIn$()).toBeTruthy();
+      expect(spy).toHaveBeenCalledWith(true);
 
-      userService.isLoggedIn$.and.returnValue(false);
+      userService.isLoggedIn$.and.returnValue(of(false));
 
-      expect(component.isUserLoggedIn$()).toBeFalsy();
+      component.isUserLoggedIn$().subscribe(spy);
+      expect(spy).toHaveBeenCalledWith(false);
     });
   });
 
@@ -128,11 +134,14 @@ describe('MainPageComponent', () => {
 
   describe('getUserName$', () => {
     it('should return username', () => {
+      const spy = jasmine.createSpy();
       let user: User = new User();
       user.username = 'test username';
-      userService.getUser$.and.returnValue(user);
+      userService.getUser$.and.returnValue(of(user));
 
-      expect(component.getUserName$()).toEqual('test username');
+      component.getUserName$().subscribe(spy);
+
+      expect(spy).toHaveBeenCalledWith('test username');
     });
   });
 

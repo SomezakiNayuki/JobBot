@@ -88,7 +88,9 @@ export class JobImageComponent implements OnInit {
     });
 
     this.images.forEach((image) => {
-      this.jobService.uploadImage(jobId, image.file);
+      if (image.file) {
+        this.jobService.uploadImage(jobId, image.file);
+      }
     });
   }
 }
