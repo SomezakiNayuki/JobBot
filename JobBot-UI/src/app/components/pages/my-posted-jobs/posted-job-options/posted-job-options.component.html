@@ -4,7 +4,7 @@
     (click)="toggleJobOptions()"
     >{{ 'posted-job.job.options' | translate }}</a
   >
-  <div class="jb-btn-l-sqr jb-icon jb-i-down jb-icon-orange"></div>
+  <div class="jb-btn-l-sqr jb-icon jb-i-down jb-icon-orange jb-anmt-rotate-180" [class.rotated]="isJobOptionsOpen"></div>
 </div>
 <div
   class="jb-posted-job-options-dropdown-menu jb-anmt-dropdown"
