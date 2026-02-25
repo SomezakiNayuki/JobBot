@@ -49,8 +49,8 @@
 
 <!-- Side bar -->
 <div
-  *ngIf="isSideBarEnabled"
-  class="jb-sidebar jb-bg-clr-green jb-sd-el-inner jb-ft-normal"
+  [class.visible]="isSideBarEnabled"
+  class="jb-sidebar jb-bg-clr-green jb-sd-el-inner jb-ft-normal jb-anmt-slide-from-left"
 >
   <div class="jb-avatar">
     <jb-avatar></jb-avatar>
