@@ -64,3 +64,21 @@
   position: relative;
   left: -5px;
 }
+
+.jb-logo {
+  width: 380px;
+  height: 380px;
+  position: absolute;
+  top: 25%;
+  left: 22.5%;
+  font-size: 100px;
+}
+
+.jb-logo-card {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 7%;
+  left: 30%;
+  font-size: 100px;
+}

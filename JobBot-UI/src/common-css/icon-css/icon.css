@@ -26,6 +26,10 @@
     hue-rotate(358deg) brightness(105%) contrast(111%);
 }
 
+.jb-icon-teal {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(42%) saturate(6287%) hue-rotate(151deg) brightness(99%) contrast(101%);
+}
+
 .jb-i-stars {
   background-image: url('src/assets/icons/stars.svg');
 }
@@ -56,4 +60,12 @@
 
 .jb-i-down {
   background-image: url('src/assets/icons/caret-down-fill.svg');
+}
+
+.jb-i-reply {
+  background-image: url('src/assets/icons/arrow-return-left.svg');
+}
+
+.jb-i-menu {
+  background-image: url('src/assets/icons/list.svg');
 }

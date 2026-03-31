@@ -1,0 +1,14 @@
+{
+  "current-job.filter.cancel": "Cancel",
+  "current-job.filter.clear": "Clear",
+  "current-job.filter.close": "Close",
+  "current-job.filter.confirm": "Confirm",
+  "current-job.filter.location": "Location",
+  "current-job.filter.from": "From",
+  "current-job.filter.pay": "Pay",
+  "current-job.filter.time": "Time",
+  "current-job.filter.to": "To",
+  "current-job.job.options": "Options",
+  "current-job.job.option.edit": "Edit",
+  "current-job.job.option.delete": "Delete"
+}

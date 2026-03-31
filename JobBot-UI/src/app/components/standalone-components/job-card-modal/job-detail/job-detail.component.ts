@@ -29,6 +29,7 @@ export class JobDetailComponent implements OnInit {
   @Output()
   public onSubmitSuccess: EventEmitter<number> = new EventEmitter<number>();
 
+  public isStatusDropdownOpen: boolean = false;
   public jobDetailForm: FormGroup;
   public jobDetailFormError: string;
 
@@ -89,5 +90,9 @@ export class JobDetailComponent implements OnInit {
 
   private handleSubmitSuccess(jobId: number): void {
     this.onSubmitSuccess.emit(jobId);
+  }
+
+  public toggleStatusDropdown(): void {
+    this.isStatusDropdownOpen = !this.isStatusDropdownOpen;
   }
 }

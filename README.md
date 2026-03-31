@@ -1,6 +1,10 @@
 # JobBot
 JobBot is an job finding/working platform application.
 
+# Warning
+
+## This is NOT an AI-generated project, every line of code is made by real human
+
 # Background story
 
 Australia boasts a substantial casual job market wherein individuals seek additional income during their off-duty hours or for various other purposes. However, for employers, the management of advertisements and control over the recruitment process can be financially burdensome. Similarly, for employees, the quest for suitable casual employment can be time-consuming, potentially resulting in delays in salary payments, unfair distribution of responsibilities, or even instances of fraud. Furthermore, the absence of formal contracts between employers and employees in casual positions contributes to the insecurity surrounding job roles for both parties.

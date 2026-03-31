@@ -25,11 +25,4 @@ describe('ModalComponent', () => {
 
     expect(component.display).toBeTrue();
   });
-
-  // Need actual DOM to run the test
-  // it('should close', () => {
-  //   component.close();
-
-  //   expect(component.display).toBeFalse();
-  // });
 });

@@ -21,4 +21,19 @@ const convertDateStringToTimeObject = (dateString: string): Time => {
   return new Time([year, month, day, 0, 0]);
 };
 
-export { compareDate, convertDateStringToTimeObject };
+const dateToTime = (date: Date): Time => {
+  return new Time([date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes()]);
+}
+
+const calculateTimeDifferenceInDays = (time1: Time, time2: Time): number => {
+  const yearDiff = time1.year - time2.year;
+  const monthDiff = time1.month - time2.month;
+  const dayDiff = time1.day - time2.day;
+  const hourDiff = time1.hour - time2.hour;
+  const minuteDiff = time1.minute - time2.minute;
+  const totalDiffInMinutes = yearDiff * 365 * 24 * 60 + monthDiff * 30 * 24 * 60 + dayDiff * 24 * 60 + hourDiff * 60 + minuteDiff;
+  const result = Math.floor(totalDiffInMinutes / (24 * 60));
+  return result;
+}
+
+export { compareDate, convertDateStringToTimeObject, dateToTime, calculateTimeDifferenceInDays };

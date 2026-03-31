@@ -1,0 +1,25 @@
+.jb-comment-submit-button {
+  position: relative;
+  left: 85%;
+  width: 100px;
+}
+
+.jb-job-comment-item {
+  font-size: xx-large;
+  display: flex;
+}
+
+.jb-job-comment {
+  width: 90%;
+  position: relative;
+  left: 1.5%;
+}
+
+.jb-comment-reply-btn {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  left: 1.5%;
+  top: 5px;
+  cursor: pointer;
+}

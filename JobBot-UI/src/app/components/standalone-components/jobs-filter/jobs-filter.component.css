@@ -1,0 +1,53 @@
+.jobs-filter-bar {
+  position: fixed;
+  top: 180px;
+  left: 29.5%;
+  width: 40%;
+  height: 100px;
+  z-index: 1; /* Ensure filter bar display at 1st layer on the view */
+}
+
+.jobs-filter-buttons {
+  display: inline-block;
+  width: 70%;
+}
+
+.jobs-filter-button {
+  position: absolute;
+  width: 31.2%;
+  margin-left: 1%;
+  margin-right: 1%;
+  border: 0px;
+  top: 10px;
+}
+
+.jobs-filter-button:nth-child(1) {
+  left: 0%;
+}
+
+.jobs-filter-button:nth-child(2) {
+  left: 33.5%;
+}
+
+.jobs-filter-button:nth-child(3) {
+  left: 67%;
+}
+
+.jobs-filter-function-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.jobs-filter-function-button {
+  position: relative;
+  width: 48%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0px;
+}

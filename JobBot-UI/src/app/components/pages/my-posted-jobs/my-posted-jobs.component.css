@@ -1,49 +1,13 @@
-.jb-posted-job-filter-bar {
-  position: fixed;
-  top: 180px;
-  left: 29.5%;
-  width: 40%;
-  height: 100px;
-  z-index: 1; /* Ensure filter bar display at 1st layer on the view */
-}
-
-.jb-posted-job-filter-buttons {
-  display: inline-block;
-  width: 70%;
-}
-
-.jb-posted-job-filter-button {
-  position: absolute;
-  width: 31.2%;
-  margin-left: 1%;
-  margin-right: 1%;
-  border: 0px;
-  top: 10px;
-}
-
-.jb-posted-job-filter-button:nth-child(1) {
-  left: 0%;
-}
-
-.jb-posted-job-filter-button:nth-child(2) {
-  left: 33.5%;
-}
-
-.jb-posted-job-filter-button:nth-child(3) {
-  left: 67%;
-}
-
 .jb-job-card-column {
-  width: 500px;
   position: absolute;
   top: 300px;
-  left: calc(50% - 540px);
+  left: calc(50% - 720px);
 }
 
 .jb-posted-job-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 150px;
 }
 
 .jb-posted-job-group-option {
@@ -62,24 +26,14 @@
 }
 
 .jb-posted-job-date {
-  width: 145px;
+  width: 200px;
 }
 
-.jb-posted-job-filter-function-items {
+.jb-posted-job-time-indicator-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 5px;
-  margin-top: 20px;
-}
-
-.jb-posted-job-filter-function-button {
+  
   position: relative;
-  width: 48%;
-  margin-left: 1%;
-  margin-right: 1%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: 0px;
+  top: 65px;
 }

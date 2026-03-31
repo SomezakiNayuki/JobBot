@@ -1,0 +1,36 @@
+<ng-container *ngIf="!postMode">
+  <div class="jb-job-comment-item jb-bdr-r-10 jb-bg-clr-grey jb-mt-10 jb-mb-10">
+    <p class="jb-job-comment jb-ft-normal jb-mt-5 jb-mb-5">
+      {{ 'User1: Comment' | translate }}
+    </p>
+    <div class="jb-comment-reply-btn jb-icon jb-i-reply jb-anmt-rotate-90" [class.rotated]="isReplyInputOpen" (click)="toggleReplyInput()"></div>
+  </div>
+  <div 
+    class="jb-anmt-dropdown"
+    [ngStyle]="{ height: isReplyInputOpen ? '45%' : '0px' }"
+  >
+    <ng-container
+      *ngTemplateOutlet="replyInput"
+    >
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="postMode">
+  <ng-container
+    *ngTemplateOutlet="replyInput"
+  >
+  </ng-container>
+</ng-container>
+
+<ng-template #replyInput>
+  <jb-textarea
+    [placeholder]="'Add a comment' | translate"
+    [height]="'220px'"
+  ></jb-textarea>
+  <a
+    class="jb-comment-submit-button btn jb-bdr-wth-none jb-bg-clr-green jb-ft-pst-ctr jb-mt-5 jb-mb-5"
+  >
+    <span class="jb-sd-ft jb-ft-classic jb-ft-clr-white">Add</span>
+  </a>
+</ng-template>

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, map, Observable, Subject, takeUntil } from 'rxjs';
 
 import { AuthModalComponent } from 'src/app/components/standalone-components/auth-modal/auth-modal.component';
 import { JobCardModalComponent } from 'src/app/components/standalone-components/job-card-modal/job-card-modal.component';
@@ -23,6 +24,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly jobService: JobService,
+    private readonly router: Router,
     private readonly userService: UserService
   ) {}
 
@@ -30,6 +32,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
     // TODO: Dev function, to be removed in PROD
     // TODO: Design and develop "remember me" in the future with session control
     this.userService.autoLogin();
+
+    // TODO: Refactor this to a more elegant way in the future, such as using a resolver or a state management solution to handle active page state.
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.activePage = event.urlAfterRedirects.split('/')[1] || this.activePage;
+      });
   }
 
   public ngOnDestroy(): void {

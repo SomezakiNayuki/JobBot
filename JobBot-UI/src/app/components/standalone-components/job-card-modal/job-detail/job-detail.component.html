@@ -39,6 +39,31 @@
     </div>
   </form>
   <ng-container *ngIf="!editMode">
+    <ng-container *ngIf="!jobCardMode">
+      <a
+        class="btn jb-bdr-wth-none jb-bg-clr-green jb-job-status-button jb-ft-pst-ctr jb-mt-5 jb-mb-5"
+        (click)="toggleStatusDropdown()"
+      >
+        <span class="jb-sd-ft jb-ft-classic jb-ft-clr-white">Completed</span>
+      </a>
+
+      <div
+        class="jb-job-statuses-dropdown jb-anmt-dropdown jb-bg-clr-grey jb-sd-el jb-bdr-r-10 jb-mt-5 jb-mb-5"
+        [ngStyle]="{ height: isStatusDropdownOpen ? '190px' : '0px' }"
+      >
+        <a
+          class="btn jb-bdr-wth-none jb-bg-clr-navy jb-job-status-button jb-ft-pst-ctr jb-mt-5 jb-mb-5"
+        >
+          <span class="jb-sd-ft jb-ft-classic jb-ft-clr-white">Ongoing</span>
+        </a>
+        <a
+          class="btn jb-bdr-wth-none jb-bg-clr-red jb-job-status-button jb-ft-pst-ctr jb-mt-5 jb-mb-5"
+        >
+          <span class="jb-sd-ft jb-ft-classic jb-ft-clr-white">Delay</span>
+        </a>
+      </div>
+    </ng-container>
+
     <p class="jb-ft-classic jb-detail-title jb-mtmb-0">
       {{ 'job-detail.jobTitle' | translate: { title: job?.title } }}
     </p>
@@ -58,6 +83,16 @@
       <p class="jb-ft-normal jb-detail-description jb-mtmb-0">
         {{ job?.description }}
       </p>
+    </ng-container>
+
+    <ng-container *ngIf="!jobCardMode && !editMode">
+      <jb-job-comment [postMode]="false"></jb-job-comment>
+      <jb-job-comment [postMode]="false"></jb-job-comment>
+      <jb-job-comment [postMode]="false"></jb-job-comment>
+      <jb-job-comment [postMode]="false"></jb-job-comment>
+      <jb-job-comment [postMode]="false"></jb-job-comment>
+
+      <jb-job-comment></jb-job-comment>
     </ng-container>
   </ng-container>
 </div>

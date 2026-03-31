@@ -39,3 +39,20 @@
   font-size: 65%;
   text-align: left;
 }
+
+.jb-job-status-button {
+  width: 150px;
+  height: 70px;
+  font-size: 175%;
+}
+
+.jb-job-statuses-dropdown {
+  width: 190px;
+  
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+}
