@@ -7,6 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import Job from 'src/models/job.model';
 
@@ -33,7 +34,7 @@ export class JobDetailComponent implements OnInit {
   public jobDetailForm: FormGroup;
   public jobDetailFormError: string;
 
-  constructor() {}
+  constructor(private readonly router: Router) {}
 
   public ngOnInit(): void {
     if (this.editMode) {
@@ -94,5 +95,23 @@ export class JobDetailComponent implements OnInit {
 
   public toggleStatusDropdown(): void {
     this.isStatusDropdownOpen = !this.isStatusDropdownOpen;
+  }
+
+  public shouldDisplayJobStatus(): boolean {
+    switch (this.router.url) {
+      case '/dashboard':
+        return false;
+      default:
+        return true;
+    }
+  }
+
+  public isJobStatusViewOnly(): boolean {
+    switch (this.router.url) {
+      case '/my-posted-jobs':
+        return true;
+      default:
+        return false;
+    }
   }
 }

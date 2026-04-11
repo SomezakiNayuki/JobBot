@@ -39,7 +39,7 @@
     </div>
   </form>
   <ng-container *ngIf="!editMode">
-    <ng-container *ngIf="!jobCardMode">
+    <ng-container *ngIf="!jobCardMode && shouldDisplayJobStatus()">
       <a
         class="btn jb-bdr-wth-none jb-bg-clr-green jb-job-status-button jb-ft-pst-ctr jb-mt-5 jb-mb-5"
         (click)="toggleStatusDropdown()"
@@ -50,6 +50,7 @@
       <div
         class="jb-job-statuses-dropdown jb-anmt-dropdown jb-bg-clr-grey jb-sd-el jb-bdr-r-10 jb-mt-5 jb-mb-5"
         [ngStyle]="{ height: isStatusDropdownOpen ? '190px' : '0px' }"
+        *ngIf="!isJobStatusViewOnly()"
       >
         <a
           class="btn jb-bdr-wth-none jb-bg-clr-navy jb-job-status-button jb-ft-pst-ctr jb-mt-5 jb-mb-5"

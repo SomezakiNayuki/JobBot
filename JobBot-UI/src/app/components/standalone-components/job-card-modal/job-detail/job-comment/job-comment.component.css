@@ -15,11 +15,10 @@
   left: 1.5%;
 }
 
-.jb-comment-reply-btn {
+.jb-comment-btn {
   height: 50px;
   width: 50px;
   position: relative;
-  left: 1.5%;
   top: 5px;
   cursor: pointer;
 }

@@ -38,6 +38,8 @@
   "auth-modal.form.placeholder.idCardNumber": "ID card number",
   "job-card-modal.form.button.submission": "Post",
   "job-card-modal.job.button.accept": "Accept",
+  "job-comment.form.placeholder": "Add a comment",
+  "job-comment.form.post.button": "Add",
   "job-detail.form.placeholder.jobTitle": "Job title",
   "job-detail.form.placeholder.location": "Location",
   "job-detail.form.placeholder.date": "Date",

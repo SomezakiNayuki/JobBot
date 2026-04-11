@@ -3,7 +3,8 @@
     <p class="jb-job-comment jb-ft-normal jb-mt-5 jb-mb-5">
       {{ 'User1: Comment' | translate }}
     </p>
-    <div class="jb-comment-reply-btn jb-icon jb-i-reply jb-anmt-rotate-90" [class.rotated]="isReplyInputOpen" (click)="toggleReplyInput()"></div>
+    <div class="jb-comment-btn jb-icon jb-i-reply jb-anmt-rotate-90" [class.rotated]="isReplyInputOpen" (click)="toggleReplyInput()"></div>
+    <div class="jb-comment-btn jb-icon jb-i-close"></div>
   </div>
   <div 
     class="jb-anmt-dropdown"
@@ -25,12 +26,12 @@
 
 <ng-template #replyInput>
   <jb-textarea
-    [placeholder]="'Add a comment' | translate"
+    [placeholder]="'job-comment.form.placeholder' | translate"
     [height]="'220px'"
   ></jb-textarea>
   <a
     class="jb-comment-submit-button btn jb-bdr-wth-none jb-bg-clr-green jb-ft-pst-ctr jb-mt-5 jb-mb-5"
   >
-    <span class="jb-sd-ft jb-ft-classic jb-ft-clr-white">Add</span>
+    <span class="jb-sd-ft jb-ft-classic jb-ft-clr-white">{{ 'job-comment.form.post.button' | translate }}</span>
   </a>
 </ng-template>
