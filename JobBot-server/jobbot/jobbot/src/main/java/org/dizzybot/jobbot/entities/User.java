@@ -74,4 +74,11 @@ public class User {
         this.userProfile.setUser(this);
     }
 
+    public boolean isSamePerson(User user) {
+        if (this.getId().equals(user.getId())) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -51,7 +52,7 @@ public class JobControllerTests {
     @Test
     public void testCreateJobSuccess() throws Exception {
         Job request = new Job();
-        request.setJobTitle("title");
+        request.setTitle("title");
         request.setLocation("location");
         request.setPay(2000);
         request.setTime(LocalDateTime.now());
@@ -103,7 +104,7 @@ public class JobControllerTests {
         job.setEmployer(null);
         List<org.dizzybot.jobbot.entities.Job> expectedJobPosted = new ArrayList<>();
         expectedJobPosted.add(job);
-        assertEquals(expectedJobPosted.get(0), result.get(0));
+        assertTrue(expectedJobPosted.get(0).equals(result.get(0)));
     }
 
     @Test
@@ -147,7 +148,7 @@ public class JobControllerTests {
     @Test
     public void testCreateJobCallsServices() throws Exception {
         Job request = new Job();
-        request.setJobTitle("title");
+        request.setTitle("title");
         request.setLocation("location");
         request.setPay(2000);
         request.setTime(LocalDateTime.now());
@@ -203,7 +204,7 @@ public class JobControllerTests {
     public void testUpdateJobSuccess() throws Exception {
         Job request = new Job();
         request.setId(1L);
-        request.setJobTitle("new title");
+        request.setTitle("new title");
         request.setLocation("new location");
         request.setPay(1500);
         request.setTime(LocalDateTime.now());
@@ -254,6 +255,155 @@ public class JobControllerTests {
 
         // image should be removed and job saved
         assertEquals(0, job.getImages().size());
+        Mockito.verify(jobService).saveJob(Mockito.any());
+    }
+
+    @Test
+    public void testAcceptJobSuccess() throws Exception {
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job();
+        job.setId(1L);
+
+        User employer = new User("employer", "password", "email@mail.com");
+        employer.setId(1L);
+        job.setEmployer(employer);
+
+        User employee = new User("employee", "password", "employee@mail.com");
+        employee.setId(2L);
+
+        when(jobService.findById(1L)).thenReturn(job);
+        when(userService.findById(2L)).thenReturn(employee);
+
+        mockMvc.perform(post("/api/job/accept/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.JOB_ACCEPTED.getMessage()));
+
+        Mockito.verify(jobService).saveJob(Mockito.any());
+    }
+
+    @Test
+    public void testAcceptJobSameAsPosterFails() throws Exception {
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job();
+        job.setId(1L);
+
+        User user = new User("user", "password", "email@mail.com");
+        user.setId(1L);
+        job.setEmployer(user);
+
+        when(jobService.findById(1L)).thenReturn(job);
+        when(userService.findById(1L)).thenReturn(user);
+
+        mockMvc.perform(post("/api/job/accept/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("1"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.ERROR.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.JOB_CANNOT_BE_ACCEPTED_SAME_AS_POSTER.getMessage()));
+    }
+
+    @Test
+    public void testGetJobsAcceptedByUserIdSuccess() throws Exception {
+        User user = new User("username", "password", "email@mail.com");
+        user.setId(1L);
+
+        List<org.dizzybot.jobbot.entities.Job> jobAccepted = new ArrayList<>();
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job("Title", 50D, "Sydney", LocalDateTime.now(), "Description", new User());
+        job.setId(1L);
+        jobAccepted.add(job);
+        user.setJobAccepted(jobAccepted);
+
+        when(userService.findById(1L)).thenReturn(user);
+
+        mockMvc.perform(get("/api/job/get/1/accepted")
+                .param("userId", "1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(1));
+    }
+
+    @Test
+    public void testGetJobsAcceptedByUserIdNotFound() throws Exception {
+        when(userService.findById(Mockito.any())).thenReturn(null);
+
+        mockMvc.perform(get("/api/job/get/1/accepted")
+                .param("userId", "1"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testAddCommentSuccess() throws Exception {
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job();
+        job.setId(1L);
+
+        User author = new User("author", "password", "author@mail.com");
+        author.setId(1L);
+
+        User replyToUser = new User("replyto", "password", "replyto@mail.com");
+        replyToUser.setId(2L);
+
+        when(jobService.findById(1L)).thenReturn(job);
+        when(userService.findById(1L)).thenReturn(author);
+        when(userService.findById(2L)).thenReturn(replyToUser);
+
+        String commentJson = "{\"content\":\"Great job!\",\"authorId\":1,\"replyToUserId\":2}";
+
+        mockMvc.perform(post("/api/job/addComment/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(commentJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.COMMENT_ADDED.getMessage()));
+
+        Mockito.verify(jobService).saveJob(Mockito.any());
+    }
+
+    @Test
+    public void testDeleteCommentSuccess() throws Exception {
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job();
+        job.setId(1L);
+
+        User author = new User("author", "password", "author@mail.com");
+        author.setId(1L);
+
+        User employer = new User("employer", "password", "employer@mail.com");
+        employer.setId(2L);
+        job.setEmployer(employer);
+
+        org.dizzybot.jobbot.entities.JobComment comment = new org.dizzybot.jobbot.entities.JobComment();
+        comment.setId(1L);
+        comment.setAuthor(author);
+        job.getComments().add(comment);
+
+        when(jobService.findById(1L)).thenReturn(job);
+
+        mockMvc.perform(delete("/api/job/deleteComment/1/1/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.COMMENT_DELETED.getMessage()));
+
+        Mockito.verify(jobService).saveJob(Mockito.any());
+    }
+
+    @Test
+    public void testSetJobStatusSuccess() throws Exception {
+        org.dizzybot.jobbot.entities.Job job = new org.dizzybot.jobbot.entities.Job();
+        job.setId(1L);
+
+        when(jobService.findById(1L)).thenReturn(job);
+
+        String bodyJson = "{\"status\":\"COMPLETED\"}";
+
+        mockMvc.perform(post("/api/job/setStatus/1")
+                        .param("id", "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(bodyJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(ResponseStatusEnum.SUCCESS.toString()))
+                .andExpect(jsonPath("$.message").value(JobControllerMessage.JOB_STATUS_UPDATED.getMessage()));
+
         Mockito.verify(jobService).saveJob(Mockito.any());
     }
 
