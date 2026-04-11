@@ -11,8 +11,8 @@ import org.dizzybot.jobbot.enums.JobStatusEnum;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@Data
 @Entity
 @Getter
 @Setter
@@ -40,6 +40,10 @@ public class Job {
     @JsonIgnore
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JobImage> images = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<JobComment> comments = new ArrayList<>();
 
     @JsonIgnore
     private LocalDateTime expiredDate;
@@ -74,6 +78,13 @@ public class Job {
         this.time = time;
         this.description = description;
         this.employer = employer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Job job = (Job) o;
+        return Objects.equals(getId(), job.getId());
     }
 
 }
