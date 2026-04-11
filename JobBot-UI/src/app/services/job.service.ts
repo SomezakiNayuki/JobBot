@@ -102,6 +102,18 @@ export class JobService {
     });
   }
 
+  public getCurrentJobsByUserId(userId: number): Promise<Job[]> {
+    return new Promise((resolve, reject) => {
+      firstValueFrom(
+        this.http.get(this.jobApi.getGetCurrentJobsByUserIdURL(userId))
+      )
+        .then((response) => {
+          return resolve(this.fromRestJobsToJobs(response as any[]));
+        })
+        .catch((error) => reject(error));
+    });
+  }
+
   public uploadImage(id: number, image: File): Promise<any> {
     let imageFilePayload: FormData = new FormData();
     imageFilePayload.append('file', image);

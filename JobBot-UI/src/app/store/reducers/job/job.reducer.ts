@@ -7,6 +7,7 @@ import DashboardJobs from 'src/common-types/dashboard-jobs.type';
 const initialState: JobState = {
   jobs: new DashboardJobs(),
   myPostedJobs: [],
+  myCurrentJobs: [],
 };
 
 export const JobReducer = createReducer(
@@ -23,5 +24,10 @@ export const JobReducer = createReducer(
   on(JobActions.fetchMyPostedJobsSuccess, (state, { myPostedJobs }) => ({
     ...state,
     myPostedJobs: myPostedJobs,
+  })),
+  on(JobActions.fetchMyCurrentJobs, (state) => ({ ...state })),
+  on(JobActions.fetchMyCurrentJobsSuccess, (state, { myCurrentJobs }) => ({
+    ...state,
+    myCurrentJobs: myCurrentJobs,
   }))
 );

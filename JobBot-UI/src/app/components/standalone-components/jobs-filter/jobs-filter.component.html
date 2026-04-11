@@ -1,0 +1,143 @@
+<div class="jobs-filter-bar jb-bdr-r-50 jb-bg-clr-white jb-sd-el">
+  <div class="jobs-filter-buttons">
+    <button
+      class="jobs-filter-button jb-anmt-dropdown jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      [ngStyle]="{ height: isPayFilterOpen ? '250px' : '80px' }"
+      (click)="openPayFilter()"
+    >
+      <span *ngIf="!isPayFilterOpen" class="jb-ft-clr-white">{{
+        'jobs.filter.pay' | translate
+      }}</span>
+      <ng-container *ngIf="isPayFilterOpen">
+        <div class="jobs-filter-function-items">
+          <jb-input
+            [placeholder]="'jobs.filter.from' | translate"
+            [(ngModel)]="payFilter.from"
+          ></jb-input>
+          <span class="jb-ft-clr-white jb-ft-normal">{{
+            'jobs.filter.to' | translate
+          }}</span>
+          <jb-input
+            [placeholder]="'jobs.filter.to' | translate"
+            [(ngModel)]="payFilter.to"
+          ></jb-input>
+          <div class="jobs-filter-buttons">
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-green jb-ft-clr-white"
+              (click)="confirmPayFilter($event)"
+            >
+              {{ 'jobs.filter.confirm' | translate }}
+            </button>
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="clearPayFilter()"
+            >
+              {{ 'jobs.filter.clear' | translate }}
+            </button>
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="closePayFilter($event)"
+            >
+              {{ 'jobs.filter.cancel' | translate }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </button>
+    <!-- TODO: should have a max height and make internal dropdown scrollable -->
+    <button
+      class="jobs-filter-button jb-anmt-dropdown jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      [ngStyle]="{ 'min-height': isLocationFilterOpen ? '250px' : '80px' }"
+      (click)="openLocationFilter()"
+    >
+      <span *ngIf="!isLocationFilterOpen" class="jb-ft-clr-white">{{
+        'jobs.filter.location' | translate
+      }}</span>
+      <ng-container *ngIf="isLocationFilterOpen">
+        <div class="jobs-filter-function-items">
+          <jb-dropdown
+            [type]="'typeahead'"
+            [placeholder]="'jobs.filter.location' | translate"
+            [actionList]="[
+              'Sydney',
+              'Wollongong',
+              'Melbourne',
+              'Brisbane',
+              'Perth',
+              'Adelaide',
+              'Canberra',
+              'Hobart',
+            ]"
+            [(ngModel)]="locationFilter"
+          ></jb-dropdown>
+          <div class="jobs-filter-buttons">
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-green jb-ft-clr-white"
+              (click)="confirmLocationFilter($event)"
+            >
+              {{ 'jobs.filter.confirm' | translate }}
+            </button>
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="clearLocationFilter()"
+            >
+              {{ 'jobs.filter.clear' | translate }}
+            </button>
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="closeLocationFilter($event)"
+            >
+              {{ 'jobs.filter.cancel' | translate }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </button>
+    <button
+      class="jobs-filter-button jb-anmt-dropdown jb-sd-el jb-bg-clr-navy jb-bdr-r-50"
+      [ngStyle]="{ height: isTimeFilterOpen ? '250px' : '80px' }"
+      (click)="openTimeFilter()"
+    >
+      <span *ngIf="!isTimeFilterOpen" class="jb-ft-clr-white">{{
+        'jobs.filter.time' | translate
+      }}</span>
+      <ng-container *ngIf="isTimeFilterOpen">
+        <div class="jobs-filter-function-items">
+          <!-- <jb-input [placeholder]="'jobs.filter.from' | translate"></jb-input> -->
+          <jb-date-picker
+            [placeholder]="'jobs.filter.from' | translate"
+            [(ngModel)]="timeFilter.from"
+          ></jb-date-picker>
+          <span class="jb-ft-clr-white jb-ft-normal">{{
+            'jobs.filter.to' | translate
+          }}</span>
+          <!-- <jb-input [placeholder]="'jobs.filter.to' | translate"></jb-input> -->
+          <jb-date-picker
+            [placeholder]="'jobs.filter.to' | translate"
+            [(ngModel)]="timeFilter.to"
+          ></jb-date-picker>
+          <div class="jobs-filter-buttons">
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-green jb-ft-clr-white"
+              (click)="confirmTimeFilter($event)"
+            >
+              {{ 'jobs.filter.confirm' | translate }}
+            </button>
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="clearTimeFilter()"
+            >
+              {{ 'jobs.filter.clear' | translate }}
+            </button>
+            <button
+              class="jobs-filter-function-button jb-bdr-r-10 jb-ft-normal jb-bg-clr-red jb-ft-clr-white"
+              (click)="closeTimeFilter($event)"
+            >
+              {{ 'jobs.filter.cancel' | translate }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </button>
+  </div>
+</div>

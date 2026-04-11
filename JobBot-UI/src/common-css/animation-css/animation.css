@@ -1,6 +1,6 @@
 .jb-anmt-fade {
   opacity: 0 !important;
-  transition: opacity 0.08s ease-in !important;
+  transition: opacity 0.1s ease-in !important;
 }
 
 .jb-anmt-fade.visible {
@@ -23,6 +23,19 @@
     height 0.3s ease,
     min-height 0.3s ease,
     max-height 0.3s ease;
+}
+
+.jb-anmt-rotate-90 {
+  transform: rotate(0deg) !important;
+  transition: transform 0.3s ease-in-out !important;
+}
+
+.jb-anmt-rotate-90.rotated {
+  transform: rotate(90deg) !important;
+}
+
+.jb-anmt-rotate-180.rotated {
+  transform: rotate(180deg) !important;
 }
 
 .jb-anmt-rotate-180 {

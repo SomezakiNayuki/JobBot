@@ -40,6 +40,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MyCurrentJobsComponent } from './components/pages/my-current-jobs/my-current-jobs.component';
+import { JobsFilterComponent } from './components/standalone-components/jobs-filter/jobs-filter.component';
+import { JobCommentComponent } from './components/standalone-components/job-card-modal/job-detail/job-comment/job-comment.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -69,6 +72,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     TimePickerComponent,
     MyPostedJobsComponent,
     PostedJobOptionsComponent,
+    MyCurrentJobsComponent,
+    JobsFilterComponent,
+    JobCommentComponent,
   ],
   imports: [
     AppRoutingModule,

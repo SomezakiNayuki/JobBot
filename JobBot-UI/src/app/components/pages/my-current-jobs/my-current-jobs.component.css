@@ -1,0 +1,39 @@
+.jb-job-card-column {
+  position: absolute;
+  top: 300px;
+  left: calc(50% - 720px);
+}
+
+.jb-current-job-group {
+  display: flex;
+  align-items: center;
+  gap: 150px;
+}
+
+.jb-current-job-group-option {
+  padding: 10px;
+}
+
+.jb-current-job-group-card {
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.jb-current-job-icon-text-container {
+  font-size: 40px;
+  gap: 10px;
+  position: relative;
+}
+
+.jb-current-job-date {
+  width: 200px;
+}
+
+.jb-current-job-time-indicator-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  
+  position: relative;
+  top: 65px;
+}

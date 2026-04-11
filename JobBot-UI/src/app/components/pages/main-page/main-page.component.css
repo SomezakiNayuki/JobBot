@@ -30,7 +30,6 @@
   right: 5%;
   font-style: normal !important;
   font-size: x-large;
-  border: 0px !important;
 }
 
 .jb-sidebar {
@@ -39,6 +38,11 @@
   width: 550px;
   height: calc(100vh - 150px); /* Must minus height of navbar */
   z-index: 2; /* Ensure side bar display at 1st layer on the view */
+}
+
+.jb-sidebar-menu-icon {
+  position: relative;
+  left: 5%;
 }
 
 .jb-avatar {

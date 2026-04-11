@@ -38,6 +38,19 @@ export class JobEffects {
     )
   );
 
+  fetchMyCurrentJobs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(JobActions.fetchMyCurrentJobs),
+      mergeMap(({ userId }) =>
+        from(this.jobService.getCurrentJobsByUserId(userId)).pipe(
+          map((myCurrentJobs) =>
+            JobActions.fetchMyCurrentJobsSuccess({ myCurrentJobs })
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private readonly actions$: Actions,
     private readonly jobService: JobService

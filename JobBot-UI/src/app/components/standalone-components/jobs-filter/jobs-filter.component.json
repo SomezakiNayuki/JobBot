@@ -1,0 +1,11 @@
+{
+  "jobs.filter.cancel": "Cancel",
+  "jobs.filter.clear": "Clear",
+  "jobs.filter.close": "Close",
+  "jobs.filter.confirm": "Confirm",
+  "jobs.filter.location": "Location",
+  "jobs.filter.from": "From",
+  "jobs.filter.pay": "Pay",
+  "jobs.filter.time": "Time",
+  "jobs.filter.to": "To"
+}

@@ -134,6 +134,24 @@ describe('JobService', () => {
     });
   });
 
+  describe('getCurrentJobsByUserId', () => {
+    it('should call getGetCurrentJobsByUserIdURL and map jobs', async () => {
+      spyOn(jobApi, 'getGetCurrentJobsByUserIdURL').and.returnValue('testUrl');
+      http.get.and.returnValue(of([{ id: 3, time: '2024-01-01 12:00' }]));
+      const jobs = await service.getCurrentJobsByUserId(3);
+      expect(http.get).toHaveBeenCalledWith('testUrl');
+      expect(jobApi.getGetCurrentJobsByUserIdURL).toHaveBeenCalledWith(3);
+      expect(jobs.length).toBe(1);
+      expect(jobs[0].id).toBe(3);
+    });
+
+    it('should reject if http.get fails', async () => {
+      spyOn(jobApi, 'getGetCurrentJobsByUserIdURL').and.returnValue('testUrl');
+      http.get.and.returnValue(throwError(() => new Error('fail')));
+      await expectAsync(service.getCurrentJobsByUserId(3)).toBeRejected();
+    });
+  });
+
   describe('uploadImage', () => {
     it('should call getUploadImageURL and post FormData', async () => {
       spyOn(jobApi, 'getUploadImageURL').and.returnValue('testUrl');

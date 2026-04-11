@@ -1,7 +1,15 @@
 <ng-container *ngIf="jobCardMode && images.length !== 0">
   <img class="jb-job-image-card jb-bdr-r-50" [src]="images[0].url" />
 </ng-container>
+<ng-container *ngIf="jobCardMode && images.length === 0">
+  <div class="jb-logo-card jb-ft-clr-teal">
+    <jb-avatar [text]="'Job'" [backgroundColor]="'#D9D9D9'"></jb-avatar>
+  </div>
+</ng-container>
 <div *ngIf="!jobCardMode" class="jb-job-images-wrapper jb-bdr-r-50">
+  <div *ngIf="images.length === 0" class="jb-logo jb-ft-clr-teal">
+    <jb-avatar [text]="'Job'" [backgroundColor]="'#D9D9D9'"></jb-avatar>
+  </div>
   <div
     [ngClass]="{ 'jb-job-image-wrapper': editMode }"
     *ngFor="let image of images"

@@ -1,12 +1,9 @@
 import {
-  ChangeDetectorRef,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  Renderer2,
   TemplateRef,
 } from '@angular/core';
 
@@ -25,32 +22,29 @@ export class ModalComponent implements OnInit {
   public closeEvent: EventEmitter<void> = new EventEmitter<void>();
 
   public display: boolean = false;
+  public visible: boolean = false;
 
-  constructor(
-    private readonly cdr: ChangeDetectorRef,
-    private readonly el: ElementRef,
-    private readonly renderer: Renderer2
-  ) {}
+  constructor() {}
 
   public ngOnInit(): void {}
 
   public show(): void {
     this.display = true;
-    // Detect change and rerender view, otherwise renderer cannot find element as it's not rendered
-    this.cdr.detectChanges();
-    // Make sure animation is rendered in the next callstack
-    setTimeout(() => {
-      let modalEl: ElementRef = this.el.nativeElement.querySelector('#modal');
-      this.renderer.addClass(modalEl, 'visible');
+    
+    // allow DOM to render first
+    requestAnimationFrame(() => {
+      this.visible = true;
     });
   }
 
   public close(): void {
-    let modalEl: ElementRef = this.el.nativeElement.querySelector('#modal');
-    this.renderer.removeClass(modalEl, 'visible');
-    setTimeout(() => {
-      this.display = false;
+    this.visible = false;
+  }
+
+  onTransitionEnd(event: TransitionEvent) {
+    if (!this.visible) {
+      this.display = false; // remove AFTER fade-out
       this.closeEvent.emit();
-    }, 80); // To cater fade out animation transition time
+    }
   }
 }

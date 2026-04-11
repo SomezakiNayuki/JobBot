@@ -2,6 +2,7 @@
   class="navbar navbar-expand-lg navbar-light bg-light jb-navbar jb-bg-clr-navy jb-ft-classic jb-sd-el"
 >
   <!-- Brand -->
+  <div *ngIf="isUserLoggedIn$() | async" class="jb-sidebar-menu-icon jb-btn-l-sqr jb-icon jb-i-menu jb-icon-teal"></div>
   <a
     (click)="openSideBar()"
     class="jb-navbar-brand jb-ft-clr-teal jb-ft-remove-hyperlink-decoration"
@@ -24,7 +25,7 @@
   <a
     *ngIf="isUserLoggedIn$() | async"
     (click)="openCreateJobModal()"
-    class="btn btn-primary btn-lg active jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
+    class="btn btn-primary btn-lg active jb-bdr-wth-none jb-navbar-btn jb-btn-l jb-bg-clr-grass jb-ft-pst-ctr"
   >
     <div class="jb-sd-ft">
       {{ 'main-page.navbar.button.create' | translate }}
@@ -81,7 +82,11 @@
       }}</span>
     </button>
     <button
-      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green jb-mt-5 jb-bdr-r-10"
+      routerLink="/my-current-jobs"
+      class="btn-lg jb-btn-block jb-sd-el jb-btn-clr-green{{
+        activePage == 'my-current-jobs' ? '-active' : ''
+      }} jb-mt-5 jb-bdr-r-10"
+      (click)="onClickPage('my-current-jobs')"
     >
       <span class="jb-ft-clr-black">{{
         'main-page.sidebar.button.acceptedJobs' | translate

@@ -20,9 +20,21 @@ const fetchMyPostedJobsSuccess = createAction(
   props<{ myPostedJobs: Job[] }>()
 );
 
+const fetchMyCurrentJobs = createAction(
+  '[job][fetchMyCurrentJobs]',
+  props<{ userId: number }>()
+);
+
+const fetchMyCurrentJobsSuccess = createAction(
+  '[job][fetchMyCurrentJobs][success]',
+  props<{ myCurrentJobs: Job[] }>()
+);
+
 export const JobActions = {
   fetchJobs,
   fetchJobsSuccess,
   fetchMyPostedJobs,
   fetchMyPostedJobsSuccess,
+  fetchMyCurrentJobs,
+  fetchMyCurrentJobsSuccess,
 };

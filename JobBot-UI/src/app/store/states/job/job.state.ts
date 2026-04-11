@@ -4,4 +4,5 @@ import Job from 'src/models/job.model';
 export interface JobState {
   jobs: DashboardJobs;
   myPostedJobs: Job[];
+  myCurrentJobs: Job[];
 }

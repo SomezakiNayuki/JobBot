@@ -1,0 +1,27 @@
+<jb-jobs-filter
+  [jobs]="myCurrentJobs$ | async"
+  (filteredJobs)="onFilteredJobs($event)"
+  (clearFilters)="onClearFilters()"
+>
+</jb-jobs-filter>
+
+<div class="jb-job-card-column">
+  <ng-container *ngFor="let job of myCurrentJobs$ | async as myCurrentJobs">
+    <div class="jb-current-job-group">
+      <div class="jb-current-job-group-option">
+        <div class="jb-current-job-icon-text-container jb-ft-pst-ctr">
+          <div class="jb-btn-l-sqr jb-icon jb-i-dot jb-icon-black"></div>
+          <div class="jb-current-job-time-indicator-container">
+            <span class="jb-ft-classic jb-current-job-date">{{
+              job.time.toDateString()
+            }}</span>
+            <p class="jb-ft-classic jb-current-job-date">{{ getRemainingDays(job) < 0 ? 'Overdue' : 'Due' }} in <span class="jb-ft-clr-{{ getJobStatusInfoColor(job) }}">{{ getRemainingDays(job) }}</span> days</p>
+          </div>
+        </div>
+      </div>
+      <div class="jb-current-job-group-card">
+        <jb-job-card [job]="job" [viewOnlyMode]="true"></jb-job-card>
+      </div>
+    </div>
+  </ng-container>
+</div>
